@@ -31,7 +31,7 @@ env/
 ENV/
 .venv/
 
-# LaTeX build artifacts (preserve .tex, .bib, and .pdf)
+# LaTeX build artifacts and Paper Files (DO NOT UPLOAD TO GITHUB)
 *.aux
 *.bbl
 *.blg
@@ -41,6 +41,10 @@ ENV/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+PFDC_Manuscript.tex
+PFDC_Manuscript.pdf
+*.tex
+PFDC*.pdf
 
 # IDE / Editor
 .vscode/

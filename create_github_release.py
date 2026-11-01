@@ -63,8 +63,8 @@ PFDC replaces arbitrary global decision boundaries with localized dual-zone pote
 ---
 
 ### 📦 Included Release Assets
-- `PFDC_Manuscript.pdf`: Complete 8-page camera-ready IEEE TPAMI preprint manuscript.
 - Full executable Python benchmark suites and SOTA engines (`dual_charge_pfdc.py`, `fast_pfdc.py`, `anisotropic_pfdc.py`).
+- Publication-quality high-resolution figures and evaluation logs.
 """
 
     release_data = {
@@ -102,44 +102,21 @@ PFDC replaces arbitrary global decision boundaries with localized dual-zone pote
         else:
             raise RuntimeError(f"Failed to create release: {res.status_code} {res.text}")
 
-    # Check existing assets and delete if present
+    # Ensure no paper manuscripts or PDFs remain in release assets
     assets_res = requests.get(
         f"https://api.github.com/repos/{repo}/releases/{release_id}/assets",
         headers=headers
     )
     if assets_res.status_code == 200:
         for a in assets_res.json():
-            if a["name"] == "PFDC_Manuscript.pdf":
-                print(f"Deleting existing asset ID {a['id']}...")
+            if a["name"].endswith(".pdf") or a["name"].endswith(".tex"):
+                print(f"Deleting asset ID {a['id']} ({a['name']})...")
                 requests.delete(
                     f"https://api.github.com/repos/{repo}/releases/assets/{a['id']}",
                     headers=headers
                 )
 
-    # Upload PFDC_Manuscript.pdf
-    pdf_path = "PFDC_Manuscript.pdf"
-    if os.path.exists(pdf_path):
-        print(f"Uploading {pdf_path} ({os.path.getsize(pdf_path)} bytes) to release...")
-        with open(pdf_path, "rb") as f:
-            pdf_bytes = f.read()
-
-        upload_headers = {
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/pdf",
-            "User-Agent": "PFDC-Release-Script"
-        }
-        upload_res = requests.post(
-            f"{upload_url}?name=PFDC_Manuscript.pdf",
-            headers=upload_headers,
-            data=pdf_bytes
-        )
-        if upload_res.status_code in [200, 201]:
-            asset = upload_res.json()
-            print(f"Successfully uploaded PDF Asset: {asset['browser_download_url']}")
-        else:
-            print(f"Asset upload status: {upload_res.status_code} {upload_res.text}")
-
-    print("\nRelease v1.0.0 complete!")
+    print("\nRelease v1.0.0 verified clean (no paper PDF/TeX assets)!")
     print(f"URL: {rel['html_url']}")
 
 if __name__ == "__main__":
