@@ -1,0 +1,7 @@
+Metric,Value
+Total Samples,2500
+Train Samples,1750
+Test Samples,750
+Independent Variables (Features),1000
+Classes,2
+Class Balance (Train 0/1),874 / 876
