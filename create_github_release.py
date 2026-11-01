@@ -102,6 +102,20 @@ PFDC replaces arbitrary global decision boundaries with localized dual-zone pote
         else:
             raise RuntimeError(f"Failed to create release: {res.status_code} {res.text}")
 
+    # Check existing assets and delete if present
+    assets_res = requests.get(
+        f"https://api.github.com/repos/{repo}/releases/{release_id}/assets",
+        headers=headers
+    )
+    if assets_res.status_code == 200:
+        for a in assets_res.json():
+            if a["name"] == "PFDC_Manuscript.pdf":
+                print(f"Deleting existing asset ID {a['id']}...")
+                requests.delete(
+                    f"https://api.github.com/repos/{repo}/releases/assets/{a['id']}",
+                    headers=headers
+                )
+
     # Upload PFDC_Manuscript.pdf
     pdf_path = "PFDC_Manuscript.pdf"
     if os.path.exists(pdf_path):
