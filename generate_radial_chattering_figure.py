@@ -13,13 +13,13 @@ import matplotlib.pyplot as plt
 plt.rcParams.update({
     'font.family': 'sans-serif',
     'font.sans-serif': ['DejaVu Sans', 'Arial'],
-    'font.size': 14,
-    'axes.labelsize': 15,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 13,
-    'ytick.labelsize': 13,
-    'legend.fontsize': 13,
-    'figure.titlesize': 18
+    'font.size': 18,
+    'axes.labelsize': 19.5,
+    'axes.titlesize': 21,
+    'xtick.labelsize': 17,
+    'ytick.labelsize': 17,
+    'legend.fontsize': 17,
+    'figure.titlesize': 23.5
 })
 
 np.random.seed(42)
@@ -71,7 +71,7 @@ loss_c1 = 0.25 + 0.08 * np.sin(0.4 * t) ** 2 + 0.04 * (1.0 / np.sqrt(t))
 loss_c2 = 0.127 + 0.18 * np.exp(-0.03 * t) + 0.02 * np.cos(0.5 * t) * np.exp(-0.02 * t)
 loss_c3 = 0.127 + 0.22 * np.exp(-0.12 * t)
 
-fig, axes = plt.subplots(2, 2, figsize=(16, 13))
+fig, axes = plt.subplots(2, 2, figsize=(19, 14.5))
 
 # -------------------------------------------------------------
 # Panel A: Evolution of Core Radius over Epochs
@@ -81,24 +81,24 @@ ax.plot(t, r_case1, color='#d62728', lw=2.2, alpha=0.85, label='Case 1: Fixed St
 ax.plot(t, r_case2, color='#ff7f0e', lw=2.5, linestyle='--', label='Case 2: Halved Step (Damped)')
 ax.plot(t, r_case3, color='#2ca02c', lw=3.2, label=r'Case 3: Accelerating Exp ($c^2$ Penalty)')
 
-ax.axhline(0.0, color='black', linestyle=':', lw=1.8, alpha=0.7, label='Zero Boundary ($R^{\mathrm{core}} = 0$)')
-ax.set_title('(a) Core Radius Iteration Trajectories $R^{\mathrm{core}}(t)$', fontweight='bold', pad=12)
+ax.axhline(0.0, color='black', linestyle=':', lw=1.8, alpha=0.7, label='Zero Boundary ($R^{\\mathrm{core}} = 0$)')
+ax.set_title('(a) Core Radius Iteration Trajectories $R^{\\mathrm{core}}(t)$', fontweight='bold', pad=16)
 ax.set_xlabel('Optimization Epoch ($t$)', fontweight='bold')
-ax.set_ylabel(r'Core Radius $R^{\mathrm{core}}$', fontweight='bold')
-ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=12)
+ax.set_ylabel(r'Core Radius $R^{\\mathrm{core}}$', fontweight='bold')
+ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=15.5)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 ax.annotate('Limit-Cycle Flip-Flop:\nUndamped Chattering', 
-            xy=(45, -0.008), xytext=(20, -0.025),
+            xy=(45, -0.008), xytext=(15, -0.030),
             arrowprops=dict(facecolor='#d62728', shrink=0.08, width=1.5, headwidth=8),
             fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffe6e6', edgecolor='#d62728', lw=1.5),
-            fontsize=11)
+            fontsize=14.5)
 
 ax.annotate('Asymptotic Stability:\nQuenched in 8 Steps', 
-            xy=(25, 0.0001), xytext=(48, 0.035),
+            xy=(25, 0.0001), xytext=(52, 0.038),
             arrowprops=dict(facecolor='darkgreen', shrink=0.08, width=1.5, headwidth=8),
             fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#e6ffe6', edgecolor='darkgreen', lw=1.5),
-            fontsize=11)
+            fontsize=14.5)
 
 # -------------------------------------------------------------
 # Panel B: Phase Space Portrait (Delta R vs Velocity dR/dt)
@@ -108,11 +108,11 @@ ax.plot(r_case1, v_case1, color='#d62728', lw=1.8, alpha=0.7, label='Case 1 (Clo
 ax.plot(r_case2, v_case2, color='#ff7f0e', lw=2.0, linestyle='--', alpha=0.85, label='Case 2 (Decaying Spiral Orbit)')
 ax.plot(r_case3, v_case3, color='#2ca02c', lw=3.2, label='Case 3 (Inward Lyapunov Attractor)')
 
-ax.scatter([r_case3[-1]], [v_case3[-1]], color='darkgreen', s=160, marker='*', zorder=6, label=r'Stable Equilibrium $(0.0001, 0)$')
-ax.set_title(r'(b) Phase Portrait: Trajectory in $(R^{\mathrm{core}}, \dot{R}^{\mathrm{core}})$ Space', fontweight='bold', pad=12)
-ax.set_xlabel(r'Core Radius $R^{\mathrm{core}}$', fontweight='bold')
-ax.set_ylabel(r'Rate of Change $\dot{R}^{\mathrm{core}} = dR/dt$', fontweight='bold')
-ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=12)
+ax.scatter([r_case3[-1]], [v_case3[-1]], color='darkgreen', s=184, marker='*', zorder=6, label=r'Stable Equilibrium $(0.0001, 0)$')
+ax.set_title(r'(b) Phase Portrait: Trajectory in $(R^{\\mathrm{core}}, \\dot{R}^{\\mathrm{core}})$ Space', fontweight='bold', pad=16)
+ax.set_xlabel(r'Core Radius $R^{\\mathrm{core}}$', fontweight='bold')
+ax.set_ylabel(r'Rate of Change $\\dot{R}^{\\mathrm{core}} = dR/dt$', fontweight='bold')
+ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=15.5)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # -------------------------------------------------------------
@@ -124,10 +124,10 @@ ax.plot(t, shifts_c2, color='#ff7f0e', lw=2.8, linestyle='--', label='Case 2: To
 ax.plot(t, shifts_c3, color='#2ca02c', lw=3.2, label='Case 3: Total Shifts = 8 (Asymptotically Stable)')
 
 ax.axhline(8, color='darkgreen', linestyle=':', lw=2.0, alpha=0.8)
-ax.set_title('(c) Cumulative Boundary Sign Flips vs Epoch', fontweight='bold', pad=12)
+ax.set_title('(c) Cumulative Boundary Sign Flips vs Epoch', fontweight='bold', pad=16)
 ax.set_xlabel('Optimization Epoch ($t$)', fontweight='bold')
 ax.set_ylabel('Cumulative Sign Flips / Flips Across Boundary', fontweight='bold')
-ax.legend(loc='lower right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=12)
+ax.legend(loc='lower right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=15.5)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # -------------------------------------------------------------
@@ -138,13 +138,13 @@ ax.plot(t, loss_c1, color='#d62728', lw=2.2, alpha=0.8, label='Case 1 Loss: Pers
 ax.plot(t, loss_c2, color='#ff7f0e', lw=2.5, linestyle='--', label='Case 2 Loss: Slow Damped Convergence')
 ax.plot(t, loss_c3, color='#2ca02c', lw=3.2, label='Case 3 Loss: Rapid Exponential Settling')
 
-ax.set_title(r'(d) Test Loss Convergence: $\mathcal{L}_{\mathrm{test}}(t)$ Under Gradient Flow', fontweight='bold', pad=12)
+ax.set_title(r'(d) Test Loss Convergence: $\mathcal{L}_{\mathrm{test}}(t)$ Under Gradient Flow', fontweight='bold', pad=16)
 ax.set_xlabel('Optimization Epoch ($t$)', fontweight='bold')
 ax.set_ylabel('Test Hinge / Cross-Entropy Loss', fontweight='bold')
-ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=12)
+ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=15.5)
 ax.grid(True, linestyle=':', alpha=0.5)
 
-plt.suptitle('Radial Parameter Chattering Dynamics and Asymptotic Stability Across Update Laws', fontsize=20, fontweight='bold', y=0.995)
+plt.suptitle('Radial Parameter Chattering Dynamics and Asymptotic Stability Across Update Laws', fontsize=26, fontweight='bold', y=0.995)
 plt.tight_layout(rect=[0, 0, 1, 0.97])
 
 output_path = 'figures/radial_chattering_cases.png'

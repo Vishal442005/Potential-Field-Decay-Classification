@@ -18,13 +18,13 @@ from dual_charge_pfdc import DualChargePFDC
 plt.rcParams.update({
     'font.family': 'sans-serif',
     'font.sans-serif': ['DejaVu Sans', 'Arial'],
-    'font.size': 14,
-    'axes.labelsize': 15,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 13,
-    'ytick.labelsize': 13,
-    'legend.fontsize': 13,
-    'figure.titlesize': 18
+    'font.size': 18,
+    'axes.labelsize': 19.5,
+    'axes.titlesize': 21,
+    'xtick.labelsize': 17,
+    'ytick.labelsize': 17,
+    'legend.fontsize': 17,
+    'figure.titlesize': 23.5
 })
 
 np.random.seed(42)
@@ -62,7 +62,7 @@ pfdc.fit(X, y)
 V_calibrated = pfdc.predict_potential(X)
 learned_bias = pfdc.bias_
 
-fig, axes = plt.subplots(2, 2, figsize=(16, 13))
+fig, axes = plt.subplots(2, 2, figsize=(19, 14.5))
 
 # -------------------------------------------------------------
 # Panel A: Latent Potential Distribution Under Naive Superposition
@@ -89,18 +89,18 @@ ax.axvline(ambient_shift, color='purple', linestyle=':', lw=2.5, label=f'Ambient
 # Highlight misclassified region
 ax.fill_between(x_vals, 0, norm.pdf(x_vals, mu_neg, std_neg), where=(x_vals >= 0), color='#ff9999', alpha=0.5, label='Misclassified Region (False Positives)')
 
-ax.set_title('(a) Naive Superposition: The Ambient DC Ground Bias Trap', fontweight='bold', pad=12)
-ax.set_xlabel('Raw Net Potential $V_{\mathrm{naive}}(\mathbf{x})$', fontweight='bold')
+ax.set_title('(a) Naive Superposition: The Ambient DC Ground Bias Trap', fontweight='bold', pad=16)
+ax.set_xlabel('Raw Net Potential $V_{\\mathrm{naive}}(\\mathbf{x})$', fontweight='bold')
 ax.set_ylabel('Probability Density $p(V)$', fontweight='bold')
-ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=11)
+ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=14)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # Annotation callout
 ax.annotate('Severe DC Ground Shift:\nTraps Zero Threshold\nAccuracy: 70.09%', 
-            xy=(0.0, 0.08), xytext=(-6.0, 0.12),
+            xy=(0.0, 0.08), xytext=(-7.0, 0.13),
             arrowprops=dict(facecolor='black', shrink=0.08, width=1.5, headwidth=8),
             fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffe6e6', edgecolor='#b30000', lw=1.5),
-            fontsize=12)
+            fontsize=15.5)
 
 # -------------------------------------------------------------
 # Panel B: Calibrated Potential Distribution Under Dual-Charge PFDC
@@ -121,18 +121,18 @@ ax.plot(x_vals_c, norm.pdf(x_vals_c, mu_pos_c, std_pos_c), color='#004080', lw=2
 
 ax.axvline(0.0, color='black', linestyle='--', lw=3.0, label='Calibrated Bayes Threshold ($V^*=0$)')
 
-ax.set_title('(b) Dual-Charge Calibration: Learned Ground Bias $b^*$ & Weights $a_i$', fontweight='bold', pad=12)
-ax.set_xlabel('Calibrated Latent Potential $V^*(\mathbf{x}) = \sum a_i y_i \phi(d) + b$', fontweight='bold')
+ax.set_title('(b) Dual-Charge Calibration: Learned Ground Bias $b^*$ & Weights $a_i$', fontweight='bold', pad=16)
+ax.set_xlabel('Calibrated Latent Potential $V^*(\\mathbf{x}) = \\sum a_i y_i \\phi(d) + b$', fontweight='bold')
 ax.set_ylabel('Probability Density $p(V^*)$', fontweight='bold')
-ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=11)
+ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=14)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # Annotation callout
 ax.annotate('Ground Bias Restores Bayes Separability:\nOptimal Zero Equipotential\nAccuracy: 94.29%', 
-            xy=(0.0, 0.12), xytext=(-5.0, 0.18),
+            xy=(0.0, 0.12), xytext=(-6.0, 0.20),
             arrowprops=dict(facecolor='darkgreen', shrink=0.08, width=1.5, headwidth=8),
             fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#e6ffe6', edgecolor='darkgreen', lw=1.5),
-            fontsize=12)
+            fontsize=15.5)
 
 # -------------------------------------------------------------
 # Panel C: ROC Curves (Naive vs Calibrated PFDC)
@@ -153,13 +153,13 @@ acc_naive_op = (np.sum((V_naive >= 0) == y)) / len(y) * 100
 acc_cal_op = (np.sum((V_calibrated >= 0) == y)) / len(y) * 100
 
 idx_naive_op = np.argmin(np.abs(fpr_naive - np.mean((V_naive >= 0) & (y == 0))))
-ax.scatter([np.mean((V_naive >= 0) & (y == 0))], [np.mean((V_naive >= 0) & (y == 1))], color='#b30000', s=140, zorder=5, marker='X', label=f'Naive Op Point (Acc={acc_naive_op:.1f}%)')
-ax.scatter([np.mean((V_calibrated >= 0) & (y == 0))], [np.mean((V_calibrated >= 0) & (y == 1))], color='darkgreen', s=160, zorder=5, marker='o', label=f'Dual-Charge Op Point (Acc={acc_cal_op:.1f}%)')
+ax.scatter([np.mean((V_naive >= 0) & (y == 0))], [np.mean((V_naive >= 0) & (y == 1))], color='#b30000', s=161, zorder=5, marker='X', label=f'Naive Op Point (Acc={acc_naive_op:.1f}%)')
+ax.scatter([np.mean((V_calibrated >= 0) & (y == 0))], [np.mean((V_calibrated >= 0) & (y == 1))], color='darkgreen', s=184, zorder=5, marker='o', label=f'Dual-Charge Op Point (Acc={acc_cal_op:.1f}%)')
 
-ax.set_title('(c) Diagnostic ROC Separation & Operating Point Shift', fontweight='bold', pad=12)
+ax.set_title('(c) Diagnostic ROC Separation & Operating Point Shift', fontweight='bold', pad=16)
 ax.set_xlabel('False Positive Rate (FPR)', fontweight='bold')
 ax.set_ylabel('True Positive Rate (TPR)', fontweight='bold')
-ax.legend(loc='lower right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=12)
+ax.legend(loc='lower right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=15.5)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # -------------------------------------------------------------
@@ -179,20 +179,20 @@ n_active = np.sum(sorted_weights > active_threshold)
 ax.axhline(active_threshold, color='crimson', linestyle='--', lw=2.2, label=f'Active Threshold ({active_threshold:.3f})')
 ax.axvline(n_active, color='purple', linestyle=':', lw=2.2, label=f'Active Boundary Charges ($N={n_active}$)')
 
-ax.set_title(r'(d) Learned Support Charge Spectrum $|a_i|$: Emergent Sparsity', fontweight='bold', pad=12)
+ax.set_title(r'(d) Learned Support Charge Spectrum $|a_i|$: Emergent Sparsity', fontweight='bold', pad=16)
 ax.set_xlabel('Sample Rank (Sorted by Influence)', fontweight='bold')
 ax.set_ylabel(r'Support Charge Weight $|a_i|$', fontweight='bold')
-ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=12)
+ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=15.5)
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # Callout annotation
 ax.annotate(f'Interior Pruning:\n{len(sorted_weights) - n_active} Samples ({100*(len(sorted_weights)-n_active)/len(sorted_weights):.1f}%)\nExert Sub-Threshold Influence',
-            xy=(n_active + 20, active_threshold + 0.05), xytext=(n_active + 60, 0.45 * np.max(sorted_weights)),
+            xy=(n_active + 20, active_threshold + 0.05), xytext=(n_active + 70, 0.48 * np.max(sorted_weights)),
             arrowprops=dict(facecolor='black', shrink=0.08, width=1.5, headwidth=8),
             fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#f0f4ff', edgecolor='#1f77b4', lw=1.5),
-            fontsize=12)
+            fontsize=15.5)
 
-plt.suptitle('The Ambient DC Ground Bias Trap and Dual Support-Charge Calibration', fontsize=20, fontweight='bold', y=0.995)
+plt.suptitle('The Ambient DC Ground Bias Trap and Dual Support-Charge Calibration', fontsize=26, fontweight='bold', y=0.995)
 plt.tight_layout(rect=[0, 0, 1, 0.97])
 
 output_path = 'figures/ambient_bias_resolution.png'

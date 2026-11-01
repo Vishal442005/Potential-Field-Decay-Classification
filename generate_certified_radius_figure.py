@@ -11,13 +11,13 @@ OUTPUT_DIR = "figures"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 plt.rcParams['font.family'] = 'DejaVu Sans'
-plt.rcParams['font.size'] = 14
-plt.rcParams['axes.titlesize'] = 16
-plt.rcParams['axes.labelsize'] = 14
-plt.rcParams['xtick.labelsize'] = 12
-plt.rcParams['ytick.labelsize'] = 12
-plt.rcParams['legend.fontsize'] = 12
-plt.rcParams['figure.titlesize'] = 18
+plt.rcParams['font.size'] = 18
+plt.rcParams['axes.titlesize'] = 21
+plt.rcParams['axes.labelsize'] = 18
+plt.rcParams['xtick.labelsize'] = 16
+plt.rcParams['ytick.labelsize'] = 16
+plt.rcParams['legend.fontsize'] = 16
+plt.rcParams['figure.titlesize'] = 23.5
 
 # Load Breast Cancer data
 bc = load_breast_cancer()
@@ -60,7 +60,7 @@ r_core_sub = 0.35
 certified_lower_bound = np.where(r_eval <= r_core_sub, 100.0, 100.0 * np.exp(-1.8 * (r_eval - r_core_sub)))
 
 # Create Figure
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(19, 7.0))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(22.5, 8))
 
 # -------------------------------------------------------------
 # Panel (a): Certified Accuracy vs. Perturbation Radius (Cohen et al. Style)
@@ -77,21 +77,21 @@ ax1.plot(r_eval, mlp_curve, color='#c0392b', linewidth=2.6, linestyle=':',
          label='Deep MLP (Empirical PGD Attack - Catastrophic Collapse)', zorder=4)
 
 ax1.axvspan(0.0, r_core_sub, color='#16a085', alpha=0.18,
-            label='Deterministic Core Radius ($r \leq R^{\mathrm{core}}$: Certified Safe)', zorder=2)
+            label='Deterministic Core Radius ($r \\leq R^{\\mathrm{core}}$: Certified Safe)', zorder=2)
 ax1.axvline(r_core_sub, color='#16a085', linestyle='--', linewidth=2.0)
 
-ax1.annotate('100.0% Certified Guarantee\n(Immune to Any Adversary)', xy=(0.15, 100.0), xytext=(0.25, 91.0),
+ax1.annotate('100.0% Certified Guarantee\n(Immune to Any Adversary)', xy=(0.15, 100.0), xytext=(0.28, 88.0),
              arrowprops=dict(facecolor='#16a085', shrink=0.08, width=2, headwidth=7),
-             fontweight='bold', color='#0e6655', fontsize=12)
+             fontweight='bold', color='#0e6655', fontsize=16)
 
-ax1.annotate('Deep MLP Collapses\nto 13.45% at $r = 0.75$', xy=(0.75, 13.45), xytext=(0.60, 32.0),
+ax1.annotate('Deep MLP Collapses\nto 13.45% at $r = 0.75$', xy=(0.75, 13.45), xytext=(0.58, 36.0),
              arrowprops=dict(facecolor='#c0392b', shrink=0.08, width=2, headwidth=7),
-             fontweight='bold', color='#c0392b', fontsize=12)
+             fontweight='bold', color='#c0392b', fontsize=16)
 
 ax1.set_xlim(0.0, 1.50)
 ax1.set_ylim(0.0, 105.0)
-ax1.set_title('(a) Certified Accuracy vs. $\ell_2$ Perturbation Radius $r$', fontweight='bold', pad=12)
-ax1.set_xlabel('Perturbation Radius $r$ in Normalized $\ell_2$ Space', fontweight='bold')
+ax1.set_title('(a) Certified Accuracy vs. $\\ell_2$ Perturbation Radius $r$', fontweight='bold', pad=16)
+ax1.set_xlabel('Perturbation Radius $r$ in Normalized $\\ell_2$ Space', fontweight='bold')
 ax1.set_ylabel('Test Classification Accuracy (%)', fontweight='bold')
 ax1.legend(loc='lower left', framealpha=0.95, edgecolor='#cccccc')
 ax1.grid(True, linestyle='--', alpha=0.35)
@@ -109,26 +109,26 @@ sorted_radii = np.sort(radii_dist)
 cdf_y = np.arange(1, len(sorted_radii) + 1) / len(sorted_radii) * 100.0
 
 ax2.plot(sorted_radii, cdf_y, color='#2c3e50', linewidth=3.2,
-         label='Empirical CDF of Certified Safety Buffer ($r_{\mathrm{cert}}$)', zorder=4)
+         label='Empirical CDF of Certified Safety Buffer ($r_{\\mathrm{cert}}$)', zorder=4)
 ax2.fill_between(sorted_radii, 0, cdf_y, color='#3498db', alpha=0.25, zorder=2)
 
 median_radius = np.median(sorted_radii)
 ax2.axvline(median_radius, color='#e74c3c', linestyle='--', linewidth=2.2,
             label=f'Median Certified Radius: $r = {median_radius:.3f}$', zorder=5)
 
-ax2.annotate(f'Median Safety Margin\n$r = {median_radius:.3f}$', xy=(median_radius, 50.0), xytext=(median_radius + 0.15, 38.0),
+ax2.annotate(f'Median Safety Margin\n$r = {median_radius:.3f}$', xy=(median_radius, 50.0), xytext=(median_radius + 0.18, 35.0),
              arrowprops=dict(facecolor='#e74c3c', shrink=0.08, width=2, headwidth=7),
-             fontweight='bold', color='#c0392b', fontsize=12)
+             fontweight='bold', color='#c0392b', fontsize=16)
 
 ax2.set_xlim(0.0, 1.50)
 ax2.set_ylim(0.0, 105.0)
-ax2.set_title('(b) Distribution of Certified Safety Margins Across Cohort', fontweight='bold', pad=12)
-ax2.set_xlabel('Certified Invariance Radius $r_{\mathrm{cert}}(\mathbf{x})$', fontweight='bold')
+ax2.set_title('(b) Distribution of Certified Safety Margins Across Cohort', fontweight='bold', pad=16)
+ax2.set_xlabel('Certified Invariance Radius $r_{\\mathrm{cert}}(\\mathbf{x})$', fontweight='bold')
 ax2.set_ylabel('Cumulative Percentage of Test Data (%)', fontweight='bold')
 ax2.legend(loc='lower right', framealpha=0.95, edgecolor='#cccccc')
 ax2.grid(True, linestyle='--', alpha=0.35)
 
-plt.suptitle('Certified Adversarial Robustness: Formal Lower Bound Guarantees vs. Empirical Collapse', fontweight='bold', fontsize=18, y=0.99)
+plt.suptitle('Certified Adversarial Robustness: Formal Lower Bound Guarantees vs. Empirical Collapse', fontweight='bold', fontsize=23.5, y=0.99)
 plt.tight_layout()
 fig_path = os.path.join(OUTPUT_DIR, "certified_radius_vs_accuracy.png")
 plt.savefig(fig_path, dpi=300, bbox_inches='tight')

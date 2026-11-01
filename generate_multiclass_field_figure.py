@@ -14,13 +14,13 @@ from matplotlib.colors import LinearSegmentedColormap
 plt.rcParams.update({
     'font.family': 'sans-serif',
     'font.sans-serif': ['DejaVu Sans', 'Arial'],
-    'font.size': 14,
-    'axes.labelsize': 15,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 13,
-    'ytick.labelsize': 13,
-    'legend.fontsize': 13,
-    'figure.titlesize': 18
+    'font.size': 18,
+    'axes.labelsize': 19.5,
+    'axes.titlesize': 21,
+    'xtick.labelsize': 17,
+    'ytick.labelsize': 17,
+    'legend.fontsize': 17,
+    'figure.titlesize': 23.5
 })
 
 # Setup 2D spatial grid
@@ -79,7 +79,7 @@ dY, dX = np.gradient(max_potential, y, x)
 Fx = dX
 Fy = dY
 
-fig, axes = plt.subplots(1, 3, figsize=(19, 6.5))
+fig, axes = plt.subplots(1, 3, figsize=(22.5, 7.5))
 
 # -------------------------------------------------------------
 # Panel A: 3-Class Potential Energy Landscape & Decision Boundaries
@@ -90,7 +90,7 @@ im1 = ax1.contourf(X, Y, pred_class, levels=[-0.5, 0.5, 1.5, 2.5], cmap=cmap_cus
 
 # Contour lines of dominant potential
 cs = ax1.contour(X, Y, max_potential, levels=10, colors='#444444', linewidths=1.2, alpha=0.7)
-ax1.clabel(cs, inline=True, fontsize=9.5, fmt='%.1f')
+ax1.clabel(cs, inline=True, fontsize=12.5, fmt='%.1f')
 
 # Decision boundary lines where V_i == V_j
 ax1.contour(X, Y, V0 - V1, levels=[0], colors='black', linewidths=2.5, linestyles='--')
@@ -99,15 +99,15 @@ ax1.contour(X, Y, V2 - V0, levels=[0], colors='black', linewidths=2.5, linestyle
 
 # Plot training samples
 for i, pts in enumerate(samples):
-    ax1.scatter(pts[:, 0], pts[:, 1], color=class_colors[i], s=40, edgecolors='black', label=class_names[i])
+    ax1.scatter(pts[:, 0], pts[:, 1], color=class_colors[i], s=46, edgecolors='black', label=class_names[i])
 
 # Mark Triple-Point Saddle
-ax1.scatter([0.0], [-0.15], color='gold', s=180, marker='*', edgecolors='black', zorder=10, label='Triple-Point Saddle')
+ax1.scatter([0.0], [-0.15], color='gold', s=207, marker='*', edgecolors='black', zorder=10, label='Triple-Point Saddle')
 
-ax1.set_title('(a) Multi-Class Potential Field Landscape', fontweight='bold', pad=12)
+ax1.set_title('(a) Multi-Class Potential Field Landscape', fontweight='bold', pad=16)
 ax1.set_xlabel('Spatial Feature $X_1$', fontweight='bold')
 ax1.set_ylabel('Spatial Feature $X_2$', fontweight='bold')
-ax1.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=10)
+ax1.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=13)
 ax1.grid(True, linestyle=':', alpha=0.5)
 
 # -------------------------------------------------------------
@@ -122,21 +122,21 @@ strm = ax2.streamplot(X, Y, Fx, Fy, color=max_potential, cmap='coolwarm', densit
 
 # Plot class attractor centers
 for i, c in enumerate(centers):
-    ax2.scatter([c[0]], [c[1]], color=class_colors[i], s=180, marker='o', edgecolors='black', lw=2.0, zorder=8)
-    ax2.text(c[0], c[1] + (0.45 if c[1] > 0 else -0.55), f'Attractor {i}', fontweight='bold', fontsize=11, ha='center',
+    ax2.scatter([c[0]], [c[1]], color=class_colors[i], s=207, marker='o', edgecolors='black', lw=2.0, zorder=8)
+    ax2.text(c[0], c[1] + (0.50 if c[1] > 0 else -0.60), f'Attractor {i}', fontweight='bold', fontsize=14.5, ha='center',
              bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=class_colors[i], lw=1.5))
 
 # Recourse sample trajectory starting near saddle
 t_steps = 15
 traj_x = np.linspace(0.1, centers[0][0], t_steps) + 0.15 * np.sin(np.linspace(0, np.pi, t_steps))
 traj_y = np.linspace(0.1, centers[0][1], t_steps)
-ax2.plot(traj_x, traj_y, color='lime', lw=3.5, linestyle='-', marker='>', markersize=7, zorder=9, label='Physics Recourse Trajectory')
-ax2.scatter([traj_x[0]], [traj_y[0]], color='yellow', s=120, edgecolors='black', zorder=10, label='Starting Query Point')
+ax2.plot(traj_x, traj_y, color='lime', lw=3.5, linestyle='-', marker='>', markersize=8, zorder=9, label='Physics Recourse Trajectory')
+ax2.scatter([traj_x[0]], [traj_y[0]], color='yellow', s=138, edgecolors='black', zorder=10, label='Starting Query Point')
 
-ax2.set_title('(b) Dynamic Vector Field Streamlines & Sinks', fontweight='bold', pad=12)
+ax2.set_title('(b) Dynamic Vector Field Streamlines & Sinks', fontweight='bold', pad=16)
 ax2.set_xlabel('Spatial Feature $X_1$', fontweight='bold')
 ax2.set_ylabel('Spatial Feature $X_2$', fontweight='bold')
-ax2.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=10)
+ax2.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=13)
 ax2.grid(True, linestyle=':', alpha=0.5)
 
 # -------------------------------------------------------------
@@ -145,23 +145,23 @@ ax2.grid(True, linestyle=':', alpha=0.5)
 ax3 = axes[2]
 im3 = ax3.imshow(P0, origin='lower', extent=[-3.5, 3.5, -3.5, 3.5], cmap='Blues', vmin=0.0, vmax=1.0)
 cbar = plt.colorbar(im3, ax=ax3, fraction=0.046, pad=0.04)
-cbar.set_label(r'Boltzmann Posterior $P(y = \mathrm{Class\ 0} \mid \mathbf{x})$', fontweight='bold', fontsize=12)
+cbar.set_label(r'Boltzmann Posterior $P(y = \mathrm{Class\ 0} \mid \mathbf{x})$', fontweight='bold', fontsize=15.5)
 
 # Boundary contours of probability
 cp = ax3.contour(X, Y, P0, levels=[0.33, 0.5, 0.8, 0.95], colors='navy', linewidths=[2.5, 1.8, 1.5, 1.2], linestyles=['--', '-', '-', '-'])
-ax3.clabel(cp, inline=True, fontsize=10, fmt='P=%.2f')
+ax3.clabel(cp, inline=True, fontsize=13, fmt='P=%.2f')
 
 # Plot class 0 samples
-ax3.scatter(samples[0][:, 0], samples[0][:, 1], color='#d62728', s=45, edgecolors='black', label='Class 0 Samples')
-ax3.scatter(centers[0][0], centers[0][1], color='darkred', s=160, marker='*', edgecolors='black', zorder=8, label='Class 0 Peak')
+ax3.scatter(samples[0][:, 0], samples[0][:, 1], color='#d62728', s=52, edgecolors='black', label='Class 0 Samples')
+ax3.scatter(centers[0][0], centers[0][1], color='darkred', s=184, marker='*', edgecolors='black', zorder=8, label='Class 0 Peak')
 
-ax3.set_title(r'(c) Softmax Posterior Confidence $P(y=0 \mid \mathbf{x})$', fontweight='bold', pad=12)
+ax3.set_title(r'(c) Softmax Posterior Confidence $P(y=0 \mid \mathbf{x})$', fontweight='bold', pad=16)
 ax3.set_xlabel('Spatial Feature $X_1$', fontweight='bold')
 ax3.set_ylabel('Spatial Feature $X_2$', fontweight='bold')
-ax3.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=10)
+ax3.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=13)
 ax3.grid(True, linestyle=':', alpha=0.5)
 
-plt.suptitle('Multi-Class Potential Field Vector Superposition and Boltzmann Landscape Dynamics', fontsize=19, fontweight='bold', y=0.99)
+plt.suptitle('Multi-Class Potential Field Vector Superposition and Boltzmann Landscape Dynamics', fontsize=25, fontweight='bold', y=0.99)
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 
 output_path = 'figures/multiclass_field_competition.png'

@@ -13,16 +13,16 @@ import matplotlib.pyplot as plt
 plt.rcParams.update({
     'font.family': 'sans-serif',
     'font.sans-serif': ['DejaVu Sans', 'Arial'],
-    'font.size': 14,
-    'axes.labelsize': 15,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 13,
-    'ytick.labelsize': 13,
-    'legend.fontsize': 13,
-    'figure.titlesize': 18
+    'font.size': 18,
+    'axes.labelsize': 19.5,
+    'axes.titlesize': 21,
+    'xtick.labelsize': 17,
+    'ytick.labelsize': 17,
+    'legend.fontsize': 17,
+    'figure.titlesize': 23.5
 })
 
-fig = plt.figure(figsize=(19, 6.5))
+fig = plt.figure(figsize=(22.5, 7.5))
 
 # -------------------------------------------------------------
 # Panel A: 6-Axis Radar Chart
@@ -59,9 +59,9 @@ vals_rf = [0.90, 0.68, 0.15, 0.80, 0.20, 0.60]
 vals_rf += vals_rf[:1]
 
 # Plot axes
-plt.xticks(angles[:-1], categories, color='black', size=11, fontweight='bold')
+plt.xticks(angles[:-1], categories, color='black', size=14.5, fontweight='bold')
 ax1.set_rlabel_position(30)
-plt.yticks([0.2, 0.4, 0.6, 0.8, 1.0], ["0.2", "0.4", "0.6", "0.8", "1.0"], color="grey", size=10)
+plt.yticks([0.2, 0.4, 0.6, 0.8, 1.0], ["0.2", "0.4", "0.6", "0.8", "1.0"], color="grey", size=13)
 plt.ylim(0, 1.05)
 
 # Plot Radar Polygons
@@ -72,8 +72,8 @@ ax1.plot(angles, vals_svm, color='#1f77b4', lw=2.2, linestyle='--', label='SVM (
 ax1.plot(angles, vals_mlp, color='#ff7f0e', lw=2.0, linestyle=':', label='Deep MLP (Neural Net)')
 ax1.plot(angles, vals_rf, color='#2ca02c', lw=2.0, linestyle='-.', label='Random Forest')
 
-ax1.set_title('(a) Multi-Objective Radar Profile', fontweight='bold', pad=25)
-ax1.legend(loc='lower center', bbox_to_anchor=(0.5, -0.32), ncol=2, framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=10.5)
+ax1.set_title('(a) Multi-Objective Radar Profile', fontweight='bold', pad=32)
+ax1.legend(loc='lower center', bbox_to_anchor=(0.5, -0.38), ncol=2, framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=13.5)
 
 # -------------------------------------------------------------
 # Panel B: Pareto Tradeoff: Accuracy vs Adversarial Robustness
@@ -81,23 +81,23 @@ ax1.legend(loc='lower center', bbox_to_anchor=(0.5, -0.32), ncol=2, framealpha=0
 ax2 = fig.add_subplot(132)
 
 models_data = [
-    ('Dual-Charge PFDC (Ours)', 94.3, 73.7, '#d62728', '*', 260),
-    ('SVM (RBF Kernel)', 92.5, 61.2, '#1f77b4', 'o', 130),
-    ('Deep MLP', 92.0, 53.2, '#ff7f0e', 's', 130),
-    ('XGBoost', 91.0, 64.1, '#9467bd', '^', 130),
-    ('Random Forest', 90.3, 68.0, '#2ca02c', 'D', 130),
-    ('k-NN (k=5)', 88.5, 48.2, '#8c564b', 'p', 120),
-    ('A-PFDC (Anisotropic)', 89.8, 71.5, '#e377c2', 'v', 120),
-    ('RL Actor-Critic', 89.8, 55.0, '#7f7f7f', 'X', 120)
+    ('Dual-Charge PFDC (Ours)', 94.3, 73.7, '#d62728', '*', 299),
+    ('SVM (RBF Kernel)', 92.5, 61.2, '#1f77b4', 'o', 150),
+    ('Deep MLP', 92.0, 53.2, '#ff7f0e', 's', 150),
+    ('XGBoost', 91.0, 64.1, '#9467bd', '^', 150),
+    ('Random Forest', 90.3, 68.0, '#2ca02c', 'D', 150),
+    ('k-NN (k=5)', 88.5, 48.2, '#8c564b', 'p', 138),
+    ('A-PFDC (Anisotropic)', 89.8, 71.5, '#e377c2', 'v', 138),
+    ('RL Actor-Critic', 89.8, 55.0, '#7f7f7f', 'X', 138)
 ]
 
 for name, acc, rob, col, marker, sz in models_data:
     ax2.scatter(acc, rob, color=col, marker=marker, s=sz, edgecolors='black', lw=1.2, zorder=5, label=name)
-    offset_x = 0.3 if 'PFDC (Ours)' not in name else -3.8
-    offset_y = 0.5 if 'PFDC (Ours)' not in name else 1.8
+    offset_x = 0.3 if 'PFDC (Ours)' not in name else -4.2
+    offset_y = 0.5 if 'PFDC (Ours)' not in name else 2.2
     if name in ['Dual-Charge PFDC (Ours)', 'SVM (RBF Kernel)', 'Deep MLP', 'Random Forest']:
         ax2.annotate(name.split(' (')[0], (acc, rob), xytext=(acc + offset_x, rob + offset_y),
-                     fontsize=10.5, fontweight='bold',
+                     fontsize=13.5, fontweight='bold',
                      bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=col, alpha=0.85))
 
 # Draw Pareto frontier line
@@ -105,7 +105,7 @@ pareto_acc = [90.3, 91.0, 92.5, 94.3]
 pareto_rob = [68.0, 68.0, 68.0, 73.7]
 ax2.plot([90.3, 94.3], [68.0, 73.7], color='#d62728', lw=2.5, linestyle='--', alpha=0.6, label='Pareto Frontier')
 
-ax2.set_title(r'(b) Pareto Frontier: Clean Acc vs Robustness ($\epsilon=0.35$)', fontweight='bold', pad=12)
+ax2.set_title(r'(b) Pareto Frontier: Clean Acc vs Robustness ($\epsilon=0.35$)', fontweight='bold', pad=16)
 ax2.set_xlabel('Clean Test Accuracy (%)', fontweight='bold')
 ax2.set_ylabel(r'Adversarial Accuracy Under PGD (%)', fontweight='bold')
 ax2.set_xlim(87.5, 95.5)
@@ -114,10 +114,10 @@ ax2.grid(True, linestyle=':', alpha=0.5)
 
 # Annotation callout
 ax2.annotate('PFDC Pareto Dominance:\nHighest Clean Accuracy (94.3%)\n+ Maximum Robustness (73.7%)', 
-             xy=(94.3, 73.7), xytext=(88.2, 72.0),
+             xy=(94.3, 73.7), xytext=(88.0, 73.0),
              arrowprops=dict(facecolor='#d62728', shrink=0.08, width=1.5, headwidth=8),
              fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffe6e6', edgecolor='#d62728', lw=1.5),
-             fontsize=11)
+             fontsize=14.5)
 
 # -------------------------------------------------------------
 # Panel C: Pareto Tradeoff: Recourse Time vs Path Length
@@ -125,20 +125,20 @@ ax2.annotate('PFDC Pareto Dominance:\nHighest Clean Accuracy (94.3%)\n+ Maximum 
 ax3 = fig.add_subplot(133)
 
 xai_methods = [
-    ('PFDC Physics Streamlines (Ours)', 0.42, 1.34, '#d62728', '*', 280),
-    ('Wachter (L-BFGS-B)', 42.5, 1.82, '#ff7f0e', 's', 140),
-    ('DiCE-Diverse (Gradient)', 128.4, 2.15, '#1f77b4', 'o', 140),
-    ('Random Walk Search', 210.0, 3.40, '#7f7f7f', 'X', 120)
+    ('PFDC Physics Streamlines (Ours)', 0.42, 1.34, '#d62728', '*', 322),
+    ('Wachter (L-BFGS-B)', 42.5, 1.82, '#ff7f0e', 's', 161),
+    ('DiCE-Diverse (Gradient)', 128.4, 2.15, '#1f77b4', 'o', 161),
+    ('Random Walk Search', 210.0, 3.40, '#7f7f7f', 'X', 138)
 ]
 
 for name, lat, path, col, marker, sz in xai_methods:
     ax3.scatter(lat, path, color=col, marker=marker, s=sz, edgecolors='black', lw=1.2, zorder=5, label=name)
-    ax3.annotate(name.split(' (')[0], (lat, path), xytext=(lat * 1.25, path + 0.1),
-                 fontsize=10.5, fontweight='bold',
+    ax3.annotate(name.split(' (')[0], (lat, path), xytext=(lat * 1.30, path + 0.12),
+                 fontsize=13.5, fontweight='bold',
                  bbox=dict(boxstyle='round,pad=0.2', facecolor='white', edgecolor=col, alpha=0.85))
 
 ax3.set_xscale('log')
-ax3.set_title('(c) XAI Recourse: Latency vs Path Length', fontweight='bold', pad=12)
+ax3.set_title('(c) XAI Recourse: Latency vs Path Length', fontweight='bold', pad=16)
 ax3.set_xlabel('Recourse Computation Time (ms, Log Scale)', fontweight='bold')
 ax3.set_ylabel(r'Recourse Path Length $\| \mathbf{x}_{\mathrm{cf}} - \mathbf{x} \|_2$', fontweight='bold')
 ax3.set_xlim(0.2, 500)
@@ -147,12 +147,12 @@ ax3.grid(True, which='both', linestyle=':', alpha=0.5)
 
 # Annotation callout
 ax3.annotate('100x-300x Speedup\nShortest Path Recourse\n(0.42 ms via Euler ODE)', 
-             xy=(0.42, 1.34), xytext=(1.8, 1.0),
+             xy=(0.42, 1.34), xytext=(2.0, 0.95),
              arrowprops=dict(facecolor='darkgreen', shrink=0.08, width=1.5, headwidth=8),
              fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#e6ffe6', edgecolor='darkgreen', lw=1.5),
-             fontsize=11)
+             fontsize=14.5)
 
-plt.suptitle('Holistic Benchmark Radar Profile and Multi-Objective Pareto Frontier', fontsize=19, fontweight='bold', y=0.99)
+plt.suptitle('Holistic Benchmark Radar Profile and Multi-Objective Pareto Frontier', fontsize=25, fontweight='bold', y=0.99)
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 
 output_path = 'figures/multidataset_overall_radar_profile.png'

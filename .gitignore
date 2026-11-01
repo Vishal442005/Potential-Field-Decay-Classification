@@ -54,3 +54,7 @@ PFDC*.pdf
 
 # Temporary data caches
 .pytest_cache/
+
+# Paper documents (DOCX, PDF, TeX)
+*.docx
+Cover_Letter*.docx

@@ -14,16 +14,16 @@ from mpl_toolkits.mplot3d import Axes3D
 plt.rcParams.update({
     'font.family': 'sans-serif',
     'font.sans-serif': ['DejaVu Sans', 'Arial'],
-    'font.size': 14,
-    'axes.labelsize': 15,
-    'axes.titlesize': 16,
-    'xtick.labelsize': 13,
-    'ytick.labelsize': 13,
-    'legend.fontsize': 13,
-    'figure.titlesize': 18
+    'font.size': 18,
+    'axes.labelsize': 19.5,
+    'axes.titlesize': 21,
+    'xtick.labelsize': 17,
+    'ytick.labelsize': 17,
+    'legend.fontsize': 17,
+    'figure.titlesize': 23.5
 })
 
-fig = plt.figure(figsize=(19, 6.5))
+fig = plt.figure(figsize=(22.5, 7.5))
 
 # -------------------------------------------------------------
 # Panel A: Hypersphere S^2 Geodesic Field & Tangent Projection
@@ -55,12 +55,12 @@ xn = np.sin(phi_n) * np.cos(theta_n)
 yn = np.sin(phi_n) * np.sin(theta_n)
 zn = np.cos(phi_n)
 
-ax1.scatter(xp, yp, zp, color='#1f77b4', s=90, label=r'Positive Charges ($+q_i$)', depthshade=False)
-ax1.scatter(xn, yn, zn, color='#d62728', s=90, label=r'Negative Charges ($-q_i$)', depthshade=False)
+ax1.scatter(xp, yp, zp, color='#1f77b4', s=104, label=r'Positive Charges ($+q_i$)', depthshade=False)
+ax1.scatter(xn, yn, zn, color='#d62728', s=104, label=r'Negative Charges ($-q_i$)', depthshade=False)
 
 # Test query point at equator
 xq, yq, zq = 1.0, 0.0, 0.0
-ax1.scatter([xq], [yq], [zq], color='black', s=130, marker='*', depthshade=False, label=r'Query $\mathbf{x} \in \mathbb{S}^2$')
+ax1.scatter([xq], [yq], [zq], color='black', s=150, marker='*', depthshade=False, label=r'Query $\mathbf{x} \in \mathbb{S}^2$')
 
 # Tangent Plane at (1, 0, 0) -> spanned by dy, dz
 tp_y, tp_z = np.meshgrid(np.linspace(-0.5, 0.5, 5), np.linspace(-0.5, 0.5, 5))
@@ -76,8 +76,8 @@ F_proj = P_tangent @ F_raw
 ax1.quiver(xq, yq, zq, F_raw[0], F_raw[1], F_raw[2], color='red', lw=2.5, arrow_length_ratio=0.2, label=r'Raw Force $\mathbf{F}_{\mathbb{R}}$')
 ax1.quiver(xq, yq, zq, F_proj[0], F_proj[1], F_proj[2], color='darkgreen', lw=3.2, arrow_length_ratio=0.2, label=r'Tangent Force $\mathbf{F}_{\mathbb{S}}$')
 
-ax1.set_title('(a) Spherical Manifold $\mathbb{S}^2$ Tangent Projection', fontweight='bold', pad=12)
-ax1.legend(loc='lower left', framealpha=0.9, facecolor='white', edgecolor='#cccccc', fontsize=9.5)
+ax1.set_title('(a) Spherical Manifold $\\mathbb{S}^2$ Tangent Projection', fontweight='bold', pad=16)
+ax1.legend(loc='lower left', framealpha=0.9, facecolor='white', edgecolor='#cccccc', fontsize=12.5)
 ax1.view_init(elev=20, azim=40)
 ax1.axis('off')
 
@@ -106,25 +106,25 @@ for th in thetas:
 
 # Tree charges embedded in Poincaré disk
 # Root charge at origin
-ax2.scatter([0], [0], color='#1f77b4', s=140, zorder=6, label=r'Root Charge (Level 0)')
+ax2.scatter([0], [0], color='#1f77b4', s=161, zorder=6, label=r'Root Charge (Level 0)')
 # Level 1 charges
 r1 = 0.45
 for th in np.linspace(0, 2*np.pi, 4, endpoint=False):
-    ax2.scatter([r1*np.cos(th)], [r1*np.sin(th)], color='#2ca02c', s=100, zorder=6)
+    ax2.scatter([r1*np.cos(th)], [r1*np.sin(th)], color='#2ca02c', s=115, zorder=6)
     ax2.plot([0, r1*np.cos(th)], [0, r1*np.sin(th)], color='#2ca02c', lw=1.8, alpha=0.7)
     
     # Level 2 charges
     for delta in [-0.25, 0.25]:
         th2 = th + delta
         r2 = 0.78
-        ax2.scatter([r2*np.cos(th2)], [r2*np.sin(th2)], color='#d62728', s=70, zorder=6)
+        ax2.scatter([r2*np.cos(th2)], [r2*np.sin(th2)], color='#d62728', s=81, zorder=6)
         ax2.plot([r1*np.cos(th), r2*np.cos(th2)], [r1*np.sin(th), r2*np.sin(th2)], color='#d62728', lw=1.4, alpha=0.7)
 
-ax2.scatter([], [], color='#2ca02c', s=100, label=r'Branch Charges (Level 1)')
-ax2.scatter([], [], color='#d62728', s=70, label=r'Leaf Charges (Level 2)')
+ax2.scatter([], [], color='#2ca02c', s=115, label=r'Branch Charges (Level 1)')
+ax2.scatter([], [], color='#d62728', s=81, label=r'Leaf Charges (Level 2)')
 
-ax2.set_title(r'(b) Hyperbolic Poincaré Disk $\mathbb{H}^2$ Embedding', fontweight='bold', pad=12)
-ax2.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=10)
+ax2.set_title(r'(b) Hyperbolic Poincaré Disk $\mathbb{H}^2$ Embedding', fontweight='bold', pad=16)
+ax2.legend(loc='lower left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=13)
 ax2.grid(True, linestyle=':', alpha=0.4)
 
 # -------------------------------------------------------------
@@ -145,20 +145,20 @@ ax3.axvline(1.0, color='black', linestyle='--', lw=2.0, alpha=0.7, label=r'Disk 
 ax3.set_xlim(-0.02, 1.05)
 ax3.set_ylim(0, 10)
 
-ax3.set_title('(c) Non-Euclidean Metric Distortion vs Radius', fontweight='bold', pad=12)
-ax3.set_xlabel('Radial Position from Center $r = \|\mathbf{x}\|$', fontweight='bold')
+ax3.set_title('(c) Non-Euclidean Metric Distortion vs Radius', fontweight='bold', pad=16)
+ax3.set_xlabel('Radial Position from Center $r = \\|\\mathbf{x}\\|$', fontweight='bold')
 ax3.set_ylabel('Metric Distance / Scale Value', fontweight='bold')
-ax3.legend(loc='upper left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=11)
+ax3.legend(loc='upper left', framealpha=0.92, facecolor='white', edgecolor='#cccccc', fontsize=14.5)
 ax3.grid(True, linestyle=':', alpha=0.5)
 
 # Annotation callout
 ax3.annotate(r'Exponential Volume Expansion:' + '\n' + r'$d_{\mathbb{H}} \to \infty$ as $r \to 1$' + '\nNatural Margin Protection', 
-             xy=(0.93, 7.5), xytext=(0.42, 6.5),
+             xy=(0.93, 7.5), xytext=(0.35, 6.0),
              arrowprops=dict(facecolor='#d62728', shrink=0.08, width=1.5, headwidth=8),
              fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffe6e6', edgecolor='#d62728', lw=1.5),
-             fontsize=11)
+             fontsize=14.5)
 
-plt.suptitle('Non-Euclidean Riemannian Manifold Generalizations of Potential Field Classifiers', fontsize=19, fontweight='bold', y=0.99)
+plt.suptitle('Non-Euclidean Riemannian Manifold Generalizations of Potential Field Classifiers', fontsize=25, fontweight='bold', y=0.99)
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 
 output_path = 'figures/riemannian_manifold_geometries.png'
