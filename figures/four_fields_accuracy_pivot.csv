@@ -1,0 +1,7 @@
+Model,Banknote (Financial Security),Breast Cancer (Biomedical),Ionosphere (Aerospace Radar),Sonar (Marine Geophysics)
+Dual-Charge PFDC (Ours),100.00 ± 0.00%,96.84 ± 2.12%,94.29 ± 2.72%,76.91 ± 6.50%
+Kernel SVM (RBF),100.00 ± 0.00%,98.07 ± 1.79%,94.30 ± 2.03%,85.59 ± 4.04%
+XGBoost,99.49 ± 0.55%,95.78 ± 1.02%,92.59 ± 3.06%,84.66 ± 6.77%
+LightGBM,99.49 ± 0.55%,96.84 ± 1.43%,94.01 ± 2.29%,85.16 ± 6.56%
+Deep MLP,100.00 ± 0.00%,97.54 ± 1.02%,93.44 ± 2.15%,87.04 ± 2.34%
+Random Forest,98.98 ± 0.54%,95.08 ± 1.62%,93.44 ± 1.95%,82.24 ± 5.51%
