@@ -55,8 +55,8 @@ xn = np.sin(phi_n) * np.cos(theta_n)
 yn = np.sin(phi_n) * np.sin(theta_n)
 zn = np.cos(phi_n)
 
-ax1.scatter(xp, yp, zp, color='#1f77b4', s=104, label=r'Positive Charges ($+q_i$)', depthshade=False)
-ax1.scatter(xn, yn, zn, color='#d62728', s=104, label=r'Negative Charges ($-q_i$)', depthshade=False)
+ax1.scatter(xp, yp, zp, color='#d62728', s=104, label=r'Positive Charges ($+q_i$: Red)', depthshade=False)
+ax1.scatter(xn, yn, zn, color='#1f77b4', s=104, label=r'Negative Charges ($-q_i$: Blue)', depthshade=False)
 
 # Test query point at equator
 xq, yq, zq = 1.0, 0.0, 0.0

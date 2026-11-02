@@ -2,6 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.colors import TwoSlopeNorm
 
 OUTPUT_DIR = "figures"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -26,9 +27,9 @@ np.random.seed(42)
 c0_x = np.random.normal(loc=[-1.2, -0.8], scale=0.45, size=(40, 2))
 c1_x = np.random.normal(loc=[1.2, 0.8], scale=0.45, size=(40, 2))
 
-# Plot samples
-ax1.scatter(c0_x[:, 0], c0_x[:, 1], color='#e74c3c', s=80, edgecolors='black', linewidth=1.2, label='Class 0 (Negative)', zorder=4)
-ax1.scatter(c1_x[:, 0], c1_x[:, 1], color='#2980b9', s=80, edgecolors='black', linewidth=1.2, label='Class 1 (Positive)', zorder=4)
+# Plot samples: Class 0 (Negative: Blue), Class 1 (Positive: Red)
+ax1.scatter(c0_x[:, 0], c0_x[:, 1], color='#1f77b4', s=80, edgecolors='black', linewidth=1.2, label='Class 0 (Negative: $P < 0$)', zorder=4)
+ax1.scatter(c1_x[:, 0], c1_x[:, 1], color='#d62728', s=80, edgecolors='black', linewidth=1.2, label='Class 1 (Positive: $P > 0$)', zorder=4)
 
 # Global linear boundary and tree orthogonal cuts
 x_line = np.linspace(-3, 3, 100)
@@ -106,10 +107,11 @@ for ax_pos, ay_pos, q, a_val in anchors:
     dist = np.sqrt((X_m - ax_pos)**2 + (Y_m - ay_pos)**2)
     P_3d += q * a_val * np.exp(-1.8 * (dist**2))
 
-surf = ax3.plot_surface(X_m, Y_m, P_3d, cmap='coolwarm', edgecolor='none', alpha=0.88, zorder=2)
-ax3.contour(X_m, Y_m, P_3d, zdir='z', offset=-1.5, cmap='coolwarm', alpha=0.5, zorder=1)
+norm_pot = TwoSlopeNorm(vmin=-1.5, vcenter=0.0, vmax=1.5)
+surf = ax3.plot_surface(X_m, Y_m, P_3d, cmap='coolwarm', norm=norm_pot, edgecolor='none', alpha=0.88, zorder=2)
+ax3.contour(X_m, Y_m, P_3d, zdir='z', offset=-1.5, cmap='coolwarm', norm=norm_pot, alpha=0.5, zorder=1)
 ax3.set_zlim(-1.5, 1.5)
-ax3.set_title('(c) 3D Superposed Scalar Potential Landscape $P(\\mathbf{x})$', fontweight='bold', pad=16)
+ax3.set_title('(c) 3D Scalar Potential Landscape [Blue: Valley $\\to$ Red: Peak]', fontweight='bold', pad=16)
 ax3.set_xlabel('$x_1$', fontweight='bold', labelpad=8)
 ax3.set_ylabel('$x_2$', fontweight='bold', labelpad=8)
 ax3.set_zlabel('$P(\\mathbf{x})$', fontweight='bold', labelpad=8)
@@ -139,10 +141,9 @@ Fx_norm = Fx / norm
 Fy_norm = Fy / norm
 
 strm = ax4.streamplot(Xc, Yc, Fx, Fy, color=norm, cmap='plasma', density=1.1, linewidth=1.8, arrowsize=1.5, zorder=2)
-# Positive anchors
-ax4.scatter([1.1, 0.7], [0.7, 1.2], color='#2980b9', s=184, edgecolors='black', linewidth=1.5, label='Positive Charges (+)', zorder=5)
-# Negative anchors
-ax4.scatter([-1.1, -0.7], [-0.7, -1.2], color='#e74c3c', s=184, edgecolors='black', linewidth=1.5, label='Negative Charges (-)', zorder=5)
+# Strictly: Positive anchors = Red, Negative anchors = Blue
+ax4.scatter([1.1, 0.7], [0.7, 1.2], color='#d62728', s=184, edgecolors='black', linewidth=1.5, label='Positive Charges (+: Red)', zorder=5)
+ax4.scatter([-1.1, -0.7], [-0.7, -1.2], color='#1f77b4', s=184, edgecolors='black', linewidth=1.5, label='Negative Charges (-: Blue)', zorder=5)
 
 # Example Recourse Streamline from malignant point
 recourse_x = np.array([-1.5, -1.1, -0.6, -0.1, 0.4, 0.9])

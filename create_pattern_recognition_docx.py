@@ -472,6 +472,20 @@ doc.add_paragraph(
     "geodesics without local minima."
 )
 
+add_heading_2("8.1. Robust Electro-Potential Field-Aligned Projection (EP-FAP)")
+doc.add_paragraph(
+    "To visualize high-dimensional (D >> 2) continuous recourse flows and potential landscapes without unsupervised PCA artifacts, we propose "
+    "the Electro-Potential Field-Aligned Projection (EP-FAP). Standard PCA exhibits severe failure modes in physical classifiers: it is variance-greedy "
+    "(prioritizing uninformative noise features over the potential boundary), outlier-sensitive (distorting principal axes), and field-blind (destroying conservative vector flows). "
+    "EP-FAP establishes an intrinsic, orthonormal 2D coordinate frame (u₁, u₂) derived directly from field electrostatics:\n"
+    "• Primary Dipole Axis (u₁): Aligned with the anisotropically weighted difference between robust class spatial medians: "
+    "u₁ = W(μ₊ᵐᵉᵈ - μ₋ᵐᵉᵈ) / ||W(μ₊ᵐᵉᵈ - μ₋ᵐᵉᵈ)||₂, directly measuring physical progress across the electrostatic separatrix.\n"
+    "• Transverse Equipotential Axis (u₂): Constructed strictly orthogonal to u₁ (u₂ ⊥ u₁) via Huber-weighted robust scatter on the null space "
+    "P_perp = I - u₁ u₁ᵀ, preserving within-class equipotential structure while attenuating heavy-tailed outliers.\n\n"
+    "All potential landscape plots strictly adhere to unified physical polarity: negative potential basins (P < 0) and negative class charges are rendered in blue, "
+    "while positive potential peaks (P > 0) and positive certainty cores are rendered in red, accompanied by explicit 3D potential surface projections."
+)
+
 # -------------------------------------------------------------
 # Section 9: Frank Limitations & Critical Discussion
 # -------------------------------------------------------------

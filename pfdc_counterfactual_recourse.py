@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from robust_field_projection import ElectroPotentialFieldProjection
 from anisotropic_pfdc import AnisotropicPFDC
 
 OUTPUT_DIR = "figures"
@@ -121,38 +121,46 @@ def generate_counterfactual_recourse():
     df_shifts.to_csv("figures/counterfactual_clinical_recommendations.csv", index=False)
 
     # -------------------------------------------------------------
-    # Visualization: 2D PCA Field with Counterfactual Streamline Path
+    # Visualization: Robust Electro-Potential Field-Aligned Projection (EP-FAP)
+    # Replaces PCA with an intrinsic physical coordinate system aligned to the dipole field
     # -------------------------------------------------------------
-    pca = PCA(n_components=2, random_state=42)
-    X_pca = pca.fit_transform(X_scaled)
-    traj_pca = pca.transform(traj_array)
+    epfap = ElectroPotentialFieldProjection(huber_quantile=0.85, random_state=42)
+    # Fit projection using learned anisotropic weights
+    learned_w = getattr(pfdc, 'w_final_', None)
+    if learned_w is not None:
+        learned_w = learned_w.copy()
+    X_epfap = epfap.fit_transform(X_scaled, y, feature_weights=learned_w)
+    traj_epfap = epfap.transform(traj_array)
     
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(17, 7))
     
-    # Left: PCA Projection with Decision Field & Patient Trajectory Streamline
-    x_min, x_max = X_pca[:, 0].min() - 1.0, X_pca[:, 0].max() + 1.0
-    y_min, y_max = X_pca[:, 1].min() - 1.0, X_pca[:, 1].max() + 1.0
+    # Left: EP-FAP Projection with Decision Field & Patient Trajectory Streamline
+    x_min, x_max = X_epfap[:, 0].min() - 0.8, X_epfap[:, 0].max() + 0.8
+    y_min, y_max = X_epfap[:, 1].min() - 0.8, X_epfap[:, 1].max() + 0.8
     xx, yy = np.meshgrid(np.linspace(x_min, x_max, 60), np.linspace(y_min, y_max, 60))
-    grid_pca = np.c_[xx.ravel(), yy.ravel()]
-    grid_orig = pca.inverse_transform(grid_pca)
+    grid_epfap = np.c_[xx.ravel(), yy.ravel()]
+    grid_orig = epfap.inverse_transform(grid_epfap)
     grid_raw = scaler.inverse_transform(grid_orig)
     grid_pot = pfdc.predict_potential(grid_raw).reshape(xx.shape)
     
-    cf = ax1.contourf(xx, yy, grid_pot, levels=25, cmap='coolwarm', alpha=0.35)
+    from matplotlib.colors import TwoSlopeNorm
+    v_abs = max(abs(grid_pot.min()), abs(grid_pot.max()))
+    norm_pot = TwoSlopeNorm(vmin=-v_abs, vcenter=0.0, vmax=v_abs)
+    cf = ax1.contourf(xx, yy, grid_pot, levels=25, cmap='coolwarm', norm=norm_pot, alpha=0.38)
     ax1.contour(xx, yy, grid_pot, levels=[0.0], colors='black', linewidths=2.0)
     
-    # Scatter all patients
-    ax1.scatter(X_pca[y == 0, 0], X_pca[y == 0, 1], color='#e74c3c', s=30, alpha=0.6, label='Malignant Patients (Class 0)')
-    ax1.scatter(X_pca[y == 1, 0], X_pca[y == 1, 1], color='#2ecc71', s=30, alpha=0.6, label='Benign Patients (Class 1)')
+    # Scatter all patients: Strictly Negative (Class 0) = Blue, Positive (Class 1) = Red
+    ax1.scatter(X_epfap[y == 0, 0], X_epfap[y == 0, 1], color='#1f77b4', s=30, alpha=0.6, label='Malignant Patients (Class 0: Blue)')
+    ax1.scatter(X_epfap[y == 1, 0], X_epfap[y == 1, 1], color='#d62728', s=30, alpha=0.6, label='Benign Patients (Class 1: Red)')
     
     # Plot Trajectory
-    ax1.plot(traj_pca[:, 0], traj_pca[:, 1], color='#f39c12', linewidth=3.0, linestyle='-', marker='o', markersize=4, label='Physical Recourse Streamline')
-    ax1.scatter(traj_pca[0, 0], traj_pca[0, 1], color='#c0392b', s=160, edgecolor='black', linewidth=2, zorder=5, label='Patient x₀ (High-Risk Malignant)')
-    ax1.scatter(traj_pca[-1, 0], traj_pca[-1, 1], color='#27ae60', s=160, edgecolor='black', linewidth=2, zorder=5, label='Target x* (Benign Certainty Core)')
+    ax1.plot(traj_epfap[:, 0], traj_epfap[:, 1], color='#00cc99', linewidth=3.0, linestyle='-', marker='o', markersize=4, label='Physical Recourse Streamline')
+    ax1.scatter(traj_epfap[0, 0], traj_epfap[0, 1], color='#1f77b4', s=160, edgecolor='black', linewidth=2, zorder=5, label=r'Patient $x_0$ (Malignant: Blue)')
+    ax1.scatter(traj_epfap[-1, 0], traj_epfap[-1, 1], color='#d62728', s=160, edgecolor='black', linewidth=2, zorder=5, label=r'Target $x^*$ (Benign Core: Red)')
     
-    ax1.set_title("PFDC Counterfactual Recourse Path in Clinical Feature Space", fontsize=12, fontweight='bold')
-    ax1.set_xlabel(f"Principal Component 1 ({pca.explained_variance_ratio_[0]*100:.1f}%)")
-    ax1.set_ylabel(f"Principal Component 2 ({pca.explained_variance_ratio_[1]*100:.1f}%)")
+    ax1.set_title("PFDC Counterfactual Recourse Path in EP-FAP Coordinates", fontsize=12, fontweight='bold')
+    ax1.set_xlabel("Dipole Recourse Coordinate $\\xi_{\\mathrm{dipole}}$ (Field Axis $\\mathbf{u}_1$)", fontweight='bold')
+    ax1.set_ylabel("Transverse Coordinate $\\xi_{\\perp}$ (Huber Scatter Axis $\\mathbf{u}_2$)", fontweight='bold')
     ax1.legend(loc='lower left', frameon=True, fontsize=9)
     fig.colorbar(cf, ax=ax1, label='Net Potential P(x)')
 

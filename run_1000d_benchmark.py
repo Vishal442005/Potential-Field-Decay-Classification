@@ -7,7 +7,7 @@ import seaborn as sns
 
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+from robust_field_projection import ElectroPotentialFieldProjection
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, log_loss
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
@@ -446,25 +446,29 @@ def run_1000d_experiment():
     plt.close()
     print(f"Saved Plot 3: {p3}")
 
-    # Plot 4: 2D PCA Projection of 1,000-D Potential Field
-    print("Generating PCA 2D Potential Landscape for the 1,000D model...")
-    pca = PCA(n_components=2, random_state=42)
-    X_pca = pca.fit_transform(X_test)
+    # Plot 4: 2D Electro-Potential Field-Aligned Projection (EP-FAP) of 1,000-D Potential Field
+    print("Generating EP-FAP 2D Potential Landscape for the 1,000D model...")
+    epfap = ElectroPotentialFieldProjection(huber_quantile=0.85, random_state=42)
+    # Extract learned feature weights from model E3
+    learned_w = getattr(pfdc_models["E3 (Full Extended: Case3+alpha+gamma)"], "w_final_", None)
+    X_epfap = epfap.fit_transform(X_test, y_test, feature_weights=learned_w)
     
     fig, ax = plt.subplots(figsize=(9, 7))
     potentials = pfdc_models["E3 (Full Extended: Case3+alpha+gamma)"].predict_potential(X_test)
-    scatter = ax.scatter(X_pca[:, 0], X_pca[:, 1], c=potentials, cmap='coolwarm', edgecolors='k', s=45, alpha=0.85)
+    scatter = ax.scatter(X_epfap[:, 0], X_epfap[:, 1], c=potentials, cmap='coolwarm', edgecolors='k', s=45, alpha=0.85)
     ax.axhline(0, color='gray', linestyle=':', alpha=0.5)
     ax.axvline(0, color='gray', linestyle=':', alpha=0.5)
     cbar = fig.colorbar(scatter, ax=ax, label="Net Scalar Potential P(x)")
-    ax.set_title("1,000D PFDC Model: 2D PCA Manifold Projection & Scalar Potential", fontsize=12, fontweight='bold')
-    ax.set_xlabel(f"Principal Component 1 ({pca.explained_variance_ratio_[0]*100:.1f}% Variance)")
-    ax.set_ylabel(f"Principal Component 2 ({pca.explained_variance_ratio_[1]*100:.1f}% Variance)")
+    ax.set_title("1,000D PFDC Model: Robust Field-Aligned Projection (EP-FAP)", fontsize=12, fontweight='bold')
+    ax.set_xlabel("Dipole Recourse Coordinate $\\xi_{\\mathrm{dipole}}$ (Field Axis $\\mathbf{u}_1$)", fontweight='bold')
+    ax.set_ylabel("Transverse Coordinate $\\xi_{\\perp}$ (Huber Scatter Axis $\\mathbf{u}_2$)", fontweight='bold')
     plt.tight_layout()
     p4 = os.path.join(OUTPUT_DIR, "highd_pca_projection_field.png")
     plt.savefig(p4, dpi=300)
+    p4_epfap = os.path.join(OUTPUT_DIR, "highd_field_aligned_projection.png")
+    plt.savefig(p4_epfap, dpi=300)
     plt.close()
-    print(f"Saved Plot 4: {p4}")
+    print(f"Saved Plot 4: {p4_epfap}")
 
     print("\nHigh-Dimensional Benchmark Completed Successfully!")
 

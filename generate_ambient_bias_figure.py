@@ -72,22 +72,22 @@ v_neg_naive = V_naive[y == 0]
 v_pos_naive = V_naive[y == 1]
 
 bins = np.linspace(min(V_naive) - 1, max(V_naive) + 1, 35)
-ax.hist(v_neg_naive, bins=bins, alpha=0.55, color='#d62728', density=True, label=r'Class 0 ($y=-1$)', edgecolor='black')
-ax.hist(v_pos_naive, bins=bins, alpha=0.55, color='#1f77b4', density=True, label=r'Class 1 ($y=+1$)', edgecolor='black')
+ax.hist(v_neg_naive, bins=bins, alpha=0.55, color='#1f77b4', density=True, label=r'Class 0 ($y=-1$: Negative Blue)', edgecolor='black')
+ax.hist(v_pos_naive, bins=bins, alpha=0.55, color='#d62728', density=True, label=r'Class 1 ($y=+1$: Positive Red)', edgecolor='black')
 
 # Gaussian fits
 mu_neg, std_neg = norm.fit(v_neg_naive)
 mu_pos, std_pos = norm.fit(v_pos_naive)
 x_vals = np.linspace(min(V_naive) - 1, max(V_naive) + 1, 200)
-ax.plot(x_vals, norm.pdf(x_vals, mu_neg, std_neg), color='#b30000', lw=2.5)
-ax.plot(x_vals, norm.pdf(x_vals, mu_pos, std_pos), color='#004080', lw=2.5)
+ax.plot(x_vals, norm.pdf(x_vals, mu_neg, std_neg), color='#004080', lw=2.5)
+ax.plot(x_vals, norm.pdf(x_vals, mu_pos, std_pos), color='#b30000', lw=2.5)
 
 # Hardcoded zero threshold
 ax.axvline(0.0, color='black', linestyle='--', lw=3.0, label='Naive Zero Threshold ($V=0$)')
 ax.axvline(ambient_shift, color='purple', linestyle=':', lw=2.5, label=f'Ambient DC Shift ($+{ambient_shift:.2f}$)')
 
 # Highlight misclassified region
-ax.fill_between(x_vals, 0, norm.pdf(x_vals, mu_neg, std_neg), where=(x_vals >= 0), color='#ff9999', alpha=0.5, label='Misclassified Region (False Positives)')
+ax.fill_between(x_vals, 0, norm.pdf(x_vals, mu_neg, std_neg), where=(x_vals >= 0), color='#b3d9ff', alpha=0.6, label='Misclassified Region (False Positives)')
 
 ax.set_title('(a) Naive Superposition: The Ambient DC Ground Bias Trap', fontweight='bold', pad=16)
 ax.set_xlabel('Raw Net Potential $V_{\\mathrm{naive}}(\\mathbf{x})$', fontweight='bold')
@@ -110,14 +110,14 @@ v_neg_cal = V_calibrated[y == 0]
 v_pos_cal = V_calibrated[y == 1]
 
 bins_cal = np.linspace(min(V_calibrated) - 1, max(V_calibrated) + 1, 35)
-ax.hist(v_neg_cal, bins=bins_cal, alpha=0.55, color='#d62728', density=True, label=r'Class 0 ($y=-1$)', edgecolor='black')
-ax.hist(v_pos_cal, bins=bins_cal, alpha=0.55, color='#1f77b4', density=True, label=r'Class 1 ($y=+1$)', edgecolor='black')
+ax.hist(v_neg_cal, bins=bins_cal, alpha=0.55, color='#1f77b4', density=True, label=r'Class 0 ($y=-1$: Negative Blue)', edgecolor='black')
+ax.hist(v_pos_cal, bins=bins_cal, alpha=0.55, color='#d62728', density=True, label=r'Class 1 ($y=+1$: Positive Red)', edgecolor='black')
 
 mu_neg_c, std_neg_c = norm.fit(v_neg_cal)
 mu_pos_c, std_pos_c = norm.fit(v_pos_cal)
 x_vals_c = np.linspace(min(V_calibrated) - 1, max(V_calibrated) + 1, 200)
-ax.plot(x_vals_c, norm.pdf(x_vals_c, mu_neg_c, std_neg_c), color='#b30000', lw=2.5)
-ax.plot(x_vals_c, norm.pdf(x_vals_c, mu_pos_c, std_pos_c), color='#004080', lw=2.5)
+ax.plot(x_vals_c, norm.pdf(x_vals_c, mu_neg_c, std_neg_c), color='#004080', lw=2.5)
+ax.plot(x_vals_c, norm.pdf(x_vals_c, mu_pos_c, std_pos_c), color='#b30000', lw=2.5)
 
 ax.axvline(0.0, color='black', linestyle='--', lw=3.0, label='Calibrated Bayes Threshold ($V^*=0$)')
 
