@@ -1,6 +1,7 @@
 # Potential Field Decay Classification (PFDC)
 ### *A Physics-Grounded Machine Learning Paradigm with Certified Certainty Cores, PAC Generalization Bounds, and Continuous Counterfactual Recourse*
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23936990.svg)](https://doi.org/10.5281/zenodo.23936990)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Paper: Camera--Ready](https://img.shields.io/badge/Paper-IEEE%20TPAMI%20Submission-red.svg)](PFDC_Manuscript.pdf)
@@ -177,11 +178,14 @@ y_fast = model.predict(X_test)
 If you use this work in your research, please cite:
 
 ```bibtex
-@article{vishal2026pfdc,
+@software{sringeri2026pfdc,
   title={Potential Field Decay Classification (PFDC): A Physics-Grounded Machine Learning Paradigm with Certified Certainty Cores, PAC Generalization Bounds, and Continuous Counterfactual Recourse},
-  author={Research Team, Gradient Research Laboratory and Vishal},
-  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence (Preprint)},
-  year={2026}
+  author={Sringeri, Vishal},
+  year={2026},
+  publisher={Zenodo},
+  version={v1.1.0},
+  doi={10.5281/zenodo.23936990},
+  url={https://doi.org/10.5281/zenodo.23936990}
 }
 ```
 
