@@ -27,13 +27,13 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Publication typography (1.3x scaled)
 plt.rcParams['font.family'] = 'DejaVu Sans'
-plt.rcParams['font.size'] = 15
-plt.rcParams['axes.titlesize'] = 18
-plt.rcParams['axes.labelsize'] = 16
-plt.rcParams['xtick.labelsize'] = 13.5
-plt.rcParams['ytick.labelsize'] = 13.5
-plt.rcParams['legend.fontsize'] = 12.5
-plt.rcParams['figure.titlesize'] = 22
+plt.rcParams['font.size'] = 12.0
+plt.rcParams['axes.titlesize'] = 13.5
+plt.rcParams['axes.labelsize'] = 12.5
+plt.rcParams['xtick.labelsize'] = 10.5
+plt.rcParams['ytick.labelsize'] = 10.5
+plt.rcParams['legend.fontsize'] = 9.5
+plt.rcParams['figure.titlesize'] = 16.0
 
 # Load real clinical dataset: Breast Cancer Wisconsin
 data = load_breast_cancer()
@@ -163,7 +163,7 @@ Phi_net_3d = (clf_3d.coef_[0, 0] * V1 + clf_3d.coef_[0, 1] * V2 + clf_3d.interce
 # -------------------------------------------------------------------------
 # Step 3: Render Complete 6-Panel Flagship Stacking Figure
 # -------------------------------------------------------------------------
-fig = plt.figure(figsize=(26, 15))
+fig = plt.figure(figsize=(16.5, 9.6))
 
 # =========================================================================
 # ROW 1: 2D SUBSPACE OVERLAPPING
@@ -222,8 +222,7 @@ custom_lines = [
     Line2D([0], [0], color='#00008b', lw=2.2, linestyle='-', label='Neg. Core ($P=-1.5$)'),
     Line2D([0], [0], color='#008b8b', lw=1.8, linestyle='--', label='Neg. Decay ($P=-0.5$)'),
 ]
-ax2.legend(handles=[s_ben, s_mal] + custom_lines, loc='lower left', framealpha=0.92,
-           edgecolor='#cccccc', fontsize=10.5, ncol=2)
+ax2.legend(handles=[s_ben, s_mal] + custom_lines, loc='upper left', framealpha=0.92, edgecolor='#cccccc', fontsize=8.5, ncol=1)
 ax2.grid(True, linestyle='--', alpha=0.35)
 
 # (c) 3D Surface of the 2D Overlapped Stack
@@ -291,11 +290,10 @@ ax6.set_ylabel('$x_2$ (Texture)', fontweight='bold', labelpad=7)
 ax6.set_zlabel(r'Stacked $\Phi_{\mathrm{net}}$', fontweight='bold', labelpad=7)
 ax6.view_init(elev=28, azim=130)
 
-plt.suptitle('Multi-Dimensional Subspace Stacking on Real Clinical Data: 2D Overlapping & Common-Pivot 3D Superposition',
-             fontsize=22, fontweight='bold', y=0.99)
-plt.subplots_adjust(left=0.04, right=0.96, bottom=0.06, top=0.92, wspace=0.22, hspace=0.28)
+plt.suptitle('Multi-Dimensional Orthogonal Subspace Stacking on Real Clinical Data', fontsize=16, fontweight='bold', y=0.985)
+plt.subplots_adjust(left=0.06, right=0.96, bottom=0.08, top=0.90, wspace=0.32, hspace=0.36)
 
-out_fig = os.path.join(OUTPUT_DIR, "real_dataset_stacking_architecture.png")
+out_fig = os.path.join(OUTPUT_DIR, "real_dataset_stacking_architecture.pdf")
 plt.savefig(out_fig, dpi=300, bbox_inches='tight')
 plt.close()
 print(f"Successfully generated 6-panel stacking flagship figure: {out_fig}")

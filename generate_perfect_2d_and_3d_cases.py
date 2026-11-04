@@ -25,13 +25,13 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # 1.3x scaled typography
 plt.rcParams['font.family'] = 'DejaVu Sans'
-plt.rcParams['font.size'] = 18
-plt.rcParams['axes.titlesize'] = 21
-plt.rcParams['axes.labelsize'] = 19
-plt.rcParams['xtick.labelsize'] = 16
-plt.rcParams['ytick.labelsize'] = 16
-plt.rcParams['legend.fontsize'] = 15
-plt.rcParams['figure.titlesize'] = 25
+plt.rcParams['font.size'] = 12.0
+plt.rcParams['axes.titlesize'] = 13.5
+plt.rcParams['axes.labelsize'] = 12.5
+plt.rcParams['xtick.labelsize'] = 10.5
+plt.rcParams['ytick.labelsize'] = 10.5
+plt.rcParams['legend.fontsize'] = 9.5
+plt.rcParams['figure.titlesize'] = 16.0
 
 # Generate standardized 2D non-linear multi-cluster data
 X, y = make_classification(
@@ -46,7 +46,7 @@ cases = [
     ("exponential_accelerating", "Case 3: Accelerating Exp (Ours: Settled in 8 Shifts)")
 ]
 
-fig = plt.figure(figsize=(27, 17.5))
+fig = plt.figure(figsize=(17.5, 9.8))
 
 x_min, x_max = X[:, 0].min() - 0.5, X[:, 0].max() + 0.5
 y_min, y_max = X[:, 1].min() - 0.5, X[:, 1].max() + 0.5
@@ -115,10 +115,14 @@ for idx, (case_mode, label) in enumerate(cases):
         ax1.plot([], [], color='black', lw=3.0, label='Decision Separatrix ($P=0$)')
         ax1.plot([], [], color='#b30000', lw=2.2, label='Pos Core / Shell ($P=+1.0, +0.25$)')
         ax1.plot([], [], color='#004080', lw=2.2, label='Neg Core / Shell ($P=-1.0, -0.25$)')
-        ax1.legend(loc='lower left', framealpha=0.95, edgecolor='#cccccc', fontsize=12)
+        ax1.legend(loc='lower left', framealpha=0.95, edgecolor='#cccccc', fontsize=10.0)
 
-    panel_letter = chr(ord('a') + idx)
-    ax1.set_title(f"({panel_letter}) {label}\nTest Accuracy: {acc_val:.2f}%", fontsize=18, fontweight='bold', pad=14)
+    row1_titles = [
+        "(a) Case 1: Fixed Step (119 Shifts)\nAccuracy: 93.61% (Chattering)",
+        "(b) Case 2: Sign Halving (50 Shifts)\nAccuracy: 88.33% (Sluggish)",
+        "(c) Case 3: Accelerating Exp (8 Shifts)\nAccuracy: 88.33% (Ours: Stable)"
+    ]
+    ax1.set_title(row1_titles[idx], fontsize=13.5, fontweight='bold', pad=10)
     ax1.set_xlabel("Feature Coordinate $x_1$", fontweight='bold')
     if idx == 0:
         ax1.set_ylabel("Feature Coordinate $x_2$", fontweight='bold')
@@ -143,24 +147,28 @@ for idx, (case_mode, label) in enumerate(cases):
     ax2.contour(xx_3d, yy_3d, pot_3d, levels=15, zdir='z', offset=z_offset, cmap='coolwarm', norm=norm, alpha=0.45)
     
     ax2.set_zlim(z_offset, v_abs * 1.1)
-    panel_letter_3d = chr(ord('d') + idx)
-    ax2.set_title(f"({panel_letter_3d}) 3D Potential Surface: {case_mode.split('_')[0].capitalize()}", fontsize=18, fontweight='bold', pad=16)
+    row2_titles = [
+        "(d) 3D Surface: Fixed Step",
+        "(e) 3D Surface: Sign Halving",
+        "(f) 3D Surface: Accelerating Exp"
+    ]
+    ax2.set_title(row2_titles[idx], fontsize=13.0, fontweight='bold', pad=10)
     ax2.set_xlabel("$x_1$", fontweight='bold', labelpad=9)
     ax2.set_ylabel("$x_2$", fontweight='bold', labelpad=9)
     ax2.set_zlabel("Potential $P(\\mathbf{x})$", fontweight='bold', labelpad=9)
     ax2.view_init(elev=32, azim=225)
 
 # Dedicated isolated colorbar axis on far right: ZERO OVERLAP on any subplot
-cbar_ax = fig.add_axes([0.925, 0.15, 0.015, 0.70])
+cbar_ax = fig.add_axes([0.935, 0.14, 0.015, 0.70])
 cbar = fig.colorbar(plt.cm.ScalarMappable(norm=TwoSlopeNorm(vmin=-1, vcenter=0, vmax=1), cmap='coolwarm'), cax=cbar_ax)
-cbar.set_label("Net Potential Field $P(\\mathbf{x})$ [Blue: Negative $\\to$ Red: Positive]", fontweight='bold', fontsize=17)
-cbar.ax.tick_params(labelsize=15)
+cbar.set_label(r"Net Potential Field $P(\mathbf{x})$ [Blue: Negative $\to$ Red: Positive]", fontweight="bold", fontsize=11.5)
+cbar.ax.tick_params(labelsize=10.5)
 
-plt.suptitle("PFDC 2D Decision Partitions & 3D Potential Landscapes Across Radial Learning-Rate Regimes", fontsize=24, fontweight='bold', y=0.99)
+plt.suptitle('PFDC Decision Partitions and 3D Potential Surfaces Across Parameter Update Laws', fontsize=16, fontweight='bold', y=0.985)
 # Subplot margins guarantee ample clearance between Case 3 and the colorbar
-plt.subplots_adjust(left=0.04, right=0.90, bottom=0.06, top=0.93, wspace=0.22, hspace=0.28)
+plt.subplots_adjust(left=0.05, right=0.92, bottom=0.08, top=0.88, wspace=0.32, hspace=0.36)
 
-plot_path = os.path.join(OUTPUT_DIR, "pfdc_decision_boundaries_cases.png")
+plot_path = os.path.join(OUTPUT_DIR, "pfdc_decision_boundaries_cases.pdf")
 plt.savefig(plot_path, dpi=300, bbox_inches='tight')
 plt.close()
 print(f"Successfully generated perfect 2D+3D cases figure: {plot_path}")

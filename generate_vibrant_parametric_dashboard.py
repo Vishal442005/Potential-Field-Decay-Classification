@@ -20,15 +20,15 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Publication typography (1.3x scaled)
 plt.rcParams['font.family'] = 'DejaVu Sans'
-plt.rcParams['font.size'] = 15
-plt.rcParams['axes.titlesize'] = 17.5
-plt.rcParams['axes.labelsize'] = 16
-plt.rcParams['xtick.labelsize'] = 13.5
-plt.rcParams['ytick.labelsize'] = 13.5
-plt.rcParams['legend.fontsize'] = 12
-plt.rcParams['figure.titlesize'] = 22
+plt.rcParams['font.size'] = 12.5
+plt.rcParams['axes.titlesize'] = 14.0
+plt.rcParams['axes.labelsize'] = 13.0
+plt.rcParams['xtick.labelsize'] = 11.0
+plt.rcParams['ytick.labelsize'] = 11.0
+plt.rcParams['legend.fontsize'] = 9.5
+plt.rcParams['figure.titlesize'] = 16.0
 
-fig, axes = plt.subplots(2, 2, figsize=(24, 14.5))
+fig, axes = plt.subplots(2, 2, figsize=(15.5, 9.5))
 
 # =========================================================================
 # PANEL (A): CORE RATIO vs. ACCURACY & CERTIFIED SAFETY SHIELD
@@ -78,7 +78,7 @@ ax1.annotate('Optimal Operating Point\n(97.08% Acc, $r_{\\mathrm{cert}}=0.154$)'
              fontweight='bold', fontsize=11.5,
              bbox=dict(boxstyle='round,pad=0.35', facecolor='#e8f8f5', edgecolor='#16a085', lw=1.5))
 
-ax1.set_title('(a) Core Ratio vs. Accuracy & Certified Safety Shield', fontweight='bold', pad=13)
+ax1.set_title('(a) Core Ratio $R^{\mathrm{core}}/R^{\mathrm{decay}}$\nvs. Accuracy & Certified Radius', fontweight='bold', pad=13)
 ax1.grid(True, linestyle='--', alpha=0.35)
 
 # Combine legends cleanly
@@ -145,7 +145,7 @@ ax2.set_title('(b) Decay Rate $\\lambda$ vs. Field Gradient & Force Dynamics', f
 ax2.grid(True, linestyle='--', alpha=0.35)
 
 handles2 = l_acc2 + l_f12 + l_force
-ax2.legend(handles=handles2, loc='lower right', framealpha=0.92, edgecolor='#cccccc', fontsize=11.5)
+ax2.legend(handles=handles2, loc='upper left', framealpha=0.92, edgecolor='#cccccc', fontsize=10.0)
 
 # =========================================================================
 # PANEL (C): REGULARIZATION C vs. SUPPORT CHARGE SPARSITY
@@ -232,7 +232,7 @@ ax4_twin.set_ylim(0.8, 4.3)
 
 # Annotate Optimal Blend
 ax4.scatter([0.50], [97.08], color='#f1c40f', s=260, marker='*', edgecolors='black', linewidth=1.5, zorder=7)
-ax4.annotate('Optimal Equipartition ($\\gamma=0.5$)\n(97.08% Acc, 2.45$\\times$ Speedup)', xy=(0.50, 97.08), xytext=(0.42, 96.0),
+ax4.annotate('Optimal Equipartition ($\\gamma=0.5$)\n(97.08% Acc, 2.45$\\times$ Speedup)', xy=(0.50, 97.08), xytext=(0.52, 96.0),
              arrowprops=dict(facecolor='#8e44ad', shrink=0.08, width=1.8, headwidth=6),
              fontweight='bold', fontsize=11.5,
              bbox=dict(boxstyle='round,pad=0.35', facecolor='#f4ecf7', edgecolor='#8e44ad', lw=1.5))
@@ -241,13 +241,12 @@ ax4.set_title('(d) Compact Blend $\\gamma$ vs. Ball-Tree Spatial Acceleration', 
 ax4.grid(True, linestyle='--', alpha=0.35)
 
 handles4 = l_acc4 + l_f14 + l_speed
-ax4.legend(handles=handles4, loc='lower left', framealpha=0.92, edgecolor='#cccccc', fontsize=11.5)
+ax4.legend(handles=handles4, loc='upper left', framealpha=0.92, edgecolor='#cccccc', fontsize=10.0)
 
-plt.suptitle('PFDC Systematic Structural Parameter Sweeps: Multi-Metric Physics & Optimization Dashboard',
-             fontsize=22, fontweight='bold', y=0.99)
-plt.subplots_adjust(left=0.05, right=0.94, bottom=0.07, top=0.92, wspace=0.25, hspace=0.28)
+plt.suptitle('Systematic Structural Parameter Sweeps: Multi-Metric Physics & Optimization Dashboard', fontsize=16, fontweight='bold', y=0.985)
+plt.subplots_adjust(left=0.08, right=0.92, bottom=0.09, top=0.90, wspace=0.34, hspace=0.38)
 
-out_fig = os.path.join(OUTPUT_DIR, "parametric_sweep_accuracy_profiles.png")
+out_fig = os.path.join(OUTPUT_DIR, "parametric_sweep_accuracy_profiles.pdf")
 plt.savefig(out_fig, dpi=300, bbox_inches='tight')
 plt.close()
 print(f"Successfully generated vibrant parametric dashboard: {out_fig}")

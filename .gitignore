@@ -58,3 +58,8 @@ PFDC*.pdf
 # Paper documents (DOCX, PDF, TeX)
 *.docx
 Cover_Letter*.docx
+
+*.pdf
+*.zip
+elsevier_submission/
+tpami_submission/
