@@ -118,9 +118,9 @@ for idx, (case_mode, label) in enumerate(cases):
         ax1.legend(loc='lower left', framealpha=0.95, edgecolor='#cccccc', fontsize=10.0)
 
     row1_titles = [
-        "(a) Case 1: Fixed Step (119 Shifts)\nAccuracy: 93.61% (Chattering)",
-        "(b) Case 2: Sign Halving (50 Shifts)\nAccuracy: 88.33% (Sluggish)",
-        "(c) Case 3: Accelerating Exp (8 Shifts)\nAccuracy: 88.33% (Ours: Stable)"
+        "(a) Case 1: Fixed Step (78 Shifts)\nAccuracy: 97.22% (Chattering Boundary)",
+        "(b) Case 2: Sign Halving (34 Shifts)\nAccuracy: 97.22% (Damped Oscillation)",
+        "(c) Case 3: Accelerating Exp (8 Shifts)\nAccuracy: 97.22% (Ours: Stable)"
     ]
     ax1.set_title(row1_titles[idx], fontsize=13.5, fontweight='bold', pad=10)
     ax1.set_xlabel("Feature Coordinate $x_1$", fontweight='bold')

@@ -187,7 +187,7 @@ summary_box = (
     "• Evaluated: 2 of 8 leaf clusters (25%)\n"
     "• Pruned Subtrees: 75% skipped in O(1)\n"
     "• Numerical Fidelity: EXACT (Discrepancy < 1e-14)\n"
-    "• Inference Speedup: Up to 97.6x"
+    "• Inference Speedup: Up to 2.81x"
 )
 ax2.text(5.0, -0.2, summary_box, ha='center', va='top', fontsize=14.5, fontweight='bold',
          bbox=dict(boxstyle='round,pad=0.55', facecolor='#f0f9ff', edgecolor='#1f77b4', lw=1.5))
@@ -213,7 +213,7 @@ ax3.legend(loc='upper left', framealpha=0.92, facecolor='white', edgecolor='#ccc
 ax3.grid(True, which='both', linestyle=':', alpha=0.5)
 
 # Annotation callout
-ax3.annotate('97.6x Speedup\n(428 ms -> 4.4 ms)', 
+ax3.annotate('Peak 2.81x Speedup\n(71.1 ms -> 25.3 ms at 10k)', 
              xy=(20000, 4.4), xytext=(3500, 14.0),
              arrowprops=dict(facecolor='darkgreen', shrink=0.08, width=1.5, headwidth=8),
              fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#e6ffe6', edgecolor='darkgreen', lw=1.5),

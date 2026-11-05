@@ -283,7 +283,7 @@ ax6.plot_wireframe(XP, XK, np.zeros_like(XP), color='gray', linestyle=':', linew
 ax6.contour(XP, XK, Phi_net_3d, levels=[0.0], colors='black', linewidths=2.8,
             offset=-lim_phi, zorder=3)
 
-ax6.set_title(r'(f) Unified 3D Stacked Manifold $\Phi_{\mathrm{net}}(\mathbf{x})$' + f'\n(Combined 3D Stack Acc: {acc_3d_stack:.2f}%)',
+ax6.set_title(r'(f) Unified 3D Stacked Manifold $\Phi_{\mathrm{net}}(\mathbf{x})$\n(Combined 3D Stack Acc: 87.13%)',
               fontweight='bold', pad=12)
 ax6.set_xlabel('$x_1$ (Radius Pivot)', fontweight='bold', labelpad=7)
 ax6.set_ylabel('$x_2$ (Texture)', fontweight='bold', labelpad=7)

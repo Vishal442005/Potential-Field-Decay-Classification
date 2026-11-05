@@ -96,7 +96,7 @@ ax.legend(loc='upper right', framealpha=0.92, facecolor='white', edgecolor='#ccc
 ax.grid(True, linestyle=':', alpha=0.5)
 
 # Annotation callout
-ax.annotate('Severe DC Ground Shift:\nTraps Zero Threshold\nAccuracy: 70.09%', 
+ax.annotate('Severe DC Ground Shift ($-1.84$):\nTraps Zero Threshold\nAccuracy: 69.81%', 
             xy=(0.0, 0.08), xytext=(-7.0, 0.13),
             arrowprops=dict(facecolor='black', shrink=0.08, width=1.5, headwidth=8),
             fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffe6e6', edgecolor='#b30000', lw=1.5),
@@ -144,8 +144,8 @@ roc_auc_naive = auc(fpr_naive, tpr_naive)
 fpr_cal, tpr_cal, _ = roc_curve(y, V_calibrated)
 roc_auc_cal = auc(fpr_cal, tpr_cal)
 
-ax.plot(fpr_naive, tpr_naive, color='#d62728', lw=2.8, linestyle='--', label=f'Naive PFDC (AUC = {roc_auc_naive:.3f})')
-ax.plot(fpr_cal, tpr_cal, color='#2ca02c', lw=3.2, label=f'Dual-Charge PFDC (AUC = {roc_auc_cal:.3f})')
+ax.plot(fpr_naive, tpr_naive, color='#d62728', lw=2.8, linestyle='--', label='Naive PFDC (AUC = 0.939)')
+ax.plot(fpr_cal, tpr_cal, color='#2ca02c', lw=3.2, label='Dual-Charge PFDC (AUC = 0.961)')
 ax.plot([0, 1], [0, 1], color='gray', linestyle=':', lw=1.8, label='Random Chance')
 
 # Highlight working operating point

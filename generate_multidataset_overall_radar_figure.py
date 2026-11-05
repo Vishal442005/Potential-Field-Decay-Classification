@@ -146,7 +146,7 @@ ax3.set_ylim(0.8, 3.8)
 ax3.grid(True, which='both', linestyle=':', alpha=0.5)
 
 # Annotation callout
-ax3.annotate('100x-300x Speedup\nShortest Path Recourse\n(0.42 ms via Euler ODE)', 
+ax3.annotate('5.0x Speedup\nShortest Path Recourse\n(40.96 ms vs. 206.64 ms)', 
              xy=(0.42, 1.34), xytext=(2.0, 0.95),
              arrowprops=dict(facecolor='darkgreen', shrink=0.08, width=1.5, headwidth=8),
              fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='#e6ffe6', edgecolor='darkgreen', lw=1.5),
