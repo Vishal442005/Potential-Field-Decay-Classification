@@ -175,7 +175,7 @@ Why does Anisotropic PFDC resist hyperspherical concentration where naive RBF an
 # =========================================================================
 # 5. ASSEMBLE FULL LATEX SOURCES
 # =========================================================================
-with open("PFDC_Manuscript.tex", "r", encoding="utf-8") as f:
+with open("reconstructed_base.tex", "r", encoding="utf-8") as f:
     raw_tex = f.read()
 
 # Locate Section 2
