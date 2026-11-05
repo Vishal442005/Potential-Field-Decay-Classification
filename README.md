@@ -2,6 +2,7 @@
 ### *A Physics-Grounded Machine Learning Paradigm with Certified Certainty Cores, PAC Generalization Bounds, and Continuous Counterfactual Recourse*
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23936990.svg)](https://doi.org/10.5281/zenodo.23936990)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0006--0552--8551-green.svg)](https://orcid.org/0009-0006-0552-8551)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Paper: Camera--Ready](https://img.shields.io/badge/Paper-IEEE%20TPAMI%20Submission-red.svg)](PFDC_Manuscript.pdf)
@@ -178,12 +179,12 @@ y_fast = model.predict(X_test)
 If you use this work in your research, please cite:
 
 ```bibtex
-@software{sringeri2026pfdc,
+@software{chandel2026pfdc,
   title={Potential Field Decay Classification (PFDC): A Physics-Grounded Machine Learning Paradigm with Certified Certainty Cores, PAC Generalization Bounds, and Continuous Counterfactual Recourse},
-  author={Sringeri, Vishal},
+  author={Chandel, Vishal and Chandel, Adarsh},
   year={2026},
   publisher={Zenodo},
-  version={v1.1.0},
+  version={v1.2.0},
   doi={10.5281/zenodo.23936990},
   url={https://doi.org/10.5281/zenodo.23936990}
 }

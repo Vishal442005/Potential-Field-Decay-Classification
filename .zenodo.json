@@ -1,0 +1,33 @@
+{
+  "title": "Potential Field Decay Classification (PFDC): A Physics-Grounded Machine Learning Paradigm with Certified Certainty Cores, PAC Generalization Bounds, and Continuous Counterfactual Recourse",
+  "description": "Potential Field Decay Classification (PFDC) is an interpretable machine learning paradigm grounded in physical electrostatics. In PFDC, training observations act as localized radial energy sources with an inner deterministic certainty core zone (100% certified adversarial invariance against L2 perturbations) transitioning into an exponential decay shell. Features include formal PAC generalization bounds, accelerating exponential learning rate schedule quenching limit cycles, anisotropic metric tensors, spatial Ball-Tree O(log N) indexing, and continuous curl-free counterfactual recourse.",
+  "creators": [
+    {
+      "name": "Chandel, Vishal",
+      "given_name": "Vishal",
+      "family_name": "Chandel",
+      "orcid": "0009-0006-0552-8551",
+      "affiliation": "Department of Electronics and Communication Engineering, Jawaharlal Nehru Government Engineering College Sundernagar, Mandi, Himachal Pradesh, India"
+    },
+    {
+      "name": "Chandel, Adarsh",
+      "given_name": "Adarsh",
+      "family_name": "Chandel",
+      "affiliation": "Chitkara University Institute of Engineering and Technology, Chitkara University, Punjab, India"
+    }
+  ],
+  "keywords": [
+    "Potential Field Decay Classification",
+    "Certified Adversarial Robustness",
+    "Certainty Basins",
+    "Explainable AI",
+    "Counterfactual Recourse",
+    "Hamiltonian Annealing",
+    "Spatial Ball-Tree",
+    "Pattern Recognition",
+    "Physics-Informed Machine Learning"
+  ],
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open"
+}
