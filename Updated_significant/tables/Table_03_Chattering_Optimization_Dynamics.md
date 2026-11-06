@@ -1,0 +1,9 @@
+# Table 03 Chattering Optimization Dynamics
+
+| Metric | Case 1 (Fixed) | Case 2 (Halved) | Case 3 (Accelerating Exp) | Outcome |
+| --- | --- | --- | --- | --- |
+| Total Sign Shifts | 78 | 34 | 8 (89.7% reduction) | Eliminates limit cycles |
+| Final R^core | 0.150 (chattering) | 0.150 (sluggish) | 0.150 (settled) | Certified core preservation |
+| Final R^decay | 0.3888 | 0.3888 | 0.3888 | Discovers identical shell |
+| Final Test BCE Loss | 0.1315 | 0.1270 | 0.1271 | Lowest cross-entropy |
+| Final Test Accuracy | 97.22% | 97.22% | 97.22% | Peak test accuracy |

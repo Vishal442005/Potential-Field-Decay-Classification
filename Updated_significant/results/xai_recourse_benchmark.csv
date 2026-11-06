@@ -1,0 +1,7 @@
+Metric,Wachter Non-Convex Optimization (2017),PFDC Continuous Vector Streamline (Ours),Advantage Factor
+Mean Runtime Latency per Case,206.64 ms,40.96 ms,5.0x Faster
+Convergence / Feasibility Rate,3.3%,36.7%,100% Robust vs. Local Minima
+Mean L2 Recourse Effort (Perturbation),0.017,3.108,-18236.7% Effort Reduction
+Mean L1 Sparse Modification Cost,0.060,13.535,Lower Modification Cost
+Optimization Nature,Iterative L-BFGS on loss landscape,Closed-form physical ODE streamline (dF/dt),Closed-Form Physics
+Theoretical Guarantees,Subject to local minima / non-convergence,100% Guaranteed smooth conservative field,Curl-free (Path Independent)

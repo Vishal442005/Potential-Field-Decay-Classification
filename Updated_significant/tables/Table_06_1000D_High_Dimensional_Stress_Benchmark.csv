@@ -1,0 +1,9 @@
+Model Architecture,Paradigm,Test Accuracy (%),Macro F1,BCE Loss,Fit Time (s)
+Kernel SVM (RBF),Global Kernel,85.47%,0.8575,0.3172,4.34 s
+Deep MLP (PyTorch),Deep Network,81.73%,0.8181,0.5974,2.10 s
+Anisotropic PFDC (Ours),Weighted Potential,75.87%,0.7735,0.5263,52.51 s
+Isotropic PFDC (Ours),Unweighted Potential,74.80%,0.7629,0.5485,24.30 s
+LightGBM (v4.7.0),Tree Boosting,72.80%,0.7323,0.5315,2.33 s
+XGBoost (v3.2.0),Tree Boosting,72.00%,0.7207,0.5373,3.97 s
+Random Forest (100 Trees),Tree Ensemble,70.27%,0.7108,0.6460,1.97 s
+Logistic Regression (ℓ₂),Linear Margin,64.53%,0.6509,2.8932,0.57 s

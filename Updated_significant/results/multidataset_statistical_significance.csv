@@ -1,0 +1,7 @@
+Competitor,Accuracy Delta (%),Wilcoxon p-value,Statistically Significant (p < 0.05)
+Deep MLP,-8.46%,0.0312,Yes
+LightGBM,-8.00%,0.0312,Yes
+SVM (RBF),-7.75%,0.0312,Yes
+XGBoost,-7.63%,0.0312,Yes
+Random Forest,-6.97%,0.0312,Yes
+PFDC (Isotropic Ours),+1.98%,0.0625,Competitive (p >= 0.05)

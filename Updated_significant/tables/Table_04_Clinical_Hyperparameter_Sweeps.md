@@ -1,0 +1,17 @@
+# Table 04 Clinical Hyperparameter Sweeps
+
+| Parameter Swept | Tested Value | Test Accuracy (%) | F1-Score | Physical Effect / Guarantee |
+| --- | --- | --- | --- | --- |
+| Core Ratio (R^core / R^decay) | 0.05 | 97.66% | 0.9811 | Compact core (r_cert = 0.051) |
+| Core Ratio (R^core / R^decay) | 0.15 | 97.08% | 0.9763 | Optimal certified safety (r_cert = 0.154) |
+| Core Ratio (R^core / R^decay) | 0.30 | 96.49% | 0.9717 | Moderate core expansion (r_cert = 0.307) |
+| Core Ratio (R^core / R^decay) | 0.50 | 96.49% | 0.9717 | Saturated core domain |
+| Decay Rate (λ) | 1.0 | 97.66% | 0.9811 | Diffuse boundary gradient |
+| Decay Rate (λ) | 2.5 | 97.08% | 0.9763 | Optimal conservative force gradient (L_I ≤ 0.96) |
+| Decay Rate (λ) | 5.0 | 97.66% | 0.9811 | Steep step-like falloff |
+| Support Regularizer (C) | 0.10 | 94.74% | 0.9585 | High sparsity, smooth boundary |
+| Support Regularizer (C) | 2.00 | 97.08% | 0.9763 | Optimal margin and charge allocation (63.8% pruned) |
+| Support Regularizer (C) | 10.00 | 96.49% | 0.9717 | Dense boundary charge retention |
+| Kernel Blend (γ) | 0.10 | 97.08% | 0.9763 | Predominantly RBF tail |
+| Kernel Blend (γ) | 0.50 | 97.08% | 0.9763 | Equipartition of compact core and tail (2.45× speedup) |
+| Kernel Blend (γ) | 1.00 | 95.91% | 0.9665 | Pure compact support kernel (3.86× speedup) |
