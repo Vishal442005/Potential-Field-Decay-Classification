@@ -31,11 +31,14 @@ import pypdfium2 as pdfium
 from latex2mathml.converter import convert as latex_to_mathml
 import mathml2omml
 
-TEX_FILE = os.path.join("elsevier_submission", "PFDC_PatternRecognition.tex")
-BBL_FILE = os.path.join("elsevier_submission", "PFDC_PatternRecognition.bbl")
-BIB_FILE = os.path.join("elsevier_submission", "references.bib")
+TEX_FILE = os.path.join("Updated_significant", "manuscript", "PFDC_PatternRecognition.tex")
+BBL_FILE = os.path.join("Updated_significant", "manuscript", "PFDC_PatternRecognition.bbl")
+BIB_FILE = os.path.join("Updated_significant", "manuscript", "references.bib")
 
 OUTPUT_DOCX_FILES = [
+    os.path.join("Updated_significant", "manuscript", "PFDC_PatternRecognition.docx"),
+    os.path.join("Updated_significant", "manuscript", "PFDC_PR_final.docx"),
+    os.path.join("Updated_significant", "manuscript", "PFDC_TPAMI.docx"),
     os.path.join("elsevier_submission", "PFDC_PatternRecognition.docx"),
     os.path.join("elsevier_submission", "PFDC_PR_final.docx"),
     os.path.join("tpami_submission", "PFDC_TPAMI.docx"),
@@ -57,7 +60,7 @@ CITATIONS_MAP = {
     'szegedy2014intriguing': '16', 'madry2018towards': '17', 'cohen2019certified': '18',
     'wachter2017counterfactual': '19', 'mothilal2020explaining': '20', 'ustun2019actionable': '21',
     'bartlett2002rademacher': '22', 'beyer1999nearest': '23', 'chen2018neural': '24',
-    'bronstein2017geometric': '25'
+    'bronstein2017geometric': '25', 'weinberger2009distance': '26'
 }
 
 FIGURES_MAP = {
@@ -100,7 +103,8 @@ TABLES_MAP = {
     'tab:adversarial': 'Table 11',
     'tab:spatial_accel': 'Table 12',
     'tab:california_housing': 'Table 13',
-    'tab:xai': 'Table 14'
+    'tab:xai': 'Table 14',
+    'tab:operational_regimes': 'Table 15'
 }
 
 SECTIONS_MAP = {
@@ -111,12 +115,14 @@ SECTIONS_MAP = {
     'sec:proposed_pfdc': 'Section 1.4',
     'sec:contributions': 'Section 1.5',
     'sec:subspace_stacking': 'Section 2.4',
+    'sec:sweeps': 'Section 5.2',
     'sec:haepo': 'Section 5.3',
     'sec:highd_scaling': 'Section 6.2',
     'sec:four_fields': 'Section 6.3',
     'sec:ambient_bias': 'Section 6.5',
     'sec:adversarial_bench': 'Section 6.7',
-    'sec:riemannian': 'Section 7'
+    'sec:riemannian': 'Section 7',
+    'sec:taxonomy': 'Section 8'
 }
 
 THEOREMS_MAP = {
@@ -1276,7 +1282,9 @@ def build_all_elsevier_pr_docx():
         
     # Copy to Brain Artifacts Directory
     for doc_name in ["PFDC_PatternRecognition.docx", "PFDC_PR_final.docx", "PFDC_TPAMI.docx", "PFDC_Manuscript.docx"]:
-        src = doc_name if os.path.exists(doc_name) else os.path.join("elsevier_submission", doc_name)
+        src = os.path.join("Updated_significant", "manuscript", doc_name)
+        if not os.path.exists(src):
+            src = doc_name if os.path.exists(doc_name) else os.path.join("elsevier_submission", doc_name)
         if not os.path.exists(src):
             src = os.path.join("tpami_submission", doc_name)
         if os.path.exists(src):
@@ -1284,9 +1292,15 @@ def build_all_elsevier_pr_docx():
             shutil.copy2(src, dst)
             print(f"Copied artifact: {dst}")
 
-    # Also copy the PDF files to Brain Artifacts Directory
+    # Also copy the PDF files to Brain Artifacts Directory and submissions
+    master_pdf = os.path.join("Updated_significant", "manuscript", "PFDC_PatternRecognition.pdf")
+    if os.path.exists(master_pdf):
+        for sub_dst in ["elsevier_submission/PFDC_PatternRecognition.pdf", "PFDC_Manuscript.pdf", "tpami_submission/PFDC_TPAMI.pdf"]:
+            shutil.copy2(master_pdf, sub_dst)
+            print(f"Synchronized PDF: {sub_dst}")
+
     for pdf_name, rel_path in [
-        ("PFDC_PatternRecognition.pdf", "elsevier_submission/PFDC_PatternRecognition.pdf"),
+        ("PFDC_PatternRecognition.pdf", "Updated_significant/manuscript/PFDC_PatternRecognition.pdf"),
         ("PFDC_TPAMI.pdf", "tpami_submission/PFDC_TPAMI.pdf"),
         ("PFDC_Manuscript.pdf", "PFDC_Manuscript.pdf")
     ]:

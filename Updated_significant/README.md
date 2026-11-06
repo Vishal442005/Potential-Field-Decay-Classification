@@ -11,7 +11,7 @@ Updated_significant/
 ├── manuscript/                    # Complete manuscript versions in DOCX, PDF, and LaTeX
 │   ├── PFDC_PatternRecognition.docx  # Native Word format with OMML equations, tables & figures
 │   ├── PFDC_PR_final.docx            # Camera-ready matching DOCX
-│   ├── PFDC_PatternRecognition.pdf   # 59-page camera-ready compiled PDF
+│   ├── PFDC_PatternRecognition.pdf   # 70-page camera-ready compiled PDF
 │   ├── PFDC_PatternRecognition.tex   # Full unabridged LaTeX source (14 tables, 23 figures)
 │   ├── PFDC_TPAMI.docx / .tex        # IEEE TPAMI companion manuscript
 │   ├── Cover_Letter.docx             # Submission cover letter
@@ -23,9 +23,9 @@ Updated_significant/
 │   ├── *.png                      # High-resolution raster renders
 │   └── FIGURES_AND_TREND_ANALYSIS.md # Curve-by-curve physical & mathematical explanations
 │
-├── tables/                        # All 14 empirical tables in individual CSV & Markdown
-│   ├── Table_01 to Table_14.csv   # Machine-readable tabular datasets
-│   └── Table_01 to Table_14.md    # Formatted Markdown tables with mathematical notes
+├── tables/                        # All 15 empirical tables in individual CSV & Markdown
+│   ├── Table_01 to Table_15.csv   # Machine-readable tabular datasets
+│   └── Table_01 to Table_15.md    # Formatted Markdown tables with mathematical notes
 │
 ├── results/                       # Raw experimental benchmark results & pivot matrices
 │   ├── four_fields_full_benchmark.csv

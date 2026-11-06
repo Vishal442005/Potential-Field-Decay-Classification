@@ -1,0 +1,15 @@
+Regime Category,Operational Condition,PFDC Behavior / Guarantee,Primary Competitor,Physical / Mathematical Mechanism
+Regime I: Dominance,Adversarial l2 Attack (eps >= 0.15),100.0% Certified Invariance,All DNNs Collapse (13.45%),Saturated Core I = 1.0 implies nabla L = 0 (Zero Torque)
+Regime I: Dominance,Continuous XAI Recourse,5.0x Faster 100% Convergence,Wachter Non-Convex (3.3%),Curl-Free Conservative Force Field (nabla x F = 0)
+Regime I: Dominance,High-D Sparse Signals (D=1000),75.87% Acc (#1 Non-Kernel),Trees Degrade (70.27%),l1 Metric Tensor Pruning (d_eff ~ 20.0 << 1000)
+Regime I: Dominance,Clustered Workloads (N >= 10^4),Sub-linear O(log N) Scaling,RBF-SVM Quadratic,Compact Horizon R_horizon Prunes Exterior Spheres in O(1)
+Regime II: Competitive,Standard Clean Tabular (D <= 50),94.29%-97.23% Accuracy,LightGBM Kernel SVM,Dual Support Charges Match Bayes-Optimal Separability
+Regime II: Competitive,Balanced Multi-Class Settings,94.88%-96.63% Accuracy,OvR RBF-SVM Deep MLP,Boltzmann Softmax Maps Potential Ridges to Simplex
+Regime II: Competitive,Medium Tabular (N=20640),83.72% Acc 3.26x BallTree,TabNet (84.59%) FT-Trans,Competitive with Deep Tabular + Certified Radius
+Regime III: Stress,Undersampled Space (N/D < 5),Accuracy Drops to 81.28%,LightGBM (86.59%),Distance Concentration Degrades Anchor Core Estimation
+Regime III: Stress,Moderate Noise (10%-25%),Moderate Margin Distortion,Robust Ensemble,Inverted Polarity Anchors Induce Local Potential Vortices
+Regime III: Stress,Class Imbalance (> 1:10),Requires Bias b* Re-centering,Cost-Sensitive Boosting,Unmitigated Superposition Floats DC Ambient Ground Offset
+Regime IV: Breakdown,Dense Unstructured High-D (D > 10^4),Complete Metric Collapse,Convolutional Networks / ViT,lim sigma/mu -> 0 Across Raw Pixels
+Regime IV: Breakdown,Severe Label Noise (> 30%),Boundary Inversion Breakdown,Noise-Tolerant Loss Models,Opposing Cores Cancel Decision Margin (R_core -> 0)
+Regime IV: Breakdown,Massive Unclustered Big Data (N > 10^7),Storage / Kernel Memory Limit,Parametric DNNs,Non-Sparse Anchor Arrays Exceed Cache Hierarchy
+Regime IV: Breakdown,Distributional Overlap (Bayes Error > 35%),Core Assumption Collapses,Logistic Density Mixture,Identical Class Density Prevents Separation (R_core -> 0)

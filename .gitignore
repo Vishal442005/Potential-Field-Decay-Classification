@@ -63,3 +63,7 @@ Cover_Letter*.docx
 *.zip
 elsevier_submission/
 tpami_submission/
+
+# Allow tracked updated source in Updated_significant
+!Updated_significant/manuscript/*.tex
+!Updated_significant/manuscript/*.bbl

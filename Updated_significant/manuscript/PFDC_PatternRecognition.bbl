@@ -1,0 +1,126 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{cortes1995support}
+C.~Cortes, V.~Vapnik, Support-vector networks, Machine learning 20~(3) (1995)
+  273--297.
+
+\bibitem{vapnik1998statistical}
+V.~N. Vapnik, Statistical Learning Theory, Wiley, New York, 1998.
+
+\bibitem{scholkopf2002learning}
+B.~Sch{\"o}lkopf, A.~J. Smola, Learning with Kernels: Support Vector Machines,
+  Regularization, Optimization, and Beyond, MIT Press, Cambridge, MA, 2002.
+
+\bibitem{broomhead1988multivariable}
+D.~S. Broomhead, D.~Lowe, Multivariable functional interpolation and adaptive
+  networks, Complex Systems 2~(3) (1988) 321--355.
+
+\bibitem{omohundro1989five}
+S.~M. Omohundro, Five balltree construction algorithms, International Computer
+  Science Institute Berkeley (1989).
+
+\bibitem{breiman2001random}
+L.~Breiman, Random forests, Machine Learning 45~(1) (2001) 5--32.
+
+\bibitem{friedman2001greedy}
+J.~H. Friedman, Greedy function approximation: a gradient boosting machine,
+  Annals of Statistics (2001) 1189--1232.
+
+\bibitem{chen2016xgboost}
+T.~Chen, C.~Guestrin, Xgboost: A scalable tree boosting system, in: Proceedings
+  of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and
+  Data Mining, 2016, pp. 785--794.
+
+\bibitem{ke2017lightgbm}
+G.~Ke, Q.~Meng, T.~Finley, T.~Wang, W.~Chen, W.~Ma, Q.~Ye, T.-Y. Liu, Lightgbm:
+  A highly efficient gradient boosting decision tree, Advances in Neural
+  Information Processing Systems 30 (2017).
+
+\bibitem{lecun2015deep}
+Y.~LeCun, Y.~Bengio, G.~Hinton, Deep learning, Nature 521~(7553) (2015)
+  436--444.
+
+\bibitem{arik2021tabnet}
+S.~{\"O}. Arik, T.~Pfister, Tabnet: Attentive interpretable tabular learning,
+  in: Proceedings of the AAAI Conference on Artificial Intelligence, Vol.~35,
+  2021, pp. 6679--6687.
+
+\bibitem{gorishniy2021revisiting}
+Y.~Gorishniy, I.~Rubachev, V.~Khrulkov, A.~Babenko, Revisiting deep learning
+  models for tabular data, in: Advances in Neural Information Processing
+  Systems, Vol.~34, 2021, pp. 18932--18943.
+
+\bibitem{goodfellow2014explaining}
+I.~J. Goodfellow, J.~Shlens, C.~Szegedy, Explaining and harnessing adversarial
+  examples, International Conference on Learning Representations (ICLR) (2015).
+
+\bibitem{aizerman1964theoretical}
+M.~A. Aizerman, E.~M. Braverman, L.~I. Rozonoer, Theoretical foundations of the
+  potential function method in pattern recognition learning, Automation and
+  Remote Control 25 (1964) 821--837.
+
+\bibitem{robbins1951stochastic}
+H.~Robbins, S.~Monro, A stochastic approximation method, The Annals of
+  Mathematical Statistics (1951) 400--407.
+
+\bibitem{szegedy2014intriguing}
+C.~Szegedy, W.~Zaremba, I.~Sutskever, J.~Bruna, D.~Erhan, I.~Goodfellow,
+  R.~Fergus, Intriguing properties of neural networks, in: International
+  Conference on Learning Representations (ICLR), 2014.
+
+\bibitem{madry2018towards}
+A.~Madry, A.~Makelov, L.~Schmidt, D.~Tsipras, A.~Vladu, Towards deep learning
+  models resistant to adversarial attacks, International Conference on Learning
+  Representations (ICLR) (2018).
+
+\bibitem{cohen2019certified}
+J.~Cohen, E.~Rosenfeld, Z.~Kolter, Certified adversarial robustness via
+  randomized smoothing, in: International Conference on Machine Learning, PMLR,
+  2019, pp. 1310--1320.
+
+\bibitem{wachter2017counterfactual}
+S.~Wachter, B.~Mittelstadt, C.~Russell, Counterfactual explanations without
+  opening the black box: Automated decisions and the gdpr, Harvard Journal of
+  Law \& Technology 31 (2017) 841.
+
+\bibitem{mothilal2020explaining}
+R.~K. Mothilal, A.~Sharma, C.~Tan, Explaining machine learning classifiers
+  through diverse counterfactual explanations, in: Proceedings of the 2020
+  Conference on Fairness, Accountability, and Transparency, 2020, pp. 607--617.
+
+\bibitem{ustun2019actionable}
+B.~Ustun, A.~Spangher, Y.~Liu, Actionable recourse in linear classification,
+  in: Proceedings of the Conference on Fairness, Accountability, and
+  Transparency, 2019, pp. 10--19.
+
+\bibitem{weinberger2009distance}
+K.~Q. Weinberger, L.~K. Saul, Distance metric learning for large margin nearest
+  neighbor classification, Journal of Machine Learning Research 10~(2) (2009)
+  207--244.
+
+\bibitem{bartlett2002rademacher}
+P.~L. Bartlett, S.~Mendelson, Rademacher and gaussian complexities: Risk bounds
+  and structural results, Journal of Machine Learning Research 3 (2002)
+  463--482.
+
+\bibitem{beyer1999nearest}
+K.~Beyer, J.~Goldstein, R.~Ramakrishnan, U.~Shaft, When is nearest neighbor
+  meaningful?, in: International Conference on Database Theory, Springer, 1999,
+  pp. 217--235.
+
+\bibitem{chen2018neural}
+R.~T. Chen, Y.~Rubanova, J.~Bettencourt, D.~K. Duvenaud, Neural ordinary
+  differential equations, in: Advances in Neural Information Processing
+  Systems, Vol.~31, 2018, pp. 6571--6583.
+
+\bibitem{bronstein2017geometric}
+M.~M. Bronstein, J.~Bruna, Y.~LeCun, A.~Szlam, P.~Vandergheynst, Geometric deep
+  learning: going beyond euclidean data, IEEE Signal Processing Magazine 34~(4)
+  (2017) 18--42.
+
+\end{thebibliography}
