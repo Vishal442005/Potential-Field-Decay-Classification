@@ -125,11 +125,6 @@ C.~Xu, Y.~Ding, Z.~Wang, Z.-H. Zhou, Modern tabular representation learning and
 S.~M. Omohundro, Five balltree construction algorithms, International Computer
   Science Institute Berkeley 89 (1989) 1--22.
 
-\bibitem{athalye2018obfuscated}
-A.~Athalye, N.~Carlini, D.~Wagner, Obfuscated gradients give a false sense of
-  security: Circumventing defenses to adversarial examples, in: International
-  Conference on Machine Learning (ICML), 2018, pp. 274--283.
-
 \bibitem{cover1967nearest}
 T.~Cover, P.~Hart, Nearest neighbor pattern classification, IEEE Transactions
   on Information Theory 13~(1) (1967) 21--27.
@@ -152,6 +147,11 @@ J.~Zhang, B.~Han, T.~Liu, G.~Niu, M.~Sugiyama, Adversarial robustness via
 A.~Madry, A.~Makelov, L.~Schmidt, D.~Tsipras, A.~Vladu, Towards deep learning
   models resistant to adversarial attacks, in: International Conference on
   Learning Representations (ICLR), 2018.
+
+\bibitem{athalye2018obfuscated}
+A.~Athalye, N.~Carlini, D.~Wagner, Obfuscated gradients give a false sense of
+  security: Circumventing defenses to adversarial examples, in: International
+  Conference on Machine Learning (ICML), 2018, pp. 274--283.
 
 \bibitem{croce2020reliable}
 F.~Croce, M.~Hein, Reliable evaluation of adversarial robustness with an
