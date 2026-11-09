@@ -74,10 +74,10 @@ K.~Beyer, J.~Goldstein, R.~Ramakrishnan, U.~Shaft, When is ``nearest neighbor''
   meaningful?, in: International Conference on Database Theory (ICDT), 1999,
   pp. 217--235.
 
-\bibitem{liu2023metric_pr}
-W.~Liu, Y.~Zhang, J.~Song, M.~Li, Anisotropic metric learning for
-  high-dimensional feature selection and pattern classification, Pattern
-  Recognition 134 (2023) 109088.
+\bibitem{weinberger2009distance}
+K.~Q. Weinberger, L.~K. Saul, Distance metric learning for large margin nearest
+  neighbor classification, Journal of Machine Learning Research 10 (2009)
+  207--244.
 
 \bibitem{wachter2017counterfactual}
 S.~Wachter, B.~Mittelstadt, C.~Russell, Counterfactual explanations without
@@ -106,20 +106,10 @@ B.~Ustun, A.~Spangher, Y.~Liu, Actionable recourse in linear classification,
   in: Proceedings of the Conference on Fairness, Accountability, and
   Transparency (FAT*), 2019, pp. 10--19.
 
-\bibitem{weinberger2009distance}
-K.~Q. Weinberger, L.~K. Saul, Distance metric learning for large margin nearest
-  neighbor classification, Journal of Machine Learning Research 10 (2009)
-  207--244.
-
 \bibitem{arik2021tabnet}
 S.~O. Arik, T.~Pfister, {TabNet}: Attentive interpretable tabular learning,
   Proceedings of the AAAI Conference on Artificial Intelligence 35~(8) (2021)
   6673--6681.
-
-\bibitem{xu2024tabular_pr}
-C.~Xu, Y.~Ding, Z.~Wang, Z.-H. Zhou, Modern tabular representation learning and
-  inductive biases in pattern recognition, Pattern Recognition 148 (2024)
-  110192.
 
 \bibitem{omohundro1989five}
 S.~M. Omohundro, Five balltree construction algorithms, International Computer
@@ -138,10 +128,6 @@ J.~Bromley, I.~Guyon, Y.~LeCun, E.~S{\"a}ckinger, R.~Shah, Signature
 R.~Hadsell, S.~Chopra, Y.~LeCun, Dimensionality reduction by learning an
   invariant mapping, in: IEEE Computer Society Conference on Computer Vision
   and Pattern Recognition (CVPR), Vol.~2, 2006, pp. 1735--1742.
-
-\bibitem{zhang2022adversarial_pr}
-J.~Zhang, B.~Han, T.~Liu, G.~Niu, M.~Sugiyama, Adversarial robustness via
-  localized energy-based regularization, Pattern Recognition 122 (2022) 108316.
 
 \bibitem{madry2018towards}
 A.~Madry, A.~Makelov, L.~Schmidt, D.~Tsipras, A.~Vladu, Towards deep learning
@@ -184,10 +170,6 @@ A.~Shrikumar, P.~Greenside, A.~Kundaje, Learning important features through
   propagating activation differences, in: International Conference on Machine
   Learning (ICML), 2017, pp. 3145--3153.
 
-\bibitem{wang2021explainable_pr}
-R.~Wang, S.~Pan, P.~Hu, D.~Peng, Physics-guided neural networks for
-  interpretable pattern classification, Pattern Recognition 118 (2021) 108035.
-
 \bibitem{bartlett2002rademacher}
 P.~L. Bartlett, S.~Mendelson, Rademacher and {Gaussian} complexities: Risk
   bounds and structural results, Journal of Machine Learning Research 3 (2002)
@@ -196,6 +178,11 @@ P.~L. Bartlett, S.~Mendelson, Rademacher and {Gaussian} complexities: Risk
 \bibitem{robbins1951stochastic}
 H.~Robbins, S.~Monro, A stochastic approximation method, The Annals of
   Mathematical Statistics 22~(3) (1951) 400--407.
+
+\bibitem{byrd1995limited}
+R.~H. Byrd, P.~Lu, J.~Nocedal, C.~Zhu, A limited memory algorithm for bound
+  constrained optimization, SIAM Journal on Scientific Computing 16~(5) (1995)
+  1190--1208.
 
 \bibitem{neal2011mcmc}
 R.~M. Neal, {MCMC} using {Hamiltonian} dynamics, Handbook of Markov Chain Monte
