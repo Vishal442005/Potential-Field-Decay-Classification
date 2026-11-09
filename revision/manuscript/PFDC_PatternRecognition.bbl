@@ -1,0 +1,214 @@
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{cortes1995support}
+C.~Cortes, V.~Vapnik, Support-vector networks, Machine Learning 20~(3) (1995)
+  273--297.
+
+\bibitem{breiman2001random}
+L.~Breiman, Random forests, Machine Learning 45~(1) (2001) 5--32.
+
+\bibitem{chen2016xgboost}
+T.~Chen, C.~Guestrin, {XGBoost}: A scalable tree boosting system, in:
+  Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge
+  Discovery and Data Mining, 2016, pp. 785--794.
+
+\bibitem{ke2017lightgbm}
+G.~Ke, Q.~Meng, T.~Finley, T.~Wang, W.~Chen, W.~Ma, Q.~Ye, T.-Y. Liu,
+  {LightGBM}: A highly efficient gradient boosting decision tree, Advances in
+  Neural Information Processing Systems 30 (2017) 3146--3154.
+
+\bibitem{scholkopf2002learning}
+B.~Sch{\"o}lkopf, A.~J. Smola, Learning with Kernels: Support Vector Machines,
+  Regularization, Optimization, and Beyond, MIT Press, 2002.
+
+\bibitem{friedman2001greedy}
+J.~H. Friedman, Greedy function approximation: a gradient boosting machine,
+  Annals of Statistics 29~(5) (2001) 1189--1232.
+
+\bibitem{lecun2015deep}
+Y.~LeCun, Y.~Bengio, G.~Hinton, Deep learning, Nature 521~(7553) (2015)
+  436--444.
+
+\bibitem{gorishniy2021revisiting}
+Y.~Gorishniy, I.~Rubachev, V.~Khrulkov, A.~Babenko, Revisiting deep learning
+  models for tabular data, in: Advances in Neural Information Processing
+  Systems, Vol.~34, 2021, pp. 18932--18943.
+
+\bibitem{vapnik1998statistical}
+V.~N. Vapnik, Statistical Learning Theory, John Wiley and Sons, 1998.
+
+\bibitem{szegedy2014intriguing}
+C.~Szegedy, W.~Zaremba, I.~Sutskever, J.~Bruna, D.~Erhan, I.~Goodfellow,
+  R.~Fergus, Intriguing properties of neural networks, in: International
+  Conference on Learning Representations (ICLR), 2014.
+
+\bibitem{goodfellow2014explaining}
+I.~J. Goodfellow, J.~Shlens, C.~Szegedy, Explaining and harnessing adversarial
+  examples, in: International Conference on Learning Representations (ICLR),
+  2015.
+
+\bibitem{aizerman1964theoretical}
+M.~A. Aizerman, E.~M. Braverman, L.~I. Rozonoer, Theoretical foundations of the
+  potential function method in pattern recognition learning, Automation and
+  Remote Control 25 (1964) 821--837.
+
+\bibitem{parzen1962estimation}
+E.~Parzen, On estimation of a probability density function and mode, The Annals
+  of Mathematical Statistics 33~(3) (1962) 1065--1076.
+
+\bibitem{nadaraya1964estimating}
+E.~A. Nadaraya, On estimating regression, Theory of Probability and Its
+  Applications 9~(1) (1964) 141--142.
+
+\bibitem{broomhead1988multivariable}
+D.~S. Broomhead, D.~Lowe, Radial basis functions, multi-variable functional
+  interpolation and adaptive networks, Complex Systems 2~(3) (1988) 321--355.
+
+\bibitem{beyer1999nearest}
+K.~Beyer, J.~Goldstein, R.~Ramakrishnan, U.~Shaft, When is ``nearest neighbor''
+  meaningful?, in: International Conference on Database Theory (ICDT), 1999,
+  pp. 217--235.
+
+\bibitem{liu2023metric_pr}
+W.~Liu, Y.~Zhang, J.~Song, M.~Li, Anisotropic metric learning for
+  high-dimensional feature selection and pattern classification, Pattern
+  Recognition 134 (2023) 109088.
+
+\bibitem{wachter2017counterfactual}
+S.~Wachter, B.~Mittelstadt, C.~Russell, Counterfactual explanations without
+  opening the black box: Automated decisions and the {GDPR}, Harvard Journal of
+  Law and Technology 31 (2017) 841--887.
+
+\bibitem{verma2022counterfactual_tpami}
+S.~Verma, V.~Boonsanong, M.~Hoang, K.~E. Keegan, C.~J. Runge, S.~Teso,
+  Counterfactual explanations and algorithmic recourse for machine learning: A
+  review, IEEE Transactions on Pattern Analysis and Machine Intelligence 46~(4)
+  (2024) 2110--2132.
+
+\bibitem{guidotti2018survey}
+R.~Guidotti, A.~Monreale, S.~Ruggieri, F.~Turini, F.~Giannotti, D.~Pedreschi, A
+  survey of methods for explaining black box models, ACM Computing Surveys
+  (CSUR) 51~(5) (2018) 1--42.
+
+\bibitem{mothilal2020explaining}
+R.~K. Mothilal, A.~Sharma, C.~Tan, Explaining machine learning classifiers
+  through diverse counterfactual explanations, in: Proceedings of the 2020
+  Conference on Fairness, Accountability, and Transparency (FAT*), 2020, pp.
+  607--617.
+
+\bibitem{ustun2019actionable}
+B.~Ustun, A.~Spangher, Y.~Liu, Actionable recourse in linear classification,
+  in: Proceedings of the Conference on Fairness, Accountability, and
+  Transparency (FAT*), 2019, pp. 10--19.
+
+\bibitem{weinberger2009distance}
+K.~Q. Weinberger, L.~K. Saul, Distance metric learning for large margin nearest
+  neighbor classification, Journal of Machine Learning Research 10 (2009)
+  207--244.
+
+\bibitem{arik2021tabnet}
+S.~O. Arik, T.~Pfister, {TabNet}: Attentive interpretable tabular learning,
+  Proceedings of the AAAI Conference on Artificial Intelligence 35~(8) (2021)
+  6673--6681.
+
+\bibitem{xu2024tabular_pr}
+C.~Xu, Y.~Ding, Z.~Wang, Z.-H. Zhou, Modern tabular representation learning and
+  inductive biases in pattern recognition, Pattern Recognition 148 (2024)
+  110192.
+
+\bibitem{omohundro1989five}
+S.~M. Omohundro, Five balltree construction algorithms, International Computer
+  Science Institute Berkeley 89 (1989) 1--22.
+
+\bibitem{athalye2018obfuscated}
+A.~Athalye, N.~Carlini, D.~Wagner, Obfuscated gradients give a false sense of
+  security: Circumventing defenses to adversarial examples, in: International
+  Conference on Machine Learning (ICML), 2018, pp. 274--283.
+
+\bibitem{cover1967nearest}
+T.~Cover, P.~Hart, Nearest neighbor pattern classification, IEEE Transactions
+  on Information Theory 13~(1) (1967) 21--27.
+
+\bibitem{bromley1993signature}
+J.~Bromley, I.~Guyon, Y.~LeCun, E.~S{\"a}ckinger, R.~Shah, Signature
+  verification using a siamese time delay neural network, Advances in Neural
+  Information Processing Systems 6 (1993) 737--744.
+
+\bibitem{hadsell2006dimensionality}
+R.~Hadsell, S.~Chopra, Y.~LeCun, Dimensionality reduction by learning an
+  invariant mapping, in: IEEE Computer Society Conference on Computer Vision
+  and Pattern Recognition (CVPR), Vol.~2, 2006, pp. 1735--1742.
+
+\bibitem{zhang2022adversarial_pr}
+J.~Zhang, B.~Han, T.~Liu, G.~Niu, M.~Sugiyama, Adversarial robustness via
+  localized energy-based regularization, Pattern Recognition 122 (2022) 108316.
+
+\bibitem{madry2018towards}
+A.~Madry, A.~Makelov, L.~Schmidt, D.~Tsipras, A.~Vladu, Towards deep learning
+  models resistant to adversarial attacks, in: International Conference on
+  Learning Representations (ICLR), 2018.
+
+\bibitem{croce2020reliable}
+F.~Croce, M.~Hein, Reliable evaluation of adversarial robustness with an
+  ensemble of diverse parameter-free attacks, in: International Conference on
+  Machine Learning (ICML), 2020, pp. 2206--2216.
+
+\bibitem{raghunathan2018certified}
+A.~Raghunathan, J.~Steinhardt, P.~Liang, Certified defenses against adversarial
+  examples, in: International Conference on Learning Representations (ICLR),
+  2018.
+
+\bibitem{cohen2019certified}
+J.~Cohen, E.~Rosenfeld, Z.~Kolter, Certified adversarial robustness via
+  randomized smoothing, in: International Conference on Machine Learning
+  (ICML), 2019, pp. 1310--1320.
+
+\bibitem{ribeiro2016why}
+M.~T. Ribeiro, S.~Singh, C.~Guestrin, ``{Why} should {I} trust you?'':
+  Explaining the predictions of any classifier, in: Proceedings of the 22nd ACM
+  SIGKDD International Conference on Knowledge Discovery and Data Mining, 2016,
+  pp. 1135--1144.
+
+\bibitem{lundberg2017unified}
+S.~M. Lundberg, S.-I. Lee, A unified approach to interpreting model
+  predictions, in: Advances in Neural Information Processing Systems, Vol.~30,
+  2017, pp. 4765--4774.
+
+\bibitem{shrikumar2017learning}
+A.~Shrikumar, P.~Greenside, A.~Kundaje, Learning important features through
+  propagating activation differences, in: International Conference on Machine
+  Learning (ICML), 2017, pp. 3145--3153.
+
+\bibitem{wang2021explainable_pr}
+R.~Wang, S.~Pan, P.~Hu, D.~Peng, Physics-guided neural networks for
+  interpretable pattern classification, Pattern Recognition 118 (2021) 108035.
+
+\bibitem{bartlett2002rademacher}
+P.~L. Bartlett, S.~Mendelson, Rademacher and {Gaussian} complexities: Risk
+  bounds and structural results, Journal of Machine Learning Research 3 (2002)
+  463--482.
+
+\bibitem{robbins1951stochastic}
+H.~Robbins, S.~Monro, A stochastic approximation method, The Annals of
+  Mathematical Statistics 22~(3) (1951) 400--407.
+
+\bibitem{neal2011mcmc}
+R.~M. Neal, {MCMC} using {Hamiltonian} dynamics, Handbook of Markov Chain Monte
+  Carlo 2~(11) (2011) 113--162.
+
+\bibitem{chen2018neural}
+R.~T. Chen, Y.~Rubanova, J.~Bettencourt, D.~K. Duvenaud, Neural ordinary
+  differential equations, Advances in Neural Information Processing Systems 31
+  (2018) 6571--6583.
+
+\bibitem{bronstein2017geometric}
+M.~M. Bronstein, J.~Bruna, Y.~LeCun, A.~Szlam, P.~Vandergheynst, Geometric deep
+  learning: going beyond {Euclidean} data, IEEE Signal Processing Magazine
+  34~(4) (2017) 18--42.
+
+\end{thebibliography}

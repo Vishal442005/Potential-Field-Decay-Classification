@@ -1,0 +1,123 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{times}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{xurl}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\begin{document}
+\noindent{\Large\textbf{Point-by-Point Response to Editor and Reviewers}}\\[0.5em]
+\noindent\textbf{Manuscript Reference:} PR-D-26-16242\\
+\textbf{Title:} Potential Field Decay Classification (PFDC): Provably Robust Classification via Electrostatic Potential Fields\\
+\textbf{Journal:} \textit{Pattern Recognition}, Elsevier\\
+\textbf{Authors:} Vishal Chandel, Adarsh Chandel\\[1em]
+\hrule\vspace{1em}
+
+\noindent Dear Dr. Ahmed Begga, Managing Editor, and Reviewers,\\[0.5em]
+We express our sincere gratitude for your thorough, constructive, and rigorous review of our manuscript \textbf{PR-D-26-16242}. We have carefully revised the manuscript in accordance with all editorial formatting guidelines and detailed peer review feedback. Below is our comprehensive, point-by-point response detailing every change made, along with exact section, equation, and page references in the revised 34-page manuscript.\\[1em]
+
+\section*{PART I: RESPONSE TO MANAGING EDITOR'S COMMENTS}
+
+\paragraph{Comment 1 (Formatting \& Document Class):}
+\textit{``Please revise your manuscript to comply with the journal's formatting guidelines... single-column, double-spaced format and the main text font size must be 10 pt. Please use the Elsevier template \texttt{\textbackslash documentclass[times, review, 10pt]\{elsarticle\}}.''}
+
+\paragraph{Response:}
+We have formatted the entire manuscript strictly using \texttt{\textbackslash documentclass[times, review, 10pt]\{elsarticle\}} in single-column, double-spaced format with 10\,pt Times New Roman font. All font sizes, baseline skips, and margins strictly conform to official Elsevier guidelines.
+
+\paragraph{Comment 2 (Page Count Constraints):}
+\textit{``Please ensure that a Regular Paper is longer than 20 pages and does not exceed 35 pages when correcting the manuscript format.''}
+
+\paragraph{Response:}
+The revised manuscript is exactly \textbf{34 pages} in the compiled review format, strictly satisfying the requirement of being longer than 20 pages and not exceeding 35 pages ($20 < 34 \le 35$). All auxiliary documents (Highlights, Cover Letter, Declarations) are provided as separate standalone documents.
+
+\paragraph{Comment 3 (Highlights Constraints):}
+\textit{``Highlights should consist of 3 to 5 bullet points, each a maximum of 85 characters, including spaces.''}
+
+\paragraph{Response:}
+We have provided 5 concise highlights, each strictly verified to be under 85 characters including spaces:
+\begin{enumerate}
+    \item \texttt{Potential Field Decay Classification unifies core certainty with radial decay.} (78 chars)
+    \item \texttt{Certified L2 margin robustness prevents adversarial prediction label flips.} (75 chars)
+    \item \texttt{Accelerating learning rate quenches 89.7\% of boundary chattering flips.} (71 chars)
+    \item \texttt{Hierarchical spatial Ball-Tree indexing achieves sub-linear O(log N) runtime.} (77 chars)
+    \item \texttt{Conservative force streamlines deliver 5.0x faster counterfactual recourse.} (75 chars)
+\end{enumerate}
+
+\paragraph{Comment 4 (Tables and Figures Formatting):}
+\textit{``The font size in tables must be 10 pt (minimum 8 pt). Please avoid vertical rules and shading in table cells. Also, avoid landscape or rotated tables and keep tables in the standard portrait layout when correcting them. The font size in footnotes, author names, affiliations, and figure/table captions must be 8 pt.''}
+
+\paragraph{Response:}
+All 12 tables in the revised manuscript:
+\begin{itemize}
+    \item Are set in standard portrait layout in clean \texttt{booktabs} format.
+    \item Strictly avoid vertical rules (zero \texttt{|} characters) and avoid all cell shading.
+    \item Use 8--10\,pt font sizes (\texttt{\textbackslash small} and \texttt{\textbackslash footnotesize}).
+    \item Are placed immediately adjacent to their textual citations in the manuscript body.
+    \item All captions and footnotes are set to 8\,pt font via \texttt{\textbackslash usepackage[font=footnotesize,labelfont=bf]\{caption\}}.
+\end{itemize}
+
+\paragraph{Comment 5 (Reference Count \& Numbering):}
+\textit{``The number of references ranges from 35 to 55 for a regular paper. References must be numbered in the order of appearance in the text.''}
+
+\paragraph{Response:}
+The bibliography has been expanded to exactly \textbf{44 references}, strictly within the 35--55 range. All references are cited and numbered sequentially in order of appearance using \texttt{elsarticle-num}. We have enriched the literature review with high-impact 2020--2024 publications from \textit{Pattern Recognition}, \textit{IEEE TPAMI}, \textit{ICML}, and \textit{NeurIPS}.
+
+\paragraph{Comment 6 (Mandatory Declarations):}
+\textit{``Declaration of use/non-use Generative AI at any stage of manuscript preparation is mandatory. Upload Declaration of competing interests...''}
+
+\paragraph{Response:}
+We have included both mandatory declarations prominently in the manuscript (Section 10) and provided separate signed declaration documents.
+
+\section*{PART II: RESPONSE TO REVIEWER 2'S TECHNICAL COMMENTS}
+
+\paragraph{Comment 1 (Removal of Non-Existent Zenodo DOI):}
+\textit{``Submitting a fake or unminted placeholder DOI is an immediate trigger for an administrative Desk Reject. Mint an actual Zenodo archive or remove the link and ensure GitHub is live and public.''}
+
+\paragraph{Response:}
+We sincerely apologize for the placeholder DOI string. We have completely excised all references to the placeholder Zenodo DOI. The Data and Code Availability section (Section 10) and title page now exclusively link to our active, public GitHub repository: \url{https://github.com/Vishal442005/Potential-Field-Decay-Classification}.
+
+\paragraph{Comment 2 (Certified Robustness vs. Gradient Quenching):}
+\textit{``Gradient Masking / Obfuscation != Certified Robustness. In Section 1.3.1 (Eqs. 2--3) and Section 6.7, having $\nabla_x L = 0$ is gradient masking (Athalye et al., ICML 2018), NOT certified robustness! Table 11 and Fig. 16 contradiction: If $\varepsilon > R^{\mathrm{core}}$, points are pushed completely outside the core!''}
+
+\paragraph{Response:}
+We thank Reviewer 2 for this critical and mathematically rigorous correction:
+\begin{enumerate}
+    \item \textbf{Delineation of Gradient Quenching vs. Certified Robustness:} We explicitly cite Athalye et al. (ICML 2018) and clarify that vanishing gradients ($\nabla_{\mathbf{x}} \mathcal{L} \equiv \mathbf{0}$) inside certainty cores represent first-order gradient quenching rather than universal robustness.
+    \item \textbf{Universal Lipschitz Margin Certification (Theorem~2 Part~1):} We established the universal certified robustness guarantee strictly via the Lipschitz margin: $r_{\mathrm{cert}}(\mathbf{x}) \triangleq \frac{|P(\mathbf{x})|}{L_P}$, where $L_P = L_I \sqrt{w_{\max}} \sum_{i=1}^N a_i$ is the global Lipschitz constant.
+    \item \textbf{Table 8 \& Figure 9 Correction:} We removed the flawed ``100\% Core Invariance'' column. Table 8 now reports the true certified robust accuracy ($r_{\mathrm{cert}}(\mathbf{x}) \ge \varepsilon$) monotonically decreasing with $\varepsilon$ ($97.08\%$ at $\varepsilon=0 \to 57.31\%$ at $\varepsilon=0.35 \to 2.34\%$ at $\varepsilon=1.50$), forming a provable lower bound on empirical PGD accuracy.
+\end{enumerate}
+
+\paragraph{Comment 3 (Clamping Lemma 1 Inflection Point):}
+\textit{``In Lemma 1, if $\lambda \alpha < \alpha - 1$, $u^* > 1$, which lies outside the decay shell domain $[0, 1]$.''}
+
+\paragraph{Response:}
+We revised Lemma~1 (Section 4.1, Eqs. 20--21) to explicitly clamp the critical point: $u^* = \min\left(1, \; \left(\frac{\alpha - 1}{\lambda \alpha}\right)^{1/\alpha}\right)$.
+
+\paragraph{Comment 4 (Force Field Normalization Factor):}
+\textit{``Equation 9 for the continuous force field is missing the normalization factor $(1 - \exp(-\lambda))$.''}
+
+\paragraph{Response:}
+Updated Eq. 18 and analytical gradient equations (Eqs. 28--30) to include $(1 - \exp(-\lambda))$ in the denominator.
+
+\paragraph{Comment 5 (Reconciliation of Internal Data Inconsistencies):}
+\paragraph{Response:}
+Reconciled all 4 empirical discrepancies against authentic CSV logs:
+\begin{itemize}
+    \item Ball-Tree Speedup: Unified to \textbf{$2.81\times$ at $N=10,000$} and \textbf{$2.40\times$ at $N=20,000$} ($<10^{-14}$ error).
+    \item Counterfactual Recourse Latency: Unified to \textbf{$40.96\text{ ms}$ ($5.0\times$ speedup over Wachter's $206.64\text{ ms}$)}.
+    \item Multi-Field 5-Fold CV: Banknote $97.23\%$, Cancer $96.84\%$, Ionosphere $94.29\%$, Sonar $81.28\%$.
+    \item Ionosphere DC Ground Bias: $\Delta V_{\mathrm{ambient}} \approx -1.84$ normalized ($+4.12$ raw), restoring accuracy from $69.81\%$ to $94.29\%$.
+\end{itemize}
+
+\paragraph{Comment 6 (Participation Ratio Parentheses):}
+\paragraph{Response:} Corrected in Eq. 36: $d_{\mathrm{eff}} = \frac{(\sum w_j)^2}{\sum w_j^2} \approx 20.0$.
+
+\paragraph{Comment 7 (Wachter Baseline Clarification):}
+\paragraph{Response:} Added explanatory note in Section 7.9 clarifying that Wachter stalls at 3.3\% on zero-gradient potential surfaces, but converges at 86.5\% on smooth neural networks (taking $206.64\text{ ms}$, $5.0\times$ slower than PFDC).
+
+\paragraph{Comment 8 (Algorithm Box):}
+\paragraph{Response:} Added formal Algorithm~1 Box detailing Bi-Level Alternating Electrostatic Optimization in Section 6.
+
+\end{document}

@@ -67,3 +67,10 @@ tpami_submission/
 # Allow tracked updated source in Updated_significant
 !Updated_significant/manuscript/*.tex
 !Updated_significant/manuscript/*.bbl
+
+# Allow tracked revision sources
+!revision/manuscript/*.tex
+!revision/manuscript/*.bbl
+!revision/manuscript/*.bib
+!revision/submission_documents/*.tex
+!revision/submission_documents/*.md
