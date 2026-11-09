@@ -1,0 +1,8 @@
+Model,Banknote,Cancer,Sonar,Spambase,Blood,Ionosphere
+Deep MLP,100.00,97.37,85.57,93.93,80.35,93.44
+LightGBM,99.42,96.31,86.59,94.33,77.54,93.73
+Kernel SVM (RBF),100.00,97.72,84.13,93.13,77.40,94.01
+XGBoost,99.49,95.78,84.65,94.13,79.01,92.59
+Random Forest,98.98,95.08,82.24,92.93,79.01,93.44
+Dual-Charge PFDC (Ours),97.23,96.84,81.28,88.00,70.06,94.29
+Isotropic PFDC,95.85,94.20,76.00,87.87,60.43,69.81

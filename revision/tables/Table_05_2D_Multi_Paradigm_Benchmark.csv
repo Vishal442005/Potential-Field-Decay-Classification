@@ -1,0 +1,8 @@
+Learning Model,Test Accuracy (%),F1-Score,Precision,Recall,Test BCE Loss
+"PFDC (Ours, Case 3)",97.22%,0.9722,0.9722,0.9722,0.1271
+XGBoost Classifier,96.67%,0.9663,0.9773,0.9556,0.1018
+Deep Neural Network (MLP),96.67%,0.9661,0.9828,0.9500,0.0953
+Support Vector Machine (RBF),96.39%,0.9636,0.9718,0.9556,0.0996
+Actor-Critic RL (Policy Gradient),96.39%,0.9632,0.9827,0.9444,0.3345
+Gaussian Mixture Model (GMM),96.39%,0.9636,0.9718,0.9556,0.1040
+Random Forest,96.11%,0.9605,0.9770,0.9444,0.1684

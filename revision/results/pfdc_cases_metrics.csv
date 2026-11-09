@@ -1,0 +1,4 @@
+PFDC Case,LR Strategy,Final Test Acc (%),Final Train Acc (%),Best Test Loss,Epochs to Converge (95% Peak),Total Sign Shifts,Final Core Radius,Final Decay Radius,Final Core LR,Final Decay LR
+Case 1 (Fixed),fixed,97.222222,97.14285714285714,0.1315,1,78,0.15,0.3888,0.08,0.06
+Case 2 (Halved),halved,97.222222,97.14285714285714,0.127,1,34,0.15,0.3888,0.0,0.06
+Case 3 (Exp-Accelerating),exponential_accelerating,97.222222,97.14285714285714,0.1271,1,8,0.15,0.3888,1e-06,0.06

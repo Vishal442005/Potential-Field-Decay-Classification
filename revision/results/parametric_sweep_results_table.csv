@@ -1,0 +1,32 @@
+Parameter Swept,Param Value,Test Accuracy (%),F1-Score,Physical Effect / Guarantee
+Core Ratio (R_core / R_decay),0.02,97.08%,0.9763,Certified Radius r_cert = 0.110
+Core Ratio (R_core / R_decay),0.05,97.66%,0.9811,Certified Radius r_cert = 0.274
+Core Ratio (R_core / R_decay),0.10,97.08%,0.9763,Certified Radius r_cert = 0.548
+Core Ratio (R_core / R_decay),0.15,97.08%,0.9763,Certified Radius r_cert = 0.822
+Core Ratio (R_core / R_decay),0.20,97.08%,0.9763,Certified Radius r_cert = 1.095
+Core Ratio (R_core / R_decay),0.30,96.49%,0.9717,Certified Radius r_cert = 1.643
+Core Ratio (R_core / R_decay),0.40,96.49%,0.9717,Certified Radius r_cert = 2.191
+Core Ratio (R_core / R_decay),0.50,96.49%,0.9717,Certified Radius r_cert = 2.739
+Decay Rate (lambda),0.5,97.08%,0.9763,Controls steepness of conservative force grad P
+Decay Rate (lambda),1.0,97.66%,0.9811,Controls steepness of conservative force grad P
+Decay Rate (lambda),1.5,97.66%,0.9811,Controls steepness of conservative force grad P
+Decay Rate (lambda),2.0,97.08%,0.9763,Controls steepness of conservative force grad P
+Decay Rate (lambda),2.5,97.08%,0.9763,Controls steepness of conservative force grad P
+Decay Rate (lambda),3.5,97.08%,0.9765,Controls steepness of conservative force grad P
+Decay Rate (lambda),5.0,97.66%,0.9811,Controls steepness of conservative force grad P
+Decay Rate (lambda),7.0,97.66%,0.9811,Controls steepness of conservative force grad P
+Support Regularizer (C),0.05,91.81%,0.9346,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),0.10,94.74%,0.9585,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),0.50,97.66%,0.9815,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),1.00,97.66%,0.9813,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),2.00,97.08%,0.9763,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),5.00,96.49%,0.9717,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),10.00,96.49%,0.9717,Controls charge sparsity |a_i| and margin width
+Support Regularizer (C),20.00,95.91%,0.9671,Controls charge sparsity |a_i| and margin width
+Decay Kernel Blend (gamma),0.10,97.08%,0.9763,Balance between compact support and global tail
+Decay Kernel Blend (gamma),0.30,97.08%,0.9763,Balance between compact support and global tail
+Decay Kernel Blend (gamma),0.50,97.08%,0.9763,Balance between compact support and global tail
+Decay Kernel Blend (gamma),0.70,97.66%,0.9811,Balance between compact support and global tail
+Decay Kernel Blend (gamma),0.85,97.08%,0.9763,Balance between compact support and global tail
+Decay Kernel Blend (gamma),0.95,96.49%,0.9714,Balance between compact support and global tail
+Decay Kernel Blend (gamma),1.00,95.91%,0.9665,Balance between compact support and global tail

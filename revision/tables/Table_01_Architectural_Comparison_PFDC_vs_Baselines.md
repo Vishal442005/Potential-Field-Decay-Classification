@@ -1,0 +1,12 @@
+# Table 01 Architectural Comparison PFDC vs Baselines
+
+| Architectural Property | Parzen Window Density | Gaussian RBF Network | Metric-Learned Kernel SVM | Dual-Charge PFDC (Ours) |
+| --- | --- | --- | --- | --- |
+| Maximum Certainty Topology | Singleton Point (d=0) | Singleton Point (d=0) | Singleton Point (d=0) | Topological Core Ball (d ≤ R^core) |
+| Spatial Support Horizon | Infinite (K > 0, ∀ d) | Infinite (K > 0, ∀ d) | Infinite (K > 0, ∀ d) | Strict Compact (I ≡ 0, d > R^horizon) |
+| Adversarial Gradient at Anchor | Non-Zero Gradient Basin | Non-Zero Gradient Basin | Non-Zero Gradient Basin | Flat Zero-Torque Basin (∇ L ≡ 0) |
+| Certified Invariance Guarantee | None | None | None (Vulnerable to PGD) | 100% Certified ℓ₂ Margin (Theorem 2) |
+| Vector Force Field Dynamics | None (Static Density) | None (Static Scalar) | None (Static Hyperplane) | Conservative Force (∇ × F = 0) |
+| Counterfactual Recourse | Non-Convex Optimization | Non-Convex Optimization | Non-Convex Quadratic | Continuous Physical Streamlines |
+| Spatial Query Indexing | O(N) Brute Force | O(N) Brute Force | O(N_sv) Support Vectors | Sub-Linear O(log N) Spatial Ball-Tree |
+| Ambient Baseline Calibration | None (DC Bias Drift) | Linear Output Bias | Margin Intercept b | Dual Support Charges + Ground Bias b |
