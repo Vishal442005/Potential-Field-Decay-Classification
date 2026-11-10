@@ -2,7 +2,7 @@
 **Manuscript Reference:** PR-D-26-16242  
 **Title:** Potential Field Decay Classification (PFDC): Provably Robust Classification via Electrostatic Potential Fields  
 **Journal:** *Pattern Recognition*, Elsevier  
-**Authors:** Vishal Chandel, Adarsh Chandel  
+**Authors:** Vishal Chandel, Riya Kumari, Adarsh Chandel  
 
 ---
 

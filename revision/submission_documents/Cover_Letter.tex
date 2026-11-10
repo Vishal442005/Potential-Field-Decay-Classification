@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
 \usepackage{times}
 \usepackage{hyperref}
 \begin{document}
@@ -18,7 +19,7 @@ We are deeply grateful to you and the reviewers for the constructive, insightful
         \item \textbf{Document Class \& Spacing}: Prepared using \verb|\documentclass[times, review, 10pt]{elsarticle}| in single-column, double-spaced format with 10\,pt font.
         \item \textbf{Page Count}: The revised manuscript is exactly \textbf{34 pages}, strictly adhering to the journal requirement (``longer than 20 pages and does not exceed 35 pages'').
         \item \textbf{Highlights}: Provided as a separate document with 5 bullet points, each strictly $\le 85$ characters including spaces.
-        \item \textbf{Tables \& Figures}: All 12 tables adhere to standard portrait orientation in booktabs style, with 8--10\,pt font, zero vertical rules, and zero cell shading. All 11 flagship figures are placed directly adjacent to their first text citations.
+        \item \textbf{Tables \& Figures}: All 13 tables adhere to standard portrait orientation in booktabs style, with 8--10\,pt font, zero vertical rules, and zero cell shading. All 25 flagship figures are placed directly adjacent to their first text citations.
         \item \textbf{Editable Equations}: All equations are formatted in editable 10\,pt text.
         \item \textbf{References}: Exactly 44 peer-reviewed references are numbered in the order of appearance using \verb|elsarticle-num|, strictly within the 35--55 reference requirement.
         \item \textbf{Mandatory Declarations}: Included Declarations of Generative AI, Competing Interests, and Data \& Code Availability.
@@ -27,7 +28,7 @@ We are deeply grateful to you and the reviewers for the constructive, insightful
     \begin{itemize}
         \item \textbf{Certified Adversarial Robustness vs. Gradient Quenching}: We rigorously resolved the distinction between gradient masking (Athalye et al., ICML 2018) and certified robustness. Theorem~2 Part~1 provides the universal mathematical certificate $r_{\mathrm{cert}}(\mathbf{x}) = |P(\mathbf{x})| / L_P$ derived from global Lipschitz continuity. Theorem~2 Part~2 explains core gradient quenching ($\nabla_{\mathbf{x}} \mathcal{L} \equiv \mathbf{0}$).
         \item \textbf{Clamped Lipschitz Bound}: Lemma~1 rigorously clamps the critical inflection point to $u^* = \min(1, ((\alpha - 1)/(\lambda \alpha))^{1/\alpha})$.
-        \item \textbf{Data Consistency}: All empirical results across all tables, text, and figures are 100\% consistent with authentic benchmark logs (Ball-Tree speedup $2.81\times$; XAI recourse latency $40.96\text{ ms}$; 5-fold CV accuracies; and Ionosphere ambient DC bias $\Delta V_{\mathrm{ambient}} = -1.84$ normalized / $+4.12$ raw).
+        \item \textbf{Data Consistency}: All empirical results across all tables, text, and figures are 100\% consistent with authentic benchmark logs (Ball-Tree speedup $2.81\times$; XAI recourse latency $40.96\,\mathrm{ms}$; 5-fold CV accuracies; and Ionosphere ambient DC bias $\Delta V_{\mathrm{ambient}} = -1.84$ normalized / $+4.12$ raw).
         \item \textbf{Algorithmic Rigor}: Added formal Algorithm~1 Box detailing Bi-Level Alternating Electrostatic Optimization.
         \item \textbf{Unique Figures \& Code Availability}: All figures are unique, publication-grade vector graphics. The public GitHub repository is live at \url{https://github.com/Vishal442005/Potential-Field-Decay-Classification}.
     \end{itemize}
@@ -35,8 +36,13 @@ We are deeply grateful to you and the reviewers for the constructive, insightful
 We enclose our detailed, point-by-point Response to Reviewers along with all required submission declarations. We believe this thoroughly revised manuscript fully satisfies the archival standards of \textit{Pattern Recognition}.\\[1em]
 Sincerely,\\[1em]
 \textbf{Vishal Chandel} (Corresponding Author)\\
-Gradient Research Laboratory, Cambridge, MA, USA\\
+Department of Electronics and Communication Engineering,\\
+Jawaharlal Nehru Government Engineering College Sundernagar, India\\
 Email: \href{mailto:chandelvishal445@gmail.com}{chandelvishal445@gmail.com}\\[0.5em]
+\textbf{Riya Kumari} (Co-Author)\\
+Department of Electronics and Communication Engineering,\\
+Jawaharlal Nehru Government Engineering College Sundernagar, India\\[0.5em]
 \textbf{Adarsh Chandel} (Co-Author)\\
-Department of Computer Science, New Delhi, India
+Chitkara School of Pharmacy, Chitkara University Punjab, India\\
+Email: \href{mailto:aadichandel76@gmail.com}{aadichandel76@gmail.com}
 \end{document}

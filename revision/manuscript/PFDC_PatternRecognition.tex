@@ -50,13 +50,16 @@
 
 \title{Potential Field Decay Classification: Provably Robust Classification via Electrostatic Potential Fields}
 
-\author[1]{Vishal Chandel\corref{cor1}}
+\author[a]{Vishal Chandel\corref{cor1}}
 \ead{chandelvishal445@gmail.com}
-\author[2]{Adarsh Chandel}
+\author[b]{Riya Kumari}
+\author[c]{Adarsh Chandel}
+\ead{aadichandel76@gmail.com}
 
 \cortext[cor1]{Corresponding author.}
-\affiliation[1]{organization={Gradient Research Laboratory}, city={Cambridge}, country={USA}}
-\affiliation[2]{organization={Department of Computer Science}, city={New Delhi}, country={India}}
+\affiliation[a]{organization={Department of Electronics and Communication Engineering, Jawaharlal Nehru Government Engineering College Sundernagar}, country={India}}
+\affiliation[b]{organization={Department of Electronics and Communication Engineering, Jawaharlal Nehru Government Engineering College Sundernagar}, country={India}}
+\affiliation[c]{organization={Chitkara School of Pharmacy, Chitkara University Punjab}, country={India}}
 
 \begin{abstract}
 Traditional supervised pattern classification algorithms focus on constructing global decision boundaries---hyperplanes or orthogonal partitions that divide feature space into discrete regions. Inside these boundaries, models lack native mechanisms to quantify directional certainty, suffer from boundary-crossing limit-cycle chattering during optimization, and remain fragile under adversarial attacks. In this paper, we reverse this paradigm and propose \textbf{Potential Field Decay Classification (PFDC)}, an interpretable pattern recognition framework grounded in physical electrostatics. In PFDC, training observations act as localized radial charge sources characterized by a dual-zone profile: an inner deterministic core ($R^{\mathrm{core}}$) of absolute certainty ($I \equiv 1.0$), transitioning into a boundary-normalized exponential decay shell ($R^{\mathrm{decay}}$) with compact metric support. Opposing classes radiate inverted charges, generating a superposition of scalar potentials and conservative force fields ($\mathbf{F}(\mathbf{x}) = -\nabla P(\mathbf{x})$).

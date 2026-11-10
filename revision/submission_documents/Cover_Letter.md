@@ -15,9 +15,9 @@ We are deeply grateful to you and the reviewers for the constructive, insightful
 
 1. Compliance with Journal Formatting Guidelines:
 - Document Class & Spacing: The manuscript is prepared using the official Elsevier template \documentclass[times, review, 10pt]{elsarticle} in single-column, double-spaced format with 10 pt font for the main text.
-- Page Count: The revised manuscript is exactly 34 pages, strictly meeting the journal requirement ("longer than 20 pages and does not exceed 35 pages").
+- Page Count: The revised manuscript is exactly 30 pages, strictly meeting the journal requirement ("longer than 20 pages and does not exceed 35 pages").
 - Highlights: Provided as a separate file with 5 concise bullet points, each strictly under the 85-character limit (including spaces).
-- Tables & Figures: All 12 tables adhere to standard portrait orientation in booktabs style, with 8-10 pt font, zero vertical rules, and zero cell shading. All 11 flagship figures are placed directly adjacent to their first text citations.
+- Tables & Figures: All 13 tables adhere to standard portrait orientation in booktabs style, with 8-10 pt font, zero vertical rules, and zero cell shading. All 25 flagship figures are placed directly adjacent to their first text citations.
 - Editable Equations: All equations are formatted in editable 10 pt text.
 - References: Exactly 44 peer-reviewed references are numbered in the order of appearance using the elsarticle-num style, strictly within the 35-55 reference requirement. Recent high-impact contributions from Pattern Recognition and IEEE TPAMI (2020-2024) have been integrated.
 - Mandatory Declarations: Included Declarations of Generative AI, Competing Interests, and Data & Code Availability.
@@ -36,10 +36,14 @@ Thank you for your time, consideration, and continued editorial guidance.
 Sincerely,
 
 Vishal Chandel (Corresponding Author)
-Gradient Research Laboratory
-Cambridge, MA, USA
+Department of Electronics and Communication Engineering,
+Jawaharlal Nehru Government Engineering College Sundernagar, India
 Email: chandelvishal445@gmail.com
 
+Riya Kumari (Co-Author)
+Department of Electronics and Communication Engineering,
+Jawaharlal Nehru Government Engineering College Sundernagar, India
+
 Adarsh Chandel (Co-Author)
-Department of Computer Science
-New Delhi, India
+Chitkara School of Pharmacy, Chitkara University Punjab, India
+Email: aadichandel76@gmail.com
