@@ -376,6 +376,24 @@ def parse_latex_tokens(text, is_bold=False, is_italic=False, font_name="Times Ne
         
     return items
 
+def fix_nary_empty_limits(omml_str):
+    def repl_nary(m):
+        block = m.group(0)
+        sup_m = re.search(r'<m:sup>(.*?)</m:sup>|<m:sup/>', block)
+        if sup_m:
+            sup_content = sup_m.group(1) if sup_m.group(1) else ''
+            if not sup_content.strip() or sup_content.strip() == '<m:e/>':
+                if '<m:supHide' not in block:
+                    block = re.sub(r'(<m:naryPr\b[^>]*>.*?)<\/m:naryPr>', r'\1<m:supHide m:val="1"/></m:naryPr>', block)
+        sub_m = re.search(r'<m:sub>(.*?)</m:sub>|<m:sub/>', block)
+        if sub_m:
+            sub_content = sub_m.group(1) if sub_m.group(1) else ''
+            if not sub_content.strip() or sub_content.strip() == '<m:e/>':
+                if '<m:subHide' not in block:
+                    block = re.sub(r'(<m:naryPr\b[^>]*>.*?)<\/m:naryPr>', r'\1<m:subHide m:val="1"/></m:naryPr>', block)
+        return block
+    return re.sub(r'<m:nary\b.*?>.*?<\/m:nary>', repl_nary, omml_str, flags=re.DOTALL)
+
 def add_formatted_runs_and_omml(p, raw_text, base_font_size=10, is_bold=False, is_italic=False):
     """
     Core parsing engine: Converts all inline LaTeX math ($...$ or \\(...\\)) into native Word OMML (<m:oMath>),
@@ -405,6 +423,7 @@ def add_formatted_runs_and_omml(p, raw_text, base_font_size=10, is_bold=False, i
                     mml = latex_to_mathml(cand)
                     omml_str = mathml2omml.convert(mml)
                     omml_str = re.sub(r'(<m:groupChrPr>.*?)<\/m:groupChr>', r'\1</m:groupChrPr>', omml_str)
+                    omml_str = fix_nary_empty_limits(omml_str)
                     if '<m:oMath' in omml_str:
                         if 'xmlns:m' not in omml_str:
                             omml_str = omml_str.replace('<m:oMath', '<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"', 1)
@@ -614,6 +633,7 @@ class ElsevierDocxBuilder:
                 mml = latex_to_mathml(cand)
                 omml_str = mathml2omml.convert(mml)
                 omml_str = re.sub(r'(<m:groupChrPr>.*?)<\/m:groupChr>', r'\1</m:groupChrPr>', omml_str)
+                omml_str = fix_nary_empty_limits(omml_str)
                 if '<m:oMath' in omml_str:
                     if 'xmlns:m' not in omml_str:
                         omml_str = omml_str.replace('<m:oMath', '<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"', 1)
@@ -683,7 +703,7 @@ class ElsevierDocxBuilder:
                     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
                     
                     if is_first_para:
-                        if env_type in ['theorem', 'lemma', 'corollary']:
+                        if env_type in ['theorem', 'lemma', 'corollary', 'proposition']:
                             prefix = f"{env_type.capitalize()} ({title}). " if title else f"{env_type.capitalize()}. "
                             add_formatted_runs_and_omml(p, prefix, base_font_size=10, is_bold=True)
                             add_formatted_runs_and_omml(p, para_s, base_font_size=10, is_italic=True)
@@ -692,7 +712,7 @@ class ElsevierDocxBuilder:
                             add_formatted_runs_and_omml(p, para_s, base_font_size=10)
                         is_first_para = False
                     else:
-                        is_it = (env_type in ['theorem', 'lemma', 'corollary'])
+                        is_it = (env_type in ['theorem', 'lemma', 'corollary', 'proposition'])
                         add_formatted_runs_and_omml(p, para_s, base_font_size=10, is_italic=is_it)
                         
         if env_type == 'proof' and len(self.doc.paragraphs) > 0:
@@ -709,6 +729,9 @@ class ElsevierDocxBuilder:
 
     def add_corollary(self, title_str, body_text):
         self.render_math_environment('corollary', title_str, body_text)
+
+    def add_proposition(self, title_str, body_text):
+        self.render_math_environment('proposition', title_str, body_text)
 
     def add_proof(self, body_text):
         self.render_math_environment('proof', '', body_text)
@@ -1040,6 +1063,7 @@ def build_all_elsevier_pr_docx():
         r'\\begin\{theorem\}.*?\\end\{theorem\}|'
         r'\\begin\{lemma\}.*?\\end\{lemma\}|'
         r'\\begin\{corollary\}.*?\\end\{corollary\}|'
+        r'\\begin\{proposition\}.*?\\end\{proposition\}|'
         r'\\begin\{proof\}.*?\\end\{proof\}|'
         r'\\begin\{algorithm\}.*?\\end\{algorithm\}|'
         r'\\begin\{figure\*?\}.*?\\end\{figure\*?\}|'
@@ -1106,6 +1130,17 @@ def build_all_elsevier_pr_docx():
                 title = extract_braced_content(inner, 'textbf')
                 body = re.sub(r'\\textbf\{[^}]*\}', '', inner).strip()
             builder.add_corollary(title, body)
+
+        elif tok_s.startswith(r'\begin{proposition}'):
+            inner = re.sub(r'\\begin\{proposition\}|\\end\{proposition\}', '', tok_s).strip()
+            m_title = re.match(r'^\s*\[(.*?)\]', inner, re.DOTALL)
+            if m_title:
+                title = m_title.group(1).strip()
+                body = inner[m_title.end():].strip()
+            else:
+                title = extract_braced_content(inner, 'textbf')
+                body = re.sub(r'\\textbf\{[^}]*\}', '', inner).strip()
+            builder.add_proposition(title, body)
 
         elif tok_s.startswith(r'\begin{proof}'):
             inner = re.sub(r'\\begin\{proof\}|\\end\{proof\}', '', tok_s).strip()
