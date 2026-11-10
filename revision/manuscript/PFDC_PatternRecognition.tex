@@ -625,6 +625,14 @@ Random Forest \cite{breiman2001random} & Tree Ensemble & 70.27\% & 0.7108 & 0.64
 
 \begin{figure}[!htbp]
 \centering
+\includegraphics[width=0.88\linewidth]{figures/highd_ablation_comparison.pdf}
+\caption{Systematic ablation study of PFDC architectural configurations in 1,000 dimensions ($N=2500$, 990 noise features). Comparing learning rate schedules (Case 1 fixed, Case 2 halved, Case 3 exponential-accelerating), decay smoothness $\alpha$, and dual-zone boundary clamping, showing progressive gains up to 75.87\% classification accuracy.}
+\label{fig:highd_ablation}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
 \includegraphics[width=0.34\textwidth]{figures/pfdc_highd_learned_weights.pdf}
 \caption{Learned anisotropic metric tensor feature weights $w_j$ in 1,000 dimensions ($N=2,500$). (a) Full 1,000D weight spectrum showing automated $\ell_1$ sparsity pruning. (b) Zoomed weight profile across the 10 informative signal coordinates (mean $w_{\mathrm{signal}} = 2.931$). (c) Empirical weight distribution of the 990 noise coordinates (mean $w_{\mathrm{noise}} = 0.012$). (d) Sorted cumulative weight contribution confirming an effective participation dimensionality $d_{\mathrm{eff}} \approx 20.0$.}
 \label{fig:weights}
@@ -682,7 +690,7 @@ On the imbalanced Ionosphere radar benchmark ($64\%$ vs. $36\%$), naive potentia
 \subsection{Multi-Dataset Real-World Leaderboard and Multi-Class Extension}
 Table~\ref{tab:multidataset_6} aggregates 5-fold cross-validation accuracy across 6 real-world benchmark datasets. Dual-Charge PFDC achieves a mean accuracy of \textbf{87.95\%}, remaining within $2.1\%$ of Kernel SVM ($90.11\%$) and Deep MLP ($90.11\%$), while outperforming classical isotropic formulations by $+6.8\%$.
 
-Furthermore, Table~\ref{tab:multiclass} and Figure~\ref{fig:multiclass_comp} validate the extension of PFDC to multi-class pattern classification via One-vs-Rest (OvR) charge decomposition. On standard multi-class benchmarks (Iris, Wine, Seeds, Optical Digits), OvR-PFDC achieves competitive accuracy: \textbf{96.67\% on Iris}, \textbf{97.22\% on Wine}, \textbf{92.86\% on Seeds}, and \textbf{95.55\% on Digits}, matching Random Forest (96.10\%) and Kernel SVM (97.22\%).
+Furthermore, Table~\ref{tab:multiclass}, Figure~\ref{fig:multiclass_bench}, and Figure~\ref{fig:multiclass_comp} validate the extension of PFDC to multi-class pattern classification via One-vs-Rest (OvR) charge decomposition. As displayed in Figure~\ref{fig:multiclass_bench}, Multi-Class PFDC achieves competitive accuracy across standard benchmarks: \textbf{96.63\% on Wine Recognition ($K=3$)}, surpassing XGBoost (96.06\%), and \textbf{94.88\% on Optical Digits MNIST-Lite ($K=10$)}, matching tree ensembles and neural networks while providing interpretable continuous potential landscapes.
 
 \begin{table}[!htbp]
 \centering
@@ -704,6 +712,21 @@ Isotropic PFDC & 95.85\% & 94.20\% & 69.81\% & 76.00\% & 87.87\% & 60.43\% & \te
 \bottomrule
 \end{tabular}}
 \end{table}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/multidataset_comparison_heatmap.pdf}
+\caption{Cross-validation performance heatmap across 6 real-world benchmark datasets. Cell values indicate 5-fold cross-validation classification accuracy (\%) for all evaluated algorithms, illustrating PFDC's consistent competitive baseline across clinical (Breast Cancer, Blood), physical (Sonar, Ionosphere), and security (Banknote, Spambase) domains.}
+\label{fig:dataset_heatmap}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/multiclass_benchmark_results.pdf}
+\caption{Multi-class pattern classification benchmark across 6 machine learning algorithms. (a) 5-fold cross-validation accuracy on Wine Recognition (=3$ classes, =13$), where Multi-Class PFDC achieves 96.63\%, outperforming XGBoost (96.06\%). (b) Optical Digits MNIST-Lite (=10$ classes, =64$), where PFDC achieves 94.88\% competitive generalization.}
+\label{fig:multiclass_bench}
+\end{figure}
 
 \begin{table}[!htbp]
 \centering
@@ -912,6 +935,15 @@ To provide actionable guidance on when PFDC performs best and where it degrades,
 \bottomrule
 \end{tabular}}
 \end{table}
+
+Figure~\ref{fig:overall_radar} synthesizes these operational tradeoffs, displaying the holistic 6-axis radar comparison, the empirical Pareto frontier of clean accuracy versus adversarial robustness, and the dramatic latency and path-length advantages of conservative force streamlines over non-convex optimization.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/multidataset_overall_radar_profile.pdf}
+\caption{Holistic empirical benchmark synthesis and multi-objective Pareto optimality across 6 real-world datasets. (a) 6-Axis radar profile comparing Dual-Charge PFDC vs. Kernel SVM, Deep MLP, Random Forest, and XGBoost across predictive accuracy, adversarial robustness ($\epsilon=0.35$), certified safety guarantee ($r \ge 0.2$), inference throughput, recourse speed, and epistemic calibration. (b) Empirical Pareto frontier of clean accuracy vs. adversarial robustness under PGD attack ($\epsilon=0.35$). (c) Algorithmic recourse optimization tradeoff: continuous conservative force streamlines achieve a 5.0$\times$ computational speedup (40.96 ms vs. 206.64 ms) and 21.4\% shorter geodesic path length compared to non-convex iterative optimization.}
+\label{fig:overall_radar}
+\end{figure}
 
 \section{Discussion, Limitations, and Future Work}
 \label{sec:discussion}
