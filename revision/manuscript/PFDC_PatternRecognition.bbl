@@ -9,26 +9,21 @@
 C.~Cortes, V.~Vapnik, Support-vector networks, Machine Learning 20~(3) (1995)
   273--297.
 
+\bibitem{scholkopf2002learning}
+B.~Sch{\"o}lkopf, A.~J. Smola, Learning with Kernels: Support Vector Machines,
+  Regularization, Optimization, and Beyond, MIT Press, 2002.
+
 \bibitem{breiman2001random}
 L.~Breiman, Random forests, Machine Learning 45~(1) (2001) 5--32.
+
+\bibitem{friedman2001greedy}
+J.~H. Friedman, Greedy function approximation: a gradient boosting machine,
+  Annals of Statistics 29~(5) (2001) 1189--1232.
 
 \bibitem{chen2016xgboost}
 T.~Chen, C.~Guestrin, {XGBoost}: A scalable tree boosting system, in:
   Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge
   Discovery and Data Mining, 2016, pp. 785--794.
-
-\bibitem{ke2017lightgbm}
-G.~Ke, Q.~Meng, T.~Finley, T.~Wang, W.~Chen, W.~Ma, Q.~Ye, T.-Y. Liu,
-  {LightGBM}: A highly efficient gradient boosting decision tree, Advances in
-  Neural Information Processing Systems 30 (2017) 3146--3154.
-
-\bibitem{scholkopf2002learning}
-B.~Sch{\"o}lkopf, A.~J. Smola, Learning with Kernels: Support Vector Machines,
-  Regularization, Optimization, and Beyond, MIT Press, 2002.
-
-\bibitem{friedman2001greedy}
-J.~H. Friedman, Greedy function approximation: a gradient boosting machine,
-  Annals of Statistics 29~(5) (2001) 1189--1232.
 
 \bibitem{lecun2015deep}
 Y.~LeCun, Y.~Bengio, G.~Hinton, Deep learning, Nature 521~(7553) (2015)
@@ -129,6 +124,13 @@ R.~Hadsell, S.~Chopra, Y.~LeCun, Dimensionality reduction by learning an
   invariant mapping, in: IEEE Computer Society Conference on Computer Vision
   and Pattern Recognition (CVPR), Vol.~2, 2006, pp. 1735--1742.
 
+\bibitem{li2023deep}
+X.~Li, X.~Yang, Z.~Ma, J.-H. Xue, Deep metric learning for few-shot image
+  classification: A review of recent developments, Pattern Recognition 138
+  (2023) 109381.
+\newblock \href {https://doi.org/10.1016/j.patcog.2023.109381}
+  {\path{doi:10.1016/j.patcog.2023.109381}}.
+
 \bibitem{madry2018towards}
 A.~Madry, A.~Makelov, L.~Schmidt, D.~Tsipras, A.~Vladu, Towards deep learning
   models resistant to adversarial attacks, in: International Conference on
@@ -143,6 +145,13 @@ A.~Athalye, N.~Carlini, D.~Wagner, Obfuscated gradients give a false sense of
 F.~Croce, M.~Hein, Reliable evaluation of adversarial robustness with an
   ensemble of diverse parameter-free attacks, in: International Conference on
   Machine Learning (ICML), 2020, pp. 2206--2216.
+
+\bibitem{pintor2023imagenet}
+M.~Pintor, D.~Angioni, A.~Sotgiu, L.~Demetrio, A.~Demontis, B.~Biggio, F.~Roli,
+  Imagenet-patch: A dataset for benchmarking machine learning robustness
+  against adversarial patches, Pattern Recognition 134 (2023) 109064.
+\newblock \href {https://doi.org/10.1016/j.patcog.2022.109064}
+  {\path{doi:10.1016/j.patcog.2022.109064}}.
 
 \bibitem{raghunathan2018certified}
 A.~Raghunathan, J.~Steinhardt, P.~Liang, Certified defenses against adversarial
@@ -169,6 +178,11 @@ S.~M. Lundberg, S.-I. Lee, A unified approach to interpreting model
 A.~Shrikumar, P.~Greenside, A.~Kundaje, Learning important features through
   propagating activation differences, in: International Conference on Machine
   Learning (ICML), 2017, pp. 3145--3153.
+
+\bibitem{ke2017lightgbm}
+G.~Ke, Q.~Meng, T.~Finley, T.~Wang, W.~Chen, W.~Ma, Q.~Ye, T.-Y. Liu,
+  {LightGBM}: A highly efficient gradient boosting decision tree, Advances in
+  Neural Information Processing Systems 30 (2017) 3146--3154.
 
 \bibitem{bartlett2002rademacher}
 P.~L. Bartlett, S.~Mendelson, Rademacher and {Gaussian} complexities: Risk
