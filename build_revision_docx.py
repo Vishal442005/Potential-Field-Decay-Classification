@@ -34,6 +34,7 @@ import mathml2omml
 TEX_FILE = os.path.join("revision", "manuscript", "PFDC_PatternRecognition.tex")
 BBL_FILE = os.path.join("revision", "manuscript", "PFDC_PatternRecognition.bbl")
 BIB_FILE = os.path.join("revision", "manuscript", "references.bib")
+AUX_FILE = os.path.join("revision", "manuscript", "PFDC_PatternRecognition.aux")
 
 CITATIONS_MAP = {}
 FIGURES_MAP = {}
@@ -94,15 +95,23 @@ def build_all_cross_ref_maps(tex_text, bbl_text):
             d_cnt += 1
             THEOREMS_MAP[lab.strip()] = f"Definition {d_cnt}"
             
-    # 5. Equations from TEX
+    # 5. Equations from AUX and TEX
+    EQUATIONS_MAP = {}
+    if os.path.exists(AUX_FILE):
+        with open(AUX_FILE, 'r', encoding='utf-8') as f_aux:
+            aux_text = f_aux.read()
+        eq_labels = re.findall(r'\\newlabel\{(eq:[^}]+)\}\{\{([^}]+)\}', aux_text)
+        for lab, num in eq_labels:
+            EQUATIONS_MAP[lab.strip()] = num.strip()
+    
+    # Fallback for any unlabeled or unmapped
     eq_blocks = re.findall(r'\\begin\{(?:equation|align)\*?\}(.*?)\\end\{(?:equation|align)\*?\}', tex_text, re.DOTALL)
     eq_idx = 0
-    EQUATIONS_MAP = {}
     for b in eq_blocks:
+        eq_idx += 1
         labs = re.findall(r'\\label\{(eq:[^}]+)\}', b)
-        if labs:
-            eq_idx += 1
-            for l in labs:
+        for l in labs:
+            if l.strip() not in EQUATIONS_MAP:
                 EQUATIONS_MAP[l.strip()] = str(eq_idx)
                 
     # 6. Sections from TEX
@@ -182,7 +191,19 @@ def resolve_latex_references(text):
     s = re.sub(r'\\cite\{([^}]+)\}', cite_repl, s)
     s = re.sub(r'\[([a-zA-Z0-9_\-\s,]+)\]', lambda m: cite_repl(m) if any(k.strip() in CITATIONS_MAP for k in m.group(1).split(',')) else m.group(0), s)
     
-    # Normalize prefixes
+    # Clean equation references thoroughly to prevent "Eq. (Eq. (2))"
+    def eq_repl(m):
+        lab = m.group(1).strip()
+        num = EQUATIONS_MAP.get(lab, "")
+        return f"Eq. ({num})" if num else ""
+
+    # Match Eq.~(\ref{eq:...}), Eq.~\eqref{eq:...}, (\ref{eq:...}), etc.
+    s = re.sub(r'(?:Equations?|Eqs?\.)~?\(?\\ref\{(eq:[^}]+)\}\)?', eq_repl, s)
+    s = re.sub(r'(?:Equations?|Eqs?\.)~?\\eqref\{(eq:[^}]+)\}', eq_repl, s)
+    s = re.sub(r'\(?\\eqref\{(eq:[^}]+)\}\)?', eq_repl, s)
+    s = re.sub(r'\(\\ref\{(eq:[^}]+)\}\)', eq_repl, s)
+
+    # Normalize other prefixes
     s = re.sub(r'\bTheorem~?\\ref\{thm:', r'\\ref{thm:', s)
     s = re.sub(r'\bLemma~?\\ref\{lem:', r'\\ref{lem:', s)
     s = re.sub(r'\bCorollary~?\\ref\{cor:', r'\\ref{cor:', s)
@@ -190,10 +211,7 @@ def resolve_latex_references(text):
     s = re.sub(r'\bFigure~?\\ref\{fig:', r'\\ref{fig:', s)
     s = re.sub(r'\bFig\.~?\\ref\{fig:', r'\\ref{fig:', s)
     s = re.sub(r'\bTable~?\\ref\{tab:', r'\\ref{tab:', s)
-    s = re.sub(r'\bEq\.~?\\eqref\{eq:', r'\\eqref{eq:', s)
-    s = re.sub(r'\bEquation~?\\eqref\{eq:', r'\\eqref{eq:', s)
-    s = re.sub(r'\bEquations~?\\eqref\{eq:', r'\\eqref{eq:', s)
-    
+
     def ref_repl(m):
         lab = m.group(1).strip()
         if lab in FIGURES_MAP: return FIGURES_MAP[lab]
@@ -203,12 +221,6 @@ def resolve_latex_references(text):
         if lab in EQUATIONS_MAP: return f"Eq. ({EQUATIONS_MAP[lab]})"
         return lab
     s = re.sub(r'\\ref\{([^}]+)\}', ref_repl, s)
-    
-    def eqref_repl(m):
-        lab = m.group(1).strip()
-        num = EQUATIONS_MAP.get(lab, "")
-        return f"({num})" if num else ""
-    s = re.sub(r'\\eqref\{([^}]+)\}', eqref_repl, s)
     s = re.sub(r'\\label\{[^}]+\}', '', s)
     return s
 
@@ -369,6 +381,7 @@ def add_formatted_runs_and_omml(p, raw_text, base_font_size=10, is_bold=False, i
     Core parsing engine: Converts all inline LaTeX math ($...$ or \\(...\\)) into native Word OMML (<m:oMath>),
     while formatting surrounding text runs with full font, bold, and italic hierarchy.
     """
+    raw_text = re.sub(r'\\begin\{(?:equation|align)\*?\}|\\end\{(?:equation|align)\*?\}', '', raw_text)
     resolved = resolve_latex_references(raw_text)
     items = parse_latex_tokens(resolved, is_bold=is_bold, is_italic=is_italic)
     
@@ -391,6 +404,7 @@ def add_formatted_runs_and_omml(p, raw_text, base_font_size=10, is_bold=False, i
                 try:
                     mml = latex_to_mathml(cand)
                     omml_str = mathml2omml.convert(mml)
+                    omml_str = re.sub(r'(<m:groupChrPr>.*?)<\/m:groupChr>', r'\1</m:groupChrPr>', omml_str)
                     if '<m:oMath' in omml_str:
                         if 'xmlns:m' not in omml_str:
                             omml_str = omml_str.replace('<m:oMath', '<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"', 1)
@@ -440,6 +454,8 @@ class ElsevierDocxBuilder:
     def __init__(self):
         self.doc = docx.Document()
         self.eq_counter = 0
+        self.fig_counter = 0
+        self.table_counter = 0
         self.setup_page()
 
     def setup_page(self):
@@ -489,7 +505,7 @@ class ElsevierDocxBuilder:
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         add_formatted_runs_and_omml(p, text, base_font_size=10)
 
-    def add_bullet(self, bold_prefix, text):
+    def add_bullet(self, bold_prefix, text, is_italic=False):
         p = self.doc.add_paragraph(style='List Bullet')
         p.paragraph_format.space_before = Pt(0)
         p.paragraph_format.space_after = Pt(2)
@@ -497,9 +513,9 @@ class ElsevierDocxBuilder:
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         if bold_prefix:
             add_formatted_runs_and_omml(p, bold_prefix + ": ", base_font_size=10, is_bold=True)
-        add_formatted_runs_and_omml(p, text, base_font_size=10)
+        add_formatted_runs_and_omml(p, text, base_font_size=10, is_italic=is_italic)
 
-    def add_num_item(self, num_str, bold_prefix, text):
+    def add_num_item(self, num_str, bold_prefix, text, is_italic=False):
         p = self.doc.add_paragraph()
         p.paragraph_format.left_indent = Inches(0.25)
         p.paragraph_format.first_line_indent = Inches(-0.25)
@@ -514,14 +530,63 @@ class ElsevierDocxBuilder:
         r_num.font.size = Pt(10)
         if bold_prefix:
             add_formatted_runs_and_omml(p, bold_prefix + ": ", base_font_size=10, is_bold=True)
-        add_formatted_runs_and_omml(p, text, base_font_size=10)
+        add_formatted_runs_and_omml(p, text, base_font_size=10, is_italic=is_italic)
+
+    def render_list(self, raw_list_text, is_numbered=False, is_italic=False):
+        raw_items = raw_list_text.split(r'\item')
+        item_idx = 0
+        for raw_it in raw_items[1:]:
+            item_idx += 1
+            it_s = raw_it.strip()
+            if not it_s:
+                continue
+            
+            # Sub-tokenize item into display equations and text chunks
+            item_sub_tokens = re.split(
+                r'(\\begin\{(?:equation|align)\*?\}.*?\\end\{(?:equation|align)\*?\})',
+                it_s, flags=re.DOTALL
+            )
+            
+            first_text_chunk = True
+            for chunk in item_sub_tokens:
+                chunk_s = chunk.strip()
+                if not chunk_s:
+                    continue
+                if chunk_s.startswith(r'\begin{equation') or chunk_s.startswith(r'\begin{align'):
+                    inner_eq = re.sub(r'\\begin\{(?:equation|align)\*?\}|\\end\{(?:equation|align)\*?\}', '', chunk_s).strip()
+                    lbl_m = re.search(r'\\label\{(eq:[^}]+)\}', inner_eq)
+                    eq_num = EQUATIONS_MAP.get(lbl_m.group(1), None) if lbl_m else None
+                    self.add_eq_omml(inner_eq, eq_num)
+                else:
+                    if first_text_chunk:
+                        pref, rem = extract_leading_textbf(chunk_s)
+                        if is_numbered:
+                            self.add_num_item(f"{item_idx}.", pref, rem, is_italic=is_italic)
+                        else:
+                            self.add_bullet(pref, rem, is_italic=is_italic)
+                        first_text_chunk = False
+                    else:
+                        p_cont = self.doc.add_paragraph()
+                        p_cont.paragraph_format.left_indent = Inches(0.4)
+                        p_cont.paragraph_format.space_before = Pt(0)
+                        p_cont.paragraph_format.space_after = Pt(2)
+                        p_cont.paragraph_format.line_spacing = 1.15
+                        p_cont.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                        add_formatted_runs_and_omml(p_cont, chunk_s, base_font_size=10, is_italic=is_italic)
 
     def add_eq_omml(self, raw_eq, eq_num=None):
-        if eq_num is None:
+        clean = raw_eq.strip()
+        lbl_m = re.search(r'\\label\{(eq:[^}]+)\}', clean)
+        if lbl_m and lbl_m.group(1) in EQUATIONS_MAP:
+            self.eq_counter = int(EQUATIONS_MAP[lbl_m.group(1)])
+            eq_num = str(self.eq_counter)
+        elif eq_num is not None:
+            self.eq_counter = int(eq_num)
+        else:
             self.eq_counter += 1
             eq_num = str(self.eq_counter)
             
-        clean = re.sub(r'\\label\{[^}]+\}', '', raw_eq).strip()
+        clean = re.sub(r'\\label\{[^}]+\}', '', clean).strip()
         clean = re.sub(r'\\qquad', ' ', clean).replace(r'\quad', ' ')
         clean = clean.replace(r'\nonumber', '').replace(r'\displaystyle', '')
         clean = clean.replace('&', '')
@@ -538,12 +603,17 @@ class ElsevierDocxBuilder:
         m_prep = m_prep.replace(r'\mathbb{I}', r'\mathbf{1}')
         m_prep = m_prep.replace(r'\mathbb{P}', r'P').replace(r'\mathbb{E}', r'E')
         m_prep = m_prep.replace(r'\mathbb{R}', r'R').replace(r'\mathbb{S}', r'S').replace(r'\mathbb{H}', r'H')
+        m_prep = m_prep.replace(r'\mathrm{decay}', r'\text{decay}').replace(r'\mathcal{W}', 'W').replace(r'\mathcal{C}', 'C')
+        m_prep = m_prep.replace(r'\mathcal{F}', 'F').replace(r'\mathcal{D}', 'D').replace(r'\mathcal{S}', 'S')
+        m_prep = m_prep.replace(r'\mathcal{R}', 'R').replace(r'\mathcal{L}', 'L')
+        m_prep = m_prep.replace(r'\triangleq', '=')
 
         converted = False
         for cand in [m_prep, clean]:
             try:
                 mml = latex_to_mathml(cand)
                 omml_str = mathml2omml.convert(mml)
+                omml_str = re.sub(r'(<m:groupChrPr>.*?)<\/m:groupChr>', r'\1</m:groupChrPr>', omml_str)
                 if '<m:oMath' in omml_str:
                     if 'xmlns:m' not in omml_str:
                         omml_str = omml_str.replace('<m:oMath', '<m:oMath xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"', 1)
@@ -564,61 +634,84 @@ class ElsevierDocxBuilder:
         r_num.font.name = "Times New Roman"
         r_num.font.size = Pt(10)
 
-    def add_theorem(self, title_str, body_text):
-        p = self.doc.add_paragraph()
-        p.paragraph_format.left_indent = Inches(0.2)
-        p.paragraph_format.right_margin = Inches(0.2)
-        p.paragraph_format.space_before = Pt(4)
-        p.paragraph_format.space_after = Pt(4)
-        p.paragraph_format.line_spacing = 1.15
-        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    def render_math_environment(self, env_type, title, inner_content):
+        clean_inner = inner_content.strip()
         
-        prefix = f"Theorem ({title_str}). " if title_str else "Theorem. "
-        add_formatted_runs_and_omml(p, prefix, base_font_size=10, is_bold=True)
-        add_formatted_runs_and_omml(p, body_text, base_font_size=10, is_italic=True)
+        # Sub-tokenize into display equations, lists, and text chunks
+        sub_tokens = re.split(
+            r'(\\begin\{(?:equation|align)\*?\}.*?\\end\{(?:equation|align)\*?\}|'
+            r'\\begin\{(?:enumerate|itemize)\}.*?\\end\{(?:enumerate|itemize)\})',
+            clean_inner, flags=re.DOTALL
+        )
+        
+        is_first_para = True
+        
+        for st in sub_tokens:
+            if not st:
+                continue
+            st_s = st.strip()
+            if not st_s:
+                continue
+                
+            # 1. Display equations (equation, align)
+            if st_s.startswith(r'\begin{equation') or st_s.startswith(r'\begin{align'):
+                inner_eq = re.sub(r'\\begin\{(?:equation|align)\*?\}|\\end\{(?:equation|align)\*?\}', '', st_s).strip()
+                lbl_m = re.search(r'\\label\{(eq:[^}]+)\}', inner_eq)
+                eq_num = EQUATIONS_MAP.get(lbl_m.group(1), None) if lbl_m else None
+                self.add_eq_omml(inner_eq, eq_num)
+                
+            # 2. Lists (enumerate, itemize)
+            # 2. Lists (enumerate, itemize)
+            elif st_s.startswith(r'\begin{enumerate}') or st_s.startswith(r'\begin{itemize}'):
+                is_num = st_s.startswith(r'\begin{enumerate}')
+                is_it = (env_type != 'proof')
+                self.render_list(st_s, is_numbered=is_num, is_italic=is_it)
+                
+            # 3. Plain text chunks
+            else:
+                paras = st_s.split('\n\n')
+                for para in paras:
+                    para_s = para.strip()
+                    if not para_s:
+                        continue
+                    p = self.doc.add_paragraph()
+                    p.paragraph_format.left_indent = Inches(0.2)
+                    p.paragraph_format.right_margin = Inches(0.2)
+                    p.paragraph_format.space_before = Pt(3)
+                    p.paragraph_format.space_after = Pt(3)
+                    p.paragraph_format.line_spacing = 1.15
+                    p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+                    
+                    if is_first_para:
+                        if env_type in ['theorem', 'lemma', 'corollary']:
+                            prefix = f"{env_type.capitalize()} ({title}). " if title else f"{env_type.capitalize()}. "
+                            add_formatted_runs_and_omml(p, prefix, base_font_size=10, is_bold=True)
+                            add_formatted_runs_and_omml(p, para_s, base_font_size=10, is_italic=True)
+                        elif env_type == 'proof':
+                            add_formatted_runs_and_omml(p, "Proof. ", base_font_size=10, is_bold=True, is_italic=True)
+                            add_formatted_runs_and_omml(p, para_s, base_font_size=10)
+                        is_first_para = False
+                    else:
+                        is_it = (env_type in ['theorem', 'lemma', 'corollary'])
+                        add_formatted_runs_and_omml(p, para_s, base_font_size=10, is_italic=is_it)
+                        
+        if env_type == 'proof' and len(self.doc.paragraphs) > 0:
+            last_p = self.doc.paragraphs[-1]
+            r_qed = last_p.add_run(" \u220e")
+            r_qed.font.name = "Times New Roman"
+            r_qed.font.size = Pt(10)
+
+    def add_theorem(self, title_str, body_text):
+        self.render_math_environment('theorem', title_str, body_text)
 
     def add_lemma(self, title_str, body_text):
-        p = self.doc.add_paragraph()
-        p.paragraph_format.left_indent = Inches(0.2)
-        p.paragraph_format.right_margin = Inches(0.2)
-        p.paragraph_format.space_before = Pt(4)
-        p.paragraph_format.space_after = Pt(4)
-        p.paragraph_format.line_spacing = 1.15
-        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        
-        prefix = f"Lemma ({title_str}). " if title_str else "Lemma. "
-        add_formatted_runs_and_omml(p, prefix, base_font_size=10, is_bold=True)
-        add_formatted_runs_and_omml(p, body_text, base_font_size=10, is_italic=True)
+        self.render_math_environment('lemma', title_str, body_text)
 
     def add_corollary(self, title_str, body_text):
-        p = self.doc.add_paragraph()
-        p.paragraph_format.left_indent = Inches(0.2)
-        p.paragraph_format.right_margin = Inches(0.2)
-        p.paragraph_format.space_before = Pt(4)
-        p.paragraph_format.space_after = Pt(4)
-        p.paragraph_format.line_spacing = 1.15
-        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        
-        prefix = f"Corollary ({title_str}). " if title_str else "Corollary. "
-        add_formatted_runs_and_omml(p, prefix, base_font_size=10, is_bold=True)
-        add_formatted_runs_and_omml(p, body_text, base_font_size=10, is_italic=True)
+        self.render_math_environment('corollary', title_str, body_text)
 
     def add_proof(self, body_text):
-        p = self.doc.add_paragraph()
-        p.paragraph_format.left_indent = Inches(0.2)
-        p.paragraph_format.right_margin = Inches(0.2)
-        p.paragraph_format.space_before = Pt(2)
-        p.paragraph_format.space_after = Pt(4)
-        p.paragraph_format.line_spacing = 1.15
-        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        
-        r_p = p.add_run("Proof. ")
-        r_p.italic = True
-        r_p.bold = True
-        r_p.font.name = "Times New Roman"
-        r_p.font.size = Pt(10)
-        
-        add_formatted_runs_and_omml(p, body_text + " \u220e", base_font_size=10)
+        self.render_math_environment('proof', '', body_text)
 
     def add_algorithm(self, raw_algo_text):
         cap = extract_braced_content(raw_algo_text, 'caption')
@@ -670,7 +763,9 @@ class ElsevierDocxBuilder:
         p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p_cap.paragraph_format.space_before = Pt(3)
         p_cap.paragraph_format.space_after = Pt(8)
-        add_formatted_runs_and_omml(p_cap, caption_text, base_font_size=8.5)
+        self.fig_counter += 1
+        full_fig_cap = f"Fig. {self.fig_counter}: {caption_text}" if not caption_text.startswith("Fig") else caption_text
+        add_formatted_runs_and_omml(p_cap, full_fig_cap, base_font_size=8.5)
 
     def add_table(self, latex_table_text):
         caption = extract_braced_content(latex_table_text, 'caption')
@@ -697,10 +792,12 @@ class ElsevierDocxBuilder:
             return
             
         p_cap = self.doc.add_paragraph()
-        p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_cap.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p_cap.paragraph_format.space_before = Pt(8)
         p_cap.paragraph_format.space_after = Pt(3)
-        add_formatted_runs_and_omml(p_cap, caption, base_font_size=8.5, is_bold=True)
+        self.table_counter += 1
+        full_tbl_cap = f"Table {self.table_counter}: {caption}" if not caption.startswith("Table") else caption
+        add_formatted_runs_and_omml(p_cap, full_tbl_cap, base_font_size=8.5, is_bold=True)
         
         n_cols = max(len(row) for row in clean_rows)
         table = self.doc.add_table(rows=len(clean_rows), cols=n_cols)
@@ -909,7 +1006,10 @@ def build_all_elsevier_pr_docx():
     # 4. Keywords
     kw_m = re.search(r'\\begin\{keyword\}(.*?)\\end\{keyword\}', latex_text, re.DOTALL)
     if kw_m:
-        raw_kw = clean_latex_fallback_str(kw_m.group(1).strip())
+        raw_kw_text = kw_m.group(1).strip()
+        raw_kw_text = re.sub(r'\\sep\b', '; ', raw_kw_text)
+        raw_kw = clean_latex_fallback_str(raw_kw_text)
+        raw_kw = re.sub(r'\s*;\s*', '; ', raw_kw)
         p_k = builder.doc.add_paragraph()
         p_k.paragraph_format.space_before = Pt(4)
         p_k.paragraph_format.space_after = Pt(10)
@@ -1027,16 +1127,10 @@ def build_all_elsevier_pr_docx():
 
         # Lists
         elif tok_s.startswith(r'\begin{itemize}'):
-            items = tok_s.split(r'\item')
-            for it in items[1:]:
-                pref, rem = extract_leading_textbf(it.strip())
-                builder.add_bullet(pref, rem)
+            builder.render_list(tok_s, is_numbered=False)
 
         elif tok_s.startswith(r'\begin{enumerate}'):
-            items = tok_s.split(r'\item')
-            for i, it in enumerate(items[1:], 1):
-                pref, rem = extract_leading_textbf(it.strip())
-                builder.add_num_item(f"{i}.", pref, rem)
+            builder.render_list(tok_s, is_numbered=True)
 
         # Body paragraphs
         else:
@@ -1052,23 +1146,33 @@ def build_all_elsevier_pr_docx():
     # 7. Bibliography
     builder.add_bibliography(bbl_text)
 
-    # 8. Save output documents
-    out_docx = os.path.join("revision", "manuscript", "PFDC_PatternRecognition.docx")
-    builder.save(out_docx)
-    
+    # 8. Save output documents (handle lock gracefully)
     final_copy = os.path.join("revision", "manuscript", "PFDC_PR_final.docx")
-    shutil.copy2(out_docx, final_copy)
+    builder.save(final_copy)
     print(f"Saved: {final_copy}")
+    
+    out_docx = os.path.join("revision", "manuscript", "PFDC_PatternRecognition.docx")
+    try:
+        shutil.copy2(final_copy, out_docx)
+        print(f"Saved: {out_docx}")
+    except PermissionError:
+        print(f"Note: {out_docx} is open in Word. Saved to {final_copy}.")
 
     # Copy to artifacts directory
     artifact_dir = r"C:\Users\Visha\.gemini\antigravity\brain\7abe8c0f-1b65-4315-bc1b-a305901d3673"
     if os.path.exists(artifact_dir):
         dest1 = os.path.join(artifact_dir, "PFDC_PatternRecognition.docx")
         dest2 = os.path.join(artifact_dir, "PFDC_PR_final.docx")
-        shutil.copy2(out_docx, dest1)
-        shutil.copy2(final_copy, dest2)
-        print(f"Copied artifact: {dest1}")
-        print(f"Copied artifact: {dest2}")
+        try:
+            shutil.copy2(final_copy, dest1)
+            print(f"Copied artifact: {dest1}")
+        except PermissionError:
+            pass
+        try:
+            shutil.copy2(final_copy, dest2)
+            print(f"Copied artifact: {dest2}")
+        except PermissionError:
+            pass
 
     print("DOCX BUILD AND ARTIFACT SYNCHRONIZATION COMPLETE!")
 
