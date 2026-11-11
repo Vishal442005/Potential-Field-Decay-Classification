@@ -253,7 +253,7 @@ def clean_latex_fallback_str(text):
     s = re.sub(r'\\[a-zA-Z]+', '', s)
     s = s.replace(r'\%', '%').replace(r'\&', '&').replace(r'\$', '$').replace('~', ' ')
     s = s.replace('\\', '').replace('{', '').replace('}', '')
-    return re.sub(r'[ \t]+', ' ', s).strip()
+    return re.sub(r'\s+', ' ', s).strip()
 
 def parse_latex_tokens(text, is_bold=False, is_italic=False, font_name="Times New Roman"):
     """
@@ -400,6 +400,7 @@ def add_formatted_runs_and_omml(p, raw_text, base_font_size=10, is_bold=False, i
     while formatting surrounding text runs with full font, bold, and italic hierarchy.
     """
     raw_text = re.sub(r'\\begin\{(?:equation|align)\*?\}|\\end\{(?:equation|align)\*?\}', '', raw_text)
+    raw_text = re.sub(r'[\r\n]+', ' ', raw_text).strip()
     resolved = resolve_latex_references(raw_text)
     items = parse_latex_tokens(resolved, is_bold=is_bold, is_italic=is_italic)
     
@@ -456,7 +457,7 @@ def add_formatted_runs_and_omml(p, raw_text, base_font_size=10, is_bold=False, i
             content = re.sub(r'\\nonumber\b', '', content)
             content = re.sub(r'\\[a-zA-Z]+', '', content)
             content = content.replace('\\', '').replace('{', '').replace('}', '')
-            content = re.sub(r'[ \t]+', ' ', content)
+            content = re.sub(r'\s+', ' ', content)
             
             if content:
                 r = p.add_run(content)
@@ -513,6 +514,13 @@ class ElsevierDocxBuilder:
         p.paragraph_format.space_after = Pt(2)
         p.paragraph_format.keep_with_next = True
         add_formatted_runs_and_omml(p, text, base_font_size=10, is_bold=True, is_italic=True)
+
+    def add_h4(self, text):
+        p = self.doc.add_paragraph()
+        p.paragraph_format.space_before = Pt(4)
+        p.paragraph_format.space_after = Pt(2)
+        p.paragraph_format.keep_with_next = True
+        add_formatted_runs_and_omml(p, text, base_font_size=10, is_bold=True)
 
     def add_body(self, text):
         if not text.strip():
@@ -691,7 +699,7 @@ class ElsevierDocxBuilder:
             else:
                 paras = st_s.split('\n\n')
                 for para in paras:
-                    para_s = para.strip()
+                    para_s = re.sub(r"[\r\n]+", " ", para.strip()).strip()
                     if not para_s:
                         continue
                     p = self.doc.add_paragraph()
@@ -886,15 +894,18 @@ class ElsevierDocxBuilder:
         idx = 0
         for entry in entries[1:]:
             idx += 1
-            clean_entry = clean_latex_fallback_str(entry.strip())
+            clean_entry = re.sub(r'\s+', ' ', entry).strip()
+            clean_entry = clean_latex_fallback_str(clean_entry)
             clean_entry = re.sub(r'\\url\{([^}]*)\}', r'\1', clean_entry)
+            clean_entry = re.sub(r"``|''", '"', clean_entry)
+            clean_entry = re.sub(r'\s+', ' ', clean_entry).strip()
             p = self.doc.add_paragraph()
             p.paragraph_format.left_indent = Inches(0.25)
             p.paragraph_format.first_line_indent = Inches(-0.25)
             p.paragraph_format.space_before = Pt(0)
             p.paragraph_format.space_after = Pt(2)
             p.paragraph_format.line_spacing = 1.15
-            p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+            p.alignment = WD_ALIGN_PARAGRAPH.LEFT
             
             r_num = p.add_run(f"[{idx}] ")
             r_num.font.name = "Times New Roman"
@@ -1055,9 +1066,10 @@ def build_all_elsevier_pr_docx():
 
     # Tokenize structural elements
     tokens = re.split(
-        r'(\\section\*?\{[^{}]*\}|'
-        r'\\subsection\*?\{[^{}]*\}|'
-        r'\\subsubsection\*?\{[^{}]*\}|'
+        r'(\\section\*?\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|'
+        r'\\subsection\*?\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|'
+        r'\\subsubsection\*?\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|'
+        r'\\paragraph\*?\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|'
         r'\\begin\{equation\*?\}.*?\\end\{equation\*?\}|'
         r'\\begin\{align\*?\}.*?\\end\{align\*?\}|'
         r'\\begin\{theorem\}.*?\\end\{theorem\}|'
@@ -1089,6 +1101,8 @@ def build_all_elsevier_pr_docx():
             builder.add_h2(extract_braced_content(tok_s, 'subsection'))
         elif tok_s.startswith(r'\subsubsection'):
             builder.add_h3(extract_braced_content(tok_s, 'subsubsection'))
+        elif tok_s.startswith(r'\paragraph'):
+            builder.add_h4(extract_braced_content(tok_s, 'paragraph'))
 
         # Math environments
         elif tok_s.startswith(r'\begin{equation') or tok_s.startswith(r'\begin{align'):
