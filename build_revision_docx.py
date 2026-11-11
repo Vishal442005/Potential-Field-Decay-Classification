@@ -1107,9 +1107,19 @@ def build_all_elsevier_pr_docx():
         # Math environments
         elif tok_s.startswith(r'\begin{equation') or tok_s.startswith(r'\begin{align'):
             inner = re.sub(r'\\begin\{(?:equation|align)\*?\}|\\end\{(?:equation|align)\*?\}', '', tok_s).strip()
-            lbl_m = re.search(r'\\label\{(eq:[^}]+)\}', inner)
-            eq_num = EQUATIONS_MAP.get(lbl_m.group(1), None) if lbl_m else None
-            builder.add_eq_omml(inner, eq_num)
+            labels_in_inner = re.findall(r'\\label\{(eq:[^}]+)\}', inner)
+            if len(labels_in_inner) > 1:
+                for line in inner.split(r'\\'):
+                    line_s = line.strip()
+                    if not line_s:
+                        continue
+                    lbl_m = re.search(r'\\label\{(eq:[^}]+)\}', line_s)
+                    eq_num = EQUATIONS_MAP.get(lbl_m.group(1), None) if lbl_m else None
+                    builder.add_eq_omml(line_s, eq_num)
+            else:
+                lbl_m = re.search(r'\\label\{(eq:[^}]+)\}', inner)
+                eq_num = EQUATIONS_MAP.get(lbl_m.group(1), None) if lbl_m else None
+                builder.add_eq_omml(inner, eq_num)
 
         # Theorems, Lemmas, Corollaries, Proofs
         elif tok_s.startswith(r'\begin{theorem}'):
